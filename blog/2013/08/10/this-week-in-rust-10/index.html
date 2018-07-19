@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 10  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-08-10T21:39:00-04:00">10 AUG 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/08/10/this-week-in-rust-10/">This Week in Rust 10</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to the tenth issue of <em>This Week in Rust</em>. This week marks
+the enabling of the new runtime written entirely in Rust. A lot happens every
+week, so I'm going to start omitting PRs that I deem of lesser importance.
+This process is entirely arbitrary, don't feel hurt if I exclude your PR :).</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on <code>master</code>?</h1>
+<p>Issue churn was -12 this week. A total of 70 PRs were merged.</p>
+<p><a href="https://github.com/mozilla/rust/pull/8358">The new runtime has been enabled by
+default</a>. This is the culmination
+of a lot of work by brson and the rt interns (toddaaro, bblum, and ecr being
+the ones I know of). It's written entirely in Rust, and lives in <code>std::rt</code>.
+Additionally, the <a href="https://github.com/mozilla/rust/pull/8387">old C++ runtime has been
+removed</a>.</p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<ul>
+<li><a href="https://github.com/mozilla/rust/pull/8296"><strong>Trailing nulls have been removed from all string
+  types.</strong></a>. This will break your
+  FFI code in subtle and mysterious ways, if you didn't explicitly use the
+  <code>as_c_str</code> methods. FFI code using the new <code>str::c_str</code> code will be more
+  robust, as it forbids interior nulls, and ensures that a trailing null
+  always exists. The replacement for <code>str.as_c_str</code> is
+  <code>str.to_c_str().as_slice()</code>, from what I can tell.</li>
+<li><a href="https://github.com/cmr/rust/commit/e99eff172a11816f335153147dd0800fc4877bee">The <code>priv</code> keyword is no longer allowed where it has no
+  meaning</a>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8265"><code>iter</code> and <code>iter_err</code> in Result have been replaced with external
+  iterators</a>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8288">The <code>get</code> method of <code>Option</code>, <code>Either</code>, and <code>Result</code> has been removed in
+  favor of <code>unwrap</code></a>. They both did
+  the same thing, which was useless duplication.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8218"><code>std::gc</code> and <code>std::stackwalk</code></a>
+  have been removed, as they are obsolete with the new runtime.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8264">The transitionary <code>foreach</code> has been
+  removed</a>.</li>
+</ul>
+<h2 id="notable-library-additions-bugfixes-and-cleanup">Notable library additions, bugfixes, and cleanup</h2>
+<ul>
+<li><a href="https://github.com/mozilla/rust/pull/8357">Some redundant <code>Ord</code> methods were removed from
+  impls</a> where the default methods
+  sufficed.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8336">FromStr for IpAddr and
+  SocketAddr</a> is implemented.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8356">Work steealing is implemented for the newrt
+  scheduler</a>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8320">A frequency counting function has been added to
+  <code>extra::stat</code></a>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8323">Saturating math</a> is now
+  implemented. I knew this as "clamping": it is arithmetic that clamps results
+  into a specific interval.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8287">A hexadecimal encoding module</a>
+  has been added to <code>extra</code>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8054"><code>EnumSet</code> has been moved into <code>extra</code>, it previously existed as a utility
+  in <code>rustc</code></a></li>
+<li><a href="https://github.com/mozilla/rust/pull/8237"><code>str::is_utf8</code> has seen some more
+  optimization</a>.</li>
+</ul>
+<h2 id="notable-compiler-additions-bugfixes-and-cleanup">Notable compiler additions, bugfixes, and cleanup</h2>
+<ul>
+<li><a href="https://github.com/mozilla/rust/pull/8245">Initial support for the new formatting
+  code</a> has been added.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8279">A <code>no_main</code> attribute has been
+  added</a>, to omit the Rust entry
+  point entirely.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8220">Vanilla Linux on ARM</a> is now
+  supported.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8262">Extra copies of rvalues </a> are no
+  longer omitted.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8361">Some cross-arch bugs with node hash
+  metadata</a> have been fixed.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8350">A soundness bug in struct matching has been
+  fixed</a>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8362">An <code>option_env!</code> syntax extension has been
+  added</a> for compile-time inclusion
+  of environment variables that may or may not be present.</li>
+<li><a href="https://github.com/mozilla/rust/pull/8176"><code>extern mod a = "b/c/d"</code> has been
+  implemented</a>, paving the way for
+  more rustpkg awesomeness.</li>
+</ul>
+<h1 id="meetings">Meetings</h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-08-06">Tuesday
+meeting</a> seems
+to have been a bit under-attended. SIMD, ARM, trailing nulls, order of <code>mod</code>
+and <code>use</code>, and the condition system were all briefly discussed..</p>
+<h1 id="discussion-blog-posts">Discussion + Blog posts</h1>
+<ul>
+<li><a href="https://air.mozilla.org/2013-intern-todd/">"A Work-stealing Runtime for
+  Rust"</a>, toddaaro's intern
+  presentation.</li>
+<li><a href="http://michaelwoerister.github.io/2013/08/10/iterator-blocks-features.html">"Iterator Blocks for Rust - Feature
+  Survey"</a></li>
+</ul>
+<h1 id="external-projects">External projects</h1>
+<ul>
+<li><a href="http://www.reddit.com/r/rust/comments/1k43px/a_simple_jit_vm_written_using_rust_and_libjit/">Galvanized: a simple JIT VM written in Rust, using
+  LibJIT</a></li>
+<li><a href="https://github.com/Jeaye/q3/commit/f4c82ce9c276327cababdb6650038e2c1d62f2d5">Q3 has a new
+  logger</a>.
+  I think it's nicer than the built-in one!</li>
+<li><a href="https://github.com/stepancheg/rust-protobuf">rust-protobuf: a protobuf implementation generating rust code, written in
+  rust</a>.</li>
+<li><a href="https://twitter.com/metajack/status/364571230331875331/photo/1">Servo: almost passing acid1
+  !</a></li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

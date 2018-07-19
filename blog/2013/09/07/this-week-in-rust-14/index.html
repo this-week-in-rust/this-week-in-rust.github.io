@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 14  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-09-07T18:30:00-04:00">07 SEP 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/09/07/this-week-in-rust-14/">This Week in Rust 14</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Welcome to another <em>This Week in Rust</em>.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-in-master">What's cooking in master?</h1>
+<p>65 pull requests were merged this week, and bors has had some idle time when
+there wasn't anything approved in the queue.</p>
+<h2 id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><code>std::os::glob</code> has been replaced with a <a href="https://github.com/mozilla/rust/pull/8914">pure Rust
+  version</a>, for cross-platform and
+  compatability reasons.</li>
+<li><code>std::str::from_bytes</code> has been
+  <a href="https://github.com/mozilla/rust/pull/8997">renamed</a> to
+  <code>std::str::from_utf8</code>, to be explicit about what it accepts.</li>
+<li>Casting to bool with <code>as</code> is <a href="https://github.com/mozilla/rust/pull/8980">no longer
+  allowed</a>, and surrogate
+  characters are no longer allowed in strings.</li>
+<li>char is <a href="https://github.com/mozilla/rust/pull/8974">no longer</a> treated as an
+  integer type (meaning it can't be casted to/from them), which removes the
+  ability for safe code to create invalid characters.</li>
+<li>Opening a listening socket and actually listening on it <a href="https://github.com/mozilla/rust/pull/8954">have been
+  split</a>. If you're jiggy with the
+  jive, listen and accept are now separate operations. (<em>ed</em>: this used to say
+  bind and accept wereseparate; thanks to ecr for the correction.)</li>
+</ul>
+<h2 id="additions">Additions</h2>
+<ul>
+<li><code>let</code> var hygiene has <a href="https://github.com/mozilla/rust/pull/9026">landed</a>.
+  I'm sure this has cool implications, but I don't really know what they are.</li>
+<li>An <a href="https://github.com/mozilla/rust/pull/8903"><code>export_name</code> attribute</a> has
+  been added to control what symbol name something is exported as (similar to
+  <code>no_mangle</code>).</li>
+<li>An <code>ExactSize</code> trait <a href="https://github.com/mozilla/rust/pull/8884">has been
+  added</a> to mark an iterator that
+  always accurately reports its size in the <code>size_hint</code> method.</li>
+<li><code>ToStr</code> has been <a href="https://github.com/mozilla/rust/pull/8960">implemented</a>
+  for char and Ascii.</li>
+<li>Safe accessors of <code>MutexArc</code> <a href="https://github.com/mozilla/rust/pull/8966">have been
+  implemented</a></li>
+<li>A bytes iterator <a href="https://github.com/mozilla/rust/pull/8935">has been added</a>
+  for newrt readers.</li>
+<li>Stream is <a href="https://github.com/mozilla/rust/pull/8984">automatically
+  implemented</a> for types which
+  implement Reader and Writer from newrt.</li>
+<li>An <code>unreachable</code> macro <a href="https://github.com/mozilla/rust/pull/8992">has been
+  added</a> for better error reporting
+  than a function could do.</li>
+<li>newrt <a href="https://github.com/mozilla/rust/pull/9000">can now do</a> simple DNS
+  resolution.</li>
+<li>strptime/strftime <a href="https://github.com/mozilla/rust/pull/9016">now support</a>
+  fractional seconds, out to tenths of a nanosecond.</li>
+</ul>
+<h2 id="changes-etc">Changes etc</h2>
+<ul>
+<li>Name mangling <a href="https://github.com/mozilla/rust/pull/8875">has been
+  improved</a>.</li>
+<li><code>rust_log.cpp</code> <a href="https://github.com/mozilla/rust/pull/8880">has been
+  converted</a> into pure Rust.</li>
+<li>Debuginfo <a href="https://github.com/mozilla/rust/pull/8855">now does closure
+  capture</a> and very large structs.</li>
+<li>A <a href="https://github.com/mozilla/rust/pull/8947">bunch</a>
+  <a href="https://github.com/mozilla/rust/pull/8927">of</a>
+  <a href="https://github.com/mozilla/rust/pull/8928">repr</a> improvements landed.</li>
+</ul>
+<h1 id="meeting">Meeting</h1>
+<p>There was no meteting this week listed on the wiki or that I saw.</p>
+<h1 id="projects">Projects</h1>
+<ul>
+<li><a href="https://github.com/glycerine/rust-nanomsg">rust-nanomsg</a> - bindings to the
+  nanomsg library.</li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

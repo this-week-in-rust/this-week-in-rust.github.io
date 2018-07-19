@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 50  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-05-24T22:30:00-04:00">24 MAY 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/05/24/this-week-in-rust-50/">This Week in Rust 50</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>66 pull requests were merged this week.</p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<ul>
+<li><code>mem::uninit</code> <a href="https://github.com/mozilla/rust/pull/14392">has been renamed</a>
+  to <code>uninitialized</code>, and everything in <code>mem</code> is either stable or deprecated
+  (to be removed). There are a <a href="https://github.com/mozilla/rust/pull/14259">bunch of other
+  changes</a> to <code>mem</code> that go with
+  this.</li>
+<li>All uses of <code>~str</code> <a href="https://github.com/mozilla/rust/pull/14310">have been
+  removed</a>.</li>
+<li><code>UnsafeArc</code> <a href="https://github.com/mozilla/rust/pull/14301">has been removed</a>,
+  replaced with <code>Arc&lt;Unsafe&lt;T&gt;&gt;</code>.</li>
+<li><code>Rng.choose</code> <a href="https://github.com/mozilla/rust/pull/14319">now returns an
+  <code>Option</code></a>.</li>
+<li><code>Bitv::init_to_vec</code> <a href="https://github.com/mozilla/rust/pull/14295">has been
+  removed</a>.</li>
+<li>Test shards with the built-in test runner <a href="https://github.com/mozilla/rust/pull/14286">are now indexed by
+  1</a> in the CLI.</li>
+<li><code>Result.unwrap_or_handle</code> <a href="https://github.com/mozilla/rust/pull/14294">has been
+  renamed</a> to <code>unwrap_or_else</code> for
+  consistency with <code>Option</code>.</li>
+<li><a href="https://github.com/mozilla/rust/pull/14279">Some miscellaneous renames in libcollections</a>.</li>
+<li>rustc is <a href="https://github.com/mozilla/rust/pull/14251">more strict</a> about
+where it will accept a given <code>mod foo;</code> statement.</li>
+</ul>
+<h2 id="other-changes">Other Changes</h2>
+<p>There were a lot of various bugfixes and documentation additions all around.</p>
+<ul>
+<li>There is now support for <a href="https://github.com/mozilla/rust/pull/14293">weak failure</a>.</li>
+<li>The docs for the cell types <a href="https://github.com/mozilla/rust/pull/14304">has been massively
+  improved</a>.</li>
+<li><code>bytes!()</code> <a href="https://github.com/mozilla/rust/pull/14275">now properly returns a static
+  slice</a>.</li>
+<li>A liballoc <a href="https://github.com/mozilla/rust/pull/14230">has materialized</a>,
+  that contains all allocation support</li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Anton Löfgren</li>
+<li>Jihyeok Seo</li>
+<li>Jonathan Bailey</li>
+<li>Michael Dagitses</li>
+<li>P1start</li>
+<li>TyOverby</li>
+<li>Valerii Hiora</li>
+</ul>
+<h1 id="rfcs">RFCs</h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/80">Allow the <code>unsafe</code> qualifier on struct
+  fields</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/81">Guaranteed tail-call
+  optimization</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/83">Add syntax to partially destructure <code>self</code> in method
+  signatures</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/86">Generalize <code>macro_registar</code> to
+  <code>plugin_registrar</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/87">Bounds on trait objects should be separated with
+  +</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/88">Macro syntax to count sequence
+  repetitions</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/89">Loadable lints</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/90">Lexer syntax simplification</a></li>
+</ul>
+<h1 id="community-updates">Community Updates</h1>
+<ul>
+<li><a href="https://air.mozilla.org/guaranteeing-memory-safety-in-rust/">Guaranteeing Memory Safety in Rust (a talk by
+  Niko)</a></li>
+<li><a href="http://swiftcoder.wordpress.com/2014/05/23/approaches-to-resource-disposal/">Approaches to resource
+  disposal</a></li>
+<li><a href="http://tombebbington.github.io/blog/2014/05/24/introducing-rust-js/">Introducing
+  js.rs</a></li>
+<li><a href="http://hydrocodedesign.com/2014/04/24/practicality-with-rust/">Practicality with Rust: Setting Up A
+  Project</a></li>
+<li><a href="https://github.com/rainbow-alex/burn">Burn, a programming language implemented in
+  Rust</a></li>
+<li><a href="http://featherweightmusings.blogspot.co.nz/2014/05/rust-for-c-programmers-part-7-data-types.html">Rust for C++ programmers - part 7: data
+  types</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/269t6i/cxx2rust_the_pains_of_wrapping_c_in_rust_on_the/">cxx2rust: the pains of wrapping C++ in Rust on the example of
+  Qt5</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/269zu4/add_a_new_language_design_faq/">Add a new language design
+  faq</a></li>
+<li><a href="https://github.com/mikejsavage/rspt">rspt: a physically based renderer</a></li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

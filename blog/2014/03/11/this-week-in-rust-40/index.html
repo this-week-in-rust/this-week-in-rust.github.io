@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 40  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-03-11T23:45:00-04:00">11 MAR 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/03/11/this-week-in-rust-40/">This Week in Rust 40</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>This week was the Winter Workweek.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>66 pull requests were merged this week.</p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<ul>
+<li><code>Any</code> <a href="https://github.com/mozilla/rust/pull/12667">has been cleaned up</a>, and
+in particular the <code>as_void_ptr</code> and <code>as_mut_void_ptr</code> methods are gone.</li>
+<li>Patterns are <a href="https://github.com/mozilla/rust/pull/12715">no longer allowed in extern function
+declarations</a>. Previously, they
+either silently passed or ICEd.</li>
+<li>Comparison traits <a href="https://github.com/mozilla/rust/pull/12520">have been
+reworked</a>.</li>
+<li>DeepClone <a href="https://github.com/mozilla/rust/pull/12706">has been removed</a>.</li>
+<li>Compound assignment (eg, <code>+=</code>) <a href="https://github.com/mozilla/rust/pull/12733">is no longer
+allowed</a> on potentially
+uninitialized variables.</li>
+<li><code>std::rand</code> <a href="https://github.com/mozilla/rust/pull/12650">has been moved into a
+<code>librand</code></a>.</li>
+<li>debuginfo flags <a href="https://github.com/mozilla/rust/pull/12714">have changed
+slightly</a>, and more limited
+debuginfo is supported again (only line number information).</li>
+</ul>
+<h2 id="other-changes">Other Changes</h2>
+<ul>
+<li>Dereferencing <a href="https://github.com/mozilla/rust/pull/12491">is now
+overloadable</a>. This is another
+part of the smart pointer changes. Code like <code>let x = *Rc::new(5);</code> is now
+valid. There is a follow-up pull request that will automatically dereference
+smart pointers where appropriate, to avoid expressions like
+<code>foo.borrow().get().borrow_mut().get()</code>.</li>
+<li>Hexadecimal floating point literals <a href="https://github.com/mozilla/rust/pull/12652">are now
+available</a> through a syntax
+extension.</li>
+<li>Support for creating binary installer tarballs <a href="https://github.com/mozilla/rust/pull/12793">has
+landed</a>.</li>
+<li>Linker arguments <a href="https://github.com/mozilla/rust/pull/12688">are no longer
+deduplicated</a>.</li>
+<li>Weak linkage etc <a href="https://github.com/mozilla/rust/pull/12556">is now
+possible</a> via a <code>linkage</code>
+attribute.</li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Dmitry Promsky</li>
+<li>Mike Boutin</li>
+<li>Robert Gawdzik</li>
+</ul>
+<h1 id="weekly-meeting">Weekly Meeting</h1>
+<p>There was no weekly meeting due to the workweek. There are <a href="https://github.com/mozilla/rust/wiki/Meeting-workweek-2014-03-03">notes and
+minutes</a>,
+however, and there will be many <a href="https://github.com/rust-lang/rfcs">RFCs</a> from
+it.</p>
+<h1 id="announcements-etc">Announcements, etc</h1>
+<ul>
+<li><a href="http://www.reddit.com/r/rust/comments/20143y/leveraging_tuples_to_make_a_statically_typed/">Leveraging tuples to make a statically-typed, concatenative
+EDSL</a></li>
+<li><a href="http://featherweightmusings.blogspot.com/2014/03/subtyping-and-coercion-in-rust.html">Subtyping and coercion in
+Rust</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/1ztahv/rust_language_support_in_atom/">Rust support for the Atom
+editor</a></li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

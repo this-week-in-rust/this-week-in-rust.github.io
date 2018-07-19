@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", Rust, " />
+
+    <title>The State of Rust 0.9  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-01-12T21:13:00-05:00">12 JAN 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/01/12/the-state-of-rust-09/">The State of Rust 0.9</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p><a href="http://www.rust-lang.org/">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is my post-mortem of the past 3 months, the
+current status of Rust, and its future.</p>
+<!-- more -->
+
+<h1 id="compiler">Compiler</h1>
+<p>The compiler saw a fair bit of work this release cycle. Some polish has gone
+into <code>mut</code> in patterns. For example, <code>let (mut x, y) = foo();</code> now works as
+expected. We now have "feature gates", or feature flags, that let us mark
+certain features as either deprecated or experimental and subject to change.
+<code>@mut</code> has been removed. Slice representation has been optimized (we now store
+number of elements, not number of bytes). Soundness bugs have been fixed, and
+some bugs in our name resolution have been patched up. We have a dead code
+warning, stability annotations, crate introspection, and lots more.</p>
+<p>On top of all that, we also have support for static linking and LTO. Compiler
+performance has further improved. From the 112ms compiling <code>fn main() { }</code> in
+0.8, we now do 91ms with static linking (the default) and 68ms for dynamic
+linking (<code>-Z prefer-dynamic</code>). Our debuginfo is in a much better state. The
+entire codebase (compiler + standard library + tools) compiles with it, and
+<a href="https://github.com/mozilla/servo/">Servo</a> compiles with it by default.</p>
+<h1 id="runtime">Runtime</h1>
+<p>The runtime has seen tons of work this release. <code>std::io</code> has been swapped
+over to the new runtime, which is written entirely in Rust. We now support
+both 1:1 and M:N threading models, their respective runtimes supplied by
+"libnative" and "libgreen". libgreen (the "old new runtime") has seen some
+performance improvements. Chris Morgan reports that the scalability of his
+<a href="https://github.com/chris-morgan/rust-http/">rust-http</a> benchmarks has
+improved from 1.25x to 1.75x from 1 to 8 concurrent request handlers. On my
+machine, using libnative gives an impressive performance boost, pushing us
+ahead of go's performance (graph below). libnative has yet to see any optimization work.
+David Renshaw reports roughly a 2x performance increase on his <a href="http://dwrensha.github.io/capnproto-rust/2013/11/16/benchmark.html">capn proto
+benchmark</a>
+when using libnative for I/O.</p>
+<noscript>
+    <img src="https://docs.google.com/a/octayn.net/spreadsheet/oimg?key=0ArjzeYh7LqL2dENRREdRbDljajR4LWt1RlozM2YyY0E&oid=1&zx=xnqmqanhavt" />
+    <p>(This would be interactive if you had JavaScript enabled)</p>
+</noscript>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/static/modules/gviz/1.0/chart.js"> {"dataSourceUrl":"//docs.google.com/a/octayn.net/spreadsheet/tq?key=0ArjzeYh7LqL2dENRREdRbDljajR4LWt1RlozM2YyY0E&transpose=0&headers=1&range=A1%3AE6&gid=0&pub=1","options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"series":{"0":{"errorBars":{"errorType":"none","magnitude":10}}},"animation":{"duration":500},"width":600,"hAxis":{"title":"Concurrency (\"threads\")","useFormatFromData":true,"minValue":null,"viewWindowMode":null,"viewWindow":null,"maxValue":null},"vAxes":[{"useFormatFromData":true,"title":"Requests / second","minorGridlines":{"count":"4"},"minValue":null,"gridlines":{"count":"5"},"logScale":false,"viewWindow":{"max":null,"min":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"logScale":false,"viewWindow":{"max":null,"min":null},"maxValue":null}],"booleanRole":"certainty","title":"rust-http comparison benchmark","height":371,"domainAxis":{"direction":1},"legend":"right","focusTarget":"series","useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{"trigger":"none"}},"state":{},"view":{"columns":[{"calc":"stringify","type":"string","sourceColumn":0},1,2,3,4]},"isDefaultVisualization":false,"chartType":"ColumnChart","chartName":"Chart 1"} </script>
+
+<p>You can run the benchmarks yourself. <code>cd comparisons; python run.py</code>. You'll
+need to build rust-http first (<code>make</code>), and have go, nodejs, and ab (apache
+bench) installed.</p>
+<h1 id="documentation">Documentation</h1>
+<p>Our documentation hasn't been in the best state in the past. It still isn't
+where it should be, but <a href="http://static.rust-lang.org/doc/master/index.html">they have been
+reorganized</a>, on top of
+seeing the usual work. We're in the process of moving all of the documentation
+from the wiki onto that site, to make it easier to find and search. Steve
+Klabnik gave a <a href="https://air.mozilla.org/rust-meetup-december-2013/">critical but very constructive
+presentation</a> at the Bay
+Area meetup about what we are doing wrong and how we can improve. At the same
+meetup, Chris Morgan talked about the technologies we use in our documentation
+stack. In the long run, the consensus seems to be that reStructuredText and
+Sphinx are they way forward. Thanks to the rustdoc rewrite, it will be able to
+have first-class status as a documentation backend.</p>
+<h1 id="the-future">The Future</h1>
+<p>For 0.10, we have <a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/">Dynamically Sized Types
+(DST)</a> to
+look forward to, as well as the removal of <code>@</code> pointers. <code>box</code>, aka "placement
+new", along with smart pointer sugar (overloadable dereferencing/borrowing),
+should also be in by then. We may also see an actual garbage collector.</p>
+<h1 id="is-rust-ready-yet">Is Rust Ready Yet?</h1>
+<p>Nope. It still has some work to do. 1.0 is estimated before the end of 2014,
+though that may slip depending on how things land. An early estimate puts the
+release over the summer! We still need a robust package manager. We now have
+<a href="http://rust-ci.org/">rust-ci</a>, which makes it easy to keep code up to date,
+and know if a library is up to date.</p>
+<p>The breaking changes, especially language changes, are slowing down, besides
+bug fixes. The standard library is also starting to shake itself out, though
+it still has a lot of work before they will be stable. There are currently two
+known uses of Rust in production: <a href="http://www.tilde.io/">Tilde</a> is using it in
+<a href="https://www.skylight.io/">Skylight</a>, and <a href="http://opendns.com">OpenDNS</a> is
+using it for <a href="http://labs.umbrella.com/2013/10/04/zeromq-helping-us-block-malicious-domains/">real-time data
+processing</a>.</p>
+<p>It has been a good release, and the next will be even better. Want to get
+involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.
+Want to follow development? I post a <a href="http://cmr.github.io/blog/categories/this-week-in-rust/">weekly
+newsletter</a>
+summarizing the important changes. There is also a
+<a href="http://reddit.com/r/rust">subreddit</a>. Here's to an awesome 0.10!</p>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

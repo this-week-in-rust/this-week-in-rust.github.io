@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 51  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-06-10T22:46:00-04:00">10 JUN 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/06/10/this-week-in-rust-51/">This Week in Rust 51</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>This issue combines two weeks of Rust and three weeks of Servo. Additionally,
+in a little over a month month, I'll be releasing <a href="http://blog.octayn.net/blog/2014/06/09/future-of-twir/">an entirely reworked TWiR
+website</a>. Until then,
+TWiR might be a bit lighter than usual.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>126 pull requests were merged in the last week.</p>
+<h2 id="breaking-change-log">Breaking Change Log</h2>
+<ul>
+<li>std: Remove the <code>as_utf16_p</code> functions</li>
+</ul>
+<p>```
+These functions are all much better expressed via RAII using the to_utf16()
+method on strings. This refactoring also takes this opportunity to properly
+handle when filenames aren't valid unicode when passed through to the windows
+I/O layer by properly returning I/O errors.</p>
+<p>All previous users of the <code>as_utf16_p</code> or <code>as_utf16_mut_p</code> functions will need
+to convert their code to using <code>foo.to_utf16().append_one(0)</code> to get a
+null-terminated utf16 string.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Implement <code>#[plugin_registrar]</code></li>
+</ul>
+<p>```
+See RFC 22.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>core: Move the collections traits to libcollections</li>
+</ul>
+<p><code>``
+This commit moves Mutable, Map, MutableMap, Set, and MutableSet from</code>core::collections<code>to the</code>collections<code>crate at the top-level. Additionally,
+this removes the</code>deque<code>module and moves the</code>Deque` trait to only being
+available at the top-level of the collections crate.</p>
+<p>All functionality continues to be reexported through <code>std::collections</code>.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>core: Rename <code>container</code> mod to <code>collections</code>. Closes #12543</li>
+</ul>
+<p><code>``
+Also renames the</code>Container<code>trait to</code>Collection`.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>std: Extract librustrt out of libstd</li>
+</ul>
+<p>```
+As part of the libstd facade efforts, this commit extracts the runtime interface
+out of the standard library into a standalone crate, librustrt. This crate will
+provide the following services:</p>
+<ul>
+<li>Definition of the rtio interface</li>
+<li>Definition of the Runtime interface</li>
+<li>Implementation of the Task structure</li>
+<li>Implementation of task-local-data</li>
+<li>Implementation of task failure via unwinding via libunwind</li>
+<li>Implementation of runtime initialization and shutdown</li>
+<li>Implementation of thread-local-storage for the local rust Task</li>
+</ul>
+<p>Notably, this crate avoids the following services:</p>
+<ul>
+<li>Thread creation and destruction. The crate does not require the knowledge of
+  an OS threading system, and as a result it seemed best to leave out the
+  <code>rt::thread</code> module from librustrt. The librustrt module does depend on
+  mutexes, however.</li>
+<li>Implementation of backtraces. There is no inherent requirement for the runtime
+  to be able to generate backtraces. As will be discussed later, this
+  functionality continues to live in libstd rather than librustrt.</li>
+</ul>
+<p>As usual, a number of architectural changes were required to make this crate
+possible. Users of "stable" functionality will not be impacted by this change,
+but users of the <code>std::rt</code> module will likely note the changes. A list of
+architectural changes made is:</p>
+<ul>
+<li>The stdout/stderr handles no longer live directly inside of the <code>Task</code>
+  structure. This is a consequence of librustrt not knowing about <code>std::io</code>.
+  These two handles are now stored inside of task-local-data.</li>
+</ul>
+<p>The handles were originally stored inside of the <code>Task</code> for perf reasons, and
+  TLD is not currently as fast as it could be. For comparison, 100k prints goes
+  from 59ms to 68ms (a 15% slowdown). This appeared to me to be an acceptable
+  perf loss for the successful extraction of a librustrt crate.</p>
+<ul>
+<li>The <code>rtio</code> module was forced to duplicate more functionality of <code>std::io</code>. As
+  the module no longer depends on <code>std::io</code>, <code>rtio</code> now defines structures such
+  as socket addresses, addrinfo fiddly bits, etc. The primary change made was
+  that <code>rtio</code> now defines its own <code>IoError</code> type. This type is distinct from
+  <code>std::io::IoError</code> in that it does not have an enum for what error occurred,
+  but rather a platform-specific error code.</li>
+</ul>
+<p>The native and green libraries will be updated in later commits for this
+  change, and the bulk of this effort was put behind updating the two libraries
+  for this change (with <code>rtio</code>).</p>
+<ul>
+<li>Printing a message on task failure (along with the backtrace) continues to
+  live in libstd, not in librustrt. This is a consequence of the above decision
+  to move the stdout/stderr handles to TLD rather than inside the <code>Task</code> itself.
+  The unwinding API now supports registration of global callback functions which
+  will be invoked when a task fails, allowing for libstd to register a function
+  to print a message and a backtrace.</li>
+</ul>
+<p>The API for registering a callback is experimental and unsafe, as the
+  ramifications of running code on unwinding is pretty hairy.</p>
+<ul>
+<li>
+<p>The <code>std::unstable::mutex</code> module has moved to <code>std::rt::mutex</code>.</p>
+</li>
+<li>
+<p>The <code>std::unstable::sync</code> module has been moved to <code>std::rt::exclusive</code> and
+  the type has been rewritten to not internally have an Arc and to have an RAII
+  guard structure when locking. Old code should stop using <code>Exclusive</code> in favor
+  of the primitives in <code>libsync</code>, but if necessary, old code should port to
+  <code>Arc&lt;Exclusive&lt;T&gt;&gt;</code>.</p>
+</li>
+<li>
+<p>The local heap has been stripped down to have fewer debugging options. None of
+  these were tested, and none of these have been used in a very long time.</p>
+</li>
+</ul>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Rename Iterator::len to count</li>
+</ul>
+<p>```
+This commit carries out the request from issue #14678:</p>
+<blockquote>
+<p>The method <code>Iterator::len()</code> is surprising, as all the other uses of
+<code>len()</code> do not consume the value. <code>len()</code> would make more sense to be
+called <code>count()</code>, but that would collide with the current
+<code>Iterator::count(|T| -&gt; bool) -&gt; unit</code> method. That method, however, is
+a bit redundant, and can be easily replaced with
+<code>iter.filter(|x| x &lt; 5).count()</code>.
+After this change, we could then define the <code>len()</code> method
+on <code>iter::ExactSize</code>.</p>
+</blockquote>
+<p>Closes #14678.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14538 : alexcrichton/rust/libcollections, r=brson</li>
+</ul>
+<p><code>``
+As with the previous commit with</code>librand<code>, this commit shuffles around some</code>collections` code. The new state of the world is similar to that of librand:</p>
+<ul>
+<li>The libcollections crate now only depends on libcore and liballoc.</li>
+<li>The standard library has a new module, <code>std::collections</code>. All functionality
+  of libcollections is reexported through this module.</li>
+</ul>
+<p>I would like to stress that this change is purely cosmetic. There are very few
+alterations to these primitives.</p>
+<p>There are a number of notable points about the new organization:</p>
+<ul>
+<li>
+<p>std::{str, slice, string, vec} all moved to libcollections. There is no reason
+  that these primitives shouldn't be necessarily usable in a freestanding
+  context that has allocation. These are all reexported in their usual places in
+  the standard library.</p>
+</li>
+<li>
+<p>The <code>hashmap</code>, and transitively the <code>lru_cache</code>, modules no longer reside in
+  <code>libcollections</code>, but rather in libstd. The reason for this is because the
+  <code>HashMap::new</code> contructor requires access to the OSRng for initially seeding
+  the hash map. Beyond this requirement, there is no reason that the hashmap
+  could not move to libcollections.</p>
+</li>
+</ul>
+<p>I do, however, have a plan to move the hash map to the collections module. The
+  <code>HashMap::new</code> function could be altered to require that the <code>H</code> hasher
+  parameter ascribe to the <code>Default</code> trait, allowing the entire <code>hashmap</code> module
+  to live in libcollections. The key idea would be that the default hasher would
+  be different in libstd. Something along the lines of:</p>
+<pre><code>  // src/libstd/collections/mod.rs
+
+  pub type HashMap&lt;K, V, H = RandomizedSipHasher&gt; =
+        core_collections::HashMap&lt;K, V, H&gt;;
+</code></pre>
+<p>This is not possible today because you cannot invoke static methods through
+  type aliases. If we modified the compiler, however, to allow invocation of
+  static methods through type aliases, then this type definition would
+  essentially be switching the default hasher from <code>SipHasher</code> in libcollections
+  to a libstd-defined <code>RandomizedSipHasher</code> type. This type's <code>Default</code>
+  implementation would randomly seed the <code>SipHasher</code> instance, and otherwise
+  perform the same as <code>SipHasher</code>.</p>
+<p>This future state doesn't seem incredibly far off, but until that time comes,
+  the hashmap module will live in libstd to not compromise on functionality.</p>
+<ul>
+<li>In preparation for the hashmap moving to libcollections, the <code>hash</code> module has
+  moved from libstd to libcollections. A previously snapshotted commit enables a
+  distinct <code>Writer</code> trait to live in the <code>hash</code> module which <code>Hash</code>
+  implementations are now parameterized over.</li>
+</ul>
+<p>Due to using a custom trait, the <code>SipHasher</code> implementation has lost its
+  specialized methods for writing integers. These can be re-added
+  backwards-compatibly in the future via default methods if necessary, but the
+  FNV hashing should satisfy much of the need for speedier hashing.</p>
+<p>A list of breaking changes:</p>
+<ul>
+<li>
+<p>HashMap::{get, get_mut} no longer fails with the key formatted into the error
+  message with <code>{:?}</code>, instead, a generic message is printed. With backtraces,
+  it should still be not-too-hard to track down errors.</p>
+</li>
+<li>
+<p>The HashMap, HashSet, and LruCache types are now available through
+  std::collections instead of the collections crate.</p>
+</li>
+<li>
+<p>Manual implementations of hash should be parameterized over <code>hash::Writer</code>
+  instead of just <code>Writer</code>.</p>
+</li>
+</ul>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>std: Recreate a <code>collections</code> module</li>
+</ul>
+<p><code>``
+As with the previous commit with</code>librand<code>, this commit shuffles around some</code>collections` code. The new state of the world is similar to that of librand:</p>
+<ul>
+<li>The libcollections crate now only depends on libcore and liballoc.</li>
+<li>The standard library has a new module, <code>std::collections</code>. All functionality
+  of libcollections is reexported through this module.</li>
+</ul>
+<p>I would like to stress that this change is purely cosmetic. There are very few
+alterations to these primitives.</p>
+<p>There are a number of notable points about the new organization:</p>
+<ul>
+<li>
+<p>std::{str, slice, string, vec} all moved to libcollections. There is no reason
+  that these primitives shouldn't be necessarily usable in a freestanding
+  context that has allocation. These are all reexported in their usual places in
+  the standard library.</p>
+</li>
+<li>
+<p>The <code>hashmap</code>, and transitively the <code>lru_cache</code>, modules no longer reside in
+  <code>libcollections</code>, but rather in libstd. The reason for this is because the
+  <code>HashMap::new</code> contructor requires access to the OSRng for initially seeding
+  the hash map. Beyond this requirement, there is no reason that the hashmap
+  could not move to libcollections.</p>
+</li>
+</ul>
+<p>I do, however, have a plan to move the hash map to the collections module. The
+  <code>HashMap::new</code> function could be altered to require that the <code>H</code> hasher
+  parameter ascribe to the <code>Default</code> trait, allowing the entire <code>hashmap</code> module
+  to live in libcollections. The key idea would be that the default hasher would
+  be different in libstd. Something along the lines of:</p>
+<pre><code>  // src/libstd/collections/mod.rs
+
+  pub type HashMap&lt;K, V, H = RandomizedSipHasher&gt; =
+        core_collections::HashMap&lt;K, V, H&gt;;
+</code></pre>
+<p>This is not possible today because you cannot invoke static methods through
+  type aliases. If we modified the compiler, however, to allow invocation of
+  static methods through type aliases, then this type definition would
+  essentially be switching the default hasher from <code>SipHasher</code> in libcollections
+  to a libstd-defined <code>RandomizedSipHasher</code> type. This type's <code>Default</code>
+  implementation would randomly seed the <code>SipHasher</code> instance, and otherwise
+  perform the same as <code>SipHasher</code>.</p>
+<p>This future state doesn't seem incredibly far off, but until that time comes,
+  the hashmap module will live in libstd to not compromise on functionality.</p>
+<ul>
+<li>In preparation for the hashmap moving to libcollections, the <code>hash</code> module has
+  moved from libstd to libcollections. A previously snapshotted commit enables a
+  distinct <code>Writer</code> trait to live in the <code>hash</code> module which <code>Hash</code>
+  implementations are now parameterized over.</li>
+</ul>
+<p>Due to using a custom trait, the <code>SipHasher</code> implementation has lost its
+  specialized methods for writing integers. These can be re-added
+  backwards-compatibly in the future via default methods if necessary, but the
+  FNV hashing should satisfy much of the need for speedier hashing.</p>
+<p>A list of breaking changes:</p>
+<ul>
+<li>
+<p>HashMap::{get, get_mut} no longer fails with the key formatted into the error
+  message with <code>{:?}</code>, instead, a generic message is printed. With backtraces,
+  it should still be not-too-hard to track down errors.</p>
+</li>
+<li>
+<p>The HashMap, HashSet, and LruCache types are now available through
+  std::collections instead of the collections crate.</p>
+</li>
+<li>
+<p>Manual implementations of hash should be parameterized over <code>hash::Writer</code>
+  instead of just <code>Writer</code>.</p>
+</li>
+</ul>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14610 : alexcrichton/rust/issue-14008, r=brson</li>
+</ul>
+<p><code>``
+This commit removes the &lt;M: Any + Send&gt; type parameter from Option::expect in
+favor of just taking a hard-coded</code>&amp;str` argument. This allows this function to
+move into libcore.</p>
+<p>Previous code using strings with <code>expect</code> will continue to work, but code using
+this implicitly to transmit task failure will need to unwrap manually with a
+<code>match</code> statement.</p>
+<p>[breaking-change]
+Closes #14008
+```</p>
+<ul>
+<li>std: Remove generics from Option::expect</li>
+</ul>
+<p><code>``
+This commit removes the &lt;M: Any + Send&gt; type parameter from Option::expect in
+favor of just taking a hard-coded</code>&amp;str` argument. This allows this function to
+move into libcore.</p>
+<p>Previous code using strings with <code>expect</code> will continue to work, but code using
+this implicitly to transmit task failure will need to unwrap manually with a
+<code>match</code> statement.</p>
+<p>[breaking-change]
+Closes #14008
+```</p>
+<ul>
+<li>std: Drop Total from Total{Eq,Ord}</li>
+</ul>
+<p>```
+This completes the last stage of the renaming of the comparison hierarchy of
+traits. This change renames TotalEq to Eq and TotalOrd to Ord.</p>
+<p>In the future the new Eq/Ord will be filled out with their appropriate methods,
+but for now this change is purely a renaming change.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14556 : sfackler/rust/kill-workcache, r=alexcrichton</li>
+</ul>
+<p>```
+This was only ever used by rustpkg and is very unmaintained.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Remove libworkcache</li>
+</ul>
+<p>```
+This was only ever used by rustpkg and is very unmaintained.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>std: Rename {Eq,Ord} to Partial{Eq,Ord}</li>
+</ul>
+<p>```
+This is part of the ongoing renaming of the equality traits. See #12517 for more
+details. All code using Eq/Ord will temporarily need to move to Partial{Eq,Ord}
+or the Total{Eq,Ord} traits. The Total traits will soon be renamed to {Eq,Ord}.</p>
+<p>cc #12517</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>librustc: Fix snake case errors.</li>
+</ul>
+<p>```
+A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.</p>
+<p>rustc::back::link::WriteOutputFile =&gt; write_output_file
+rustc::middle::ty::EmptyBuiltinBounds =&gt; empty_builtin_bounds
+rustc::middle::ty::AllBuiltinBounds =&gt; all_builtin_bounds
+rustc::middle::liveness::IrMaps =&gt; IrMaps::new
+rustc::middle::liveness::Liveness =&gt; Liveness::new
+rustc::middle::resolve::NameBindings =&gt; NameBindings::new
+rustc::middle::resolve::PrimitiveTypeTable =&gt; PrimitiveTypeTable::new
+rustc::middle::resolve::Resolver =&gt; Resolver::new
+rustc::middle::trans::datum::Datum =&gt; Datum::new
+rustc::middle::trans::datum::DatumBlock =&gt; DatumBlock::new
+rustc::middle::trans::datum::Rvalue =&gt; Rvalue::new
+rustc::middle::typeck::infer::new_ValsAndBindings =&gt; ::infer::unify::ValsAndBindings::new
+rustc::middle::typeck::infer::region_inference::RegionVarBindings =&gt; RegionVarBindings::new</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>lib{serialize, uuid}: Fix snake case errors.</li>
+</ul>
+<p>```
+A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.</p>
+<p>serialize::ebml::reader::Doc =&gt; seriaize::ebml::Doc::new
+serialize::ebml::reader::Decoder =&gt; Decoder::new
+serialize::ebml::writer::Encoder =&gt; Encoder::new</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>lib{std,core,debug,rustuv,collections,native,regex}: Fix <code>snake_case</code> errors.</li>
+</ul>
+<p>```
+A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.</p>
+<p>std::reflect::MovePtrAdaptor =&gt; MovePtrAdaptor::new
+debug::reflect::MovePtrAdaptor =&gt; MovePtrAdaptor::new
+std::repr::ReprVisitor =&gt; ReprVisitor::new
+debug::repr::ReprVisitor =&gt; ReprVisitor::new
+rustuv::homing::HomingIO.go_to_IO_home =&gt; go_to_io_home</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>libsyntax: Fix <code>snake_case</code> errors.</li>
+</ul>
+<p>```
+A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.</p>
+<p>syntax::ext::mtwt::xorPush =&gt; xor_push
+syntax::parse::parser::Parser =&gt; Parser::new</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14511 : Sawyer47/rust/osrng-rename, r=alexcrichton</li>
+</ul>
+<p>```
+According to Rust's style guide acronyms in type names should be
+CamelCase.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Rename OSRng to OsRng</li>
+</ul>
+<p>```
+According to Rust's style guide acronyms in type names should be
+CamelCase.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14427 : alexcrichton/rust/librand, r=huonw</li>
+</ul>
+<p><code>``
+This commit shuffles around some of the</code>rand` code, along with some
+reorganization. The new state of the world is as follows:</p>
+<ul>
+<li>The librand crate now only depends on libcore. This interface is experimental.</li>
+<li>The standard library has a new module, <code>std::rand</code>. This interface will
+  eventually become stable.</li>
+</ul>
+<p>Unfortunately, this entailed more of a breaking change than just shuffling some
+names around. The following breaking changes were made to the rand library:</p>
+<ul>
+<li>
+<p>Rng::gen_vec() was removed. This has been replaced with Rng::gen_iter() which
+  will return an infinite stream of random values. Previous behavior can be
+  regained with <code>rng.gen_iter().take(n).collect()</code></p>
+</li>
+<li>
+<p>Rng::gen_ascii_str() was removed. This has been replaced with
+  Rng::gen_ascii_chars() which will return an infinite stream of random ascii
+  characters. Similarly to gen_iter(), previous behavior can be emulated with
+  <code>rng.gen_ascii_chars().take(n).collect()</code></p>
+</li>
+<li>
+<p>{IsaacRng, Isaac64Rng, XorShiftRng}::new() have all been removed. These all
+  relied on being able to use an OSRng for seeding, but this is no longer
+  available in librand (where these types are defined). To retain the same
+  functionality, these types now implement the <code>Rand</code> trait so they can be
+  generated with a random seed from another random number generator. This allows
+  the stdlib to use an OSRng to create seeded instances of these RNGs.</p>
+</li>
+<li>
+<p>Rand implementations for <code>Box&lt;T&gt;</code> and <code>@T</code> were removed. These seemed to be
+  pretty rare in the codebase, and it allows for libcore to not depend on
+  liballoc.  Additionally, other pointer types like Rc<T> and Arc<T> were not
+  supported.  If this is undesirable, librand can depend on liballoc and regain
+  these implementations.</p>
+</li>
+<li>
+<p>The WeightedChoice structure is no longer built with a <code>Vec&lt;Weighted&lt;T&gt;&gt;</code>,
+   but rather a <code>&amp;mut [Weighted&lt;T&gt;]</code>. This means that the WeightedChoice
+   structure now has a lifetime associated with it.</p>
+</li>
+</ul>
+<p>cc #13851</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>std: Recreate a <code>rand</code> module</li>
+</ul>
+<p><code>``
+This commit shuffles around some of the</code>rand` code, along with some
+reorganization. The new state of the world is as follows:</p>
+<ul>
+<li>The librand crate now only depends on libcore. This interface is experimental.</li>
+<li>The standard library has a new module, <code>std::rand</code>. This interface will
+  eventually become stable.</li>
+</ul>
+<p>Unfortunately, this entailed more of a breaking change than just shuffling some
+names around. The following breaking changes were made to the rand library:</p>
+<ul>
+<li>
+<p><code>Rng::gen_vec()</code> was removed. This has been replaced with <code>Rng::gen_iter()</code>
+  which will return an infinite stream of random values. Previous behavior can
+  be regained with <code>rng.gen_iter().take(n).collect()</code></p>
+</li>
+<li>
+<p><code>Rng::gen_ascii_str()</code> was removed. This has been replaced with
+  <code>Rng::gen_ascii_chars()</code> which will return an infinite stream of random ascii
+  characters. Similarly to <code>gen_iter()</code>, previous behavior can be emulated with
+  <code>rng.gen_ascii_chars().take(n).collect()</code></p>
+</li>
+<li>
+<p>{IsaacRng, Isaac64Rng, XorShiftRng}::new() have all been removed. These all
+  relied on being able to use an OSRng for seeding, but this is no longer
+  available in librand (where these types are defined). To retain the same
+  functionality, these types now implement the <code>Rand</code> trait so they can be
+  generated with a random seed from another random number generator. This allows
+  the stdlib to use an OSRng to create seeded instances of these RNGs.</p>
+</li>
+<li>
+<p>Rand implementations for <code>Box&lt;T&gt;</code> and <code>@T</code> were removed. These seemed to be
+  pretty rare in the codebase, and it allows for librand to not depend on
+  liballoc.  Additionally, other pointer types like Rc<T> and Arc<T> were not
+  supported.  If this is undesirable, librand can depend on liballoc and regain
+  these implementations.</p>
+</li>
+<li>
+<p>The WeightedChoice structure is no longer built with a <code>Vec&lt;Weighted&lt;T&gt;&gt;</code>,
+  but rather a <code>&amp;mut [Weighted&lt;T&gt;]</code>. This means that the WeightedChoice
+  structure now has a lifetime associated with it.</p>
+</li>
+<li>
+<p>The <code>sample</code> method on <code>Rng</code> has been moved to a top-level function in the
+  <code>rand</code> module due to its dependence on <code>Vec</code>.</p>
+</li>
+</ul>
+<p>cc #13851</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Rename UTF16Item[s] to Utf16Item[s]</li>
+</ul>
+<p>```
+According to Rust's style guide acronyms should be CamelCase.</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>auto merge of #14364 : alexcrichton/rust/libdebug, r=brson</li>
+</ul>
+<p>```
+This commit moves reflection (as well as the {:?} format modifier) to a new
+libdebug crate, all of which is marked experimental.</p>
+<p>This is a breaking change because it now requires the debug crate to be
+explicitly linked if the :? format qualifier is used. This means that any code
+using this feature will have to add <code>extern crate debug;</code> to the top of the
+crate. Any code relying on reflection will also need to do this.</p>
+<p>Closes #12019</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>Move std::{reflect,repr,Poly} to a libdebug crate</li>
+</ul>
+<p>```
+This commit moves reflection (as well as the {:?} format modifier) to a new
+libdebug crate, all of which is marked experimental.</p>
+<p>This is a breaking change because it now requires the debug crate to be
+explicitly linked if the :? format qualifier is used. This means that any code
+using this feature will have to add <code>extern crate debug;</code> to the top of the
+crate. Any code relying on reflection will also need to do this.</p>
+<p>Closes #12019</p>
+<p>[breaking-change]
+```</p>
+<ul>
+<li>std: Rename strbuf operations to string</li>
+<li>std: Remove <code>String::from_owned_str</code> as it's redundant</li>
+</ul>
+<h2 id="other-changes">Other Changes</h2>
+<ul>
+<li>Primitive types <a href="https://github.com/mozilla/rust/pull/14513">now have a home in the
+  documnetation</a>, where their
+  methods will be listed, and the traits they implement.</li>
+<li>References to owned vectors in the docs <a href="https://github.com/mozilla/rust/pull/14553">have been mercilessly
+  destroyed</a>.</li>
+<li>There is now a function <a href="https://github.com/mozilla/rust/pull/14544">for parsing PATH environment variable-looking
+  strings</a> into their component
+  paths.</li>
+<li><code>Rc::make_unique</code> <a href="https://github.com/mozilla/rust/pull/14522">has been
+  added</a>.</li>
+<li>Debuginfo representation of enums <a href="https://github.com/mozilla/rust/pull/14486">has
+  improved</a> to be more consistent.</li>
+<li>Macros <a href="https://github.com/mozilla/rust/pull/14298">can now be expanded in
+  patterns</a>.</li>
+<li>There is now a lint <a href="https://github.com/mozilla/rust/pull/14300">that warns when one enum variant is vastly larger than
+  the others</a>. It is allow by
+  default.</li>
+<li>Regular expressions <a href="https://github.com/mozilla/rust/pull/14423">can now be stored in
+  statics</a>.</li>
+<li>rustdoc <a href="https://github.com/mozilla/rust/pull/14391">will now inline
+  documentation</a> for reexported
+  items.</li>
+<li>A new <a href="http://doc.rust-lang.org/complement-design-faq.html">language design
+  FAQ</a> <a href="https://github.com/mozilla/rust/pull/14370">has been
+  added</a>.</li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Ahmed Charles</li>
+<li>Ariel Ben-Yehuda</li>
+<li>Christoph Burgdorf</li>
+<li>Florian Hartwig</li>
+<li>Jonathan Reem</li>
+<li>Nikita Pekin</li>
+<li>Randati</li>
+<li>Reilly Watson</li>
+<li>Ryman</li>
+<li>Santiago Rodriguez</li>
+<li>Sean Gillespie</li>
+<li>Sergio Benitez</li>
+<li>Sylvestre Ledru</li>
+<li>Tom Jakubowski</li>
+<li>Utkarsh Kukreti</li>
+<li>fort</li>
+</ul>
+<h1 id="new-rfcs">New RFCs</h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/91">Coercible and HasPrefix for Zero Cost
+  Coercions</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/94">Disambiguate enum variant
+  names</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/97">Filling in the details around unboxed
+  closures</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/98">Uninitialized pointers</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/100">Add a <code>partial_cmp</code> method to
+  <code>TotalOrd</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/101">Allow multiple fixed-size subslices borrows in one
+  pattern</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/102">Auto-dereferencing non-raw
+  pointers</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/106">Add a freestanding target</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/107">Pattern guards with
+  bind-by-move</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/108">Convenience syntax for module
+  imports</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/109">Remove <code>#[crate_id]</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/110">Resolve <code>::foo::...</code> when compiling crates named
+  <code>foo</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/111">Index traits</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/112">Remove cross-borrowing</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/113">Provide a common API across <code>Option</code> and the <code>Ok</code> and <code>Err</code> variants of
+  <code>Result</code></a></li>
+</ul>
+<h1 id="community-updates">Community Updates</h1>
+<ul>
+<li><a href="http://www.reddit.com/r/rust/comments/26oxl4/are_we_web_yet_not_really/">Are we web yet? Not
+  really.</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26ss21/embedded_in_academia_we_need_hardware_traps_for/">We need hardware traps for integer
+  overflow</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26u192/piston_game_engine_update_notice_on_progress/">Piston game engine: update on
+  progress</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26xt8j/practicality_with_rust_error_handling/">Practicality with Rust: Error
+  Handling</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26z1xa/debug_validation_vs_safety/">Debug validation vs
+  safety</a></li>
+<li><a href="https://github.com/thestinger/rust-core">rust-core now deprecated in favor of libcore
+  upstream</a></li>
+<li><a href="http://bjbell.wordpress.com/2014/05/31/emacs-rust-development-setup/">Emacs Rust Development
+  Setup</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/273gq2/what_was_the_result_of_the_mutpocalypse/">What was the result of the
+  mutpocalypse?</a>
+  I am happy that it just fizzled out and died.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/276n30/swift_initial_commentary_from_graydon_hoare/">Swift - initial commentary from Graydon
+  Hoare</a></li>
+<li><a href="http://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/Panel-Systems-Programming-Languages-in-2014-and-Beyond">Systems Programming in 2014 and
+  Beyond</a>,
+  a panel discussion featuring our very own Niko Matsakis, as well as Andrei
+  Alexandrescu (D developer), Rob Pike, and Bjarne Stroustroup.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/27cphk/an_open_call_for_contributions_7_high_priority/">Open Call for Contributions: 7 High Priority Rust Libraries That Need To Be
+  Written</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27ig84/piston_01_released/">Piston 0.1
+  Released</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27jvdt/internet_archaeology_the_definitive_endall_source/">The definitive, end-all source for why Rust is named
+  "Rust"</a></li>
+<li><a href="http://cmr.github.io/rust-log-viewer/">A tool for viewing <code>RUST_LOG</code> output</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27qn6y/snowmews_architecture_part_1/">Snowmew's Architecture: Part
+  1</a></li>
+</ul>
+<h1 id="this-week-in-servo">This Week in Servo</h1>
+<p>Servo is a web browser engine written in Rust and is one of the primary test
+cases for the Rust language.</p>
+<p>In the last three weeks, we landed 77 PRs.</p>
+<h2 id="notable-additions">Notable additions</h2>
+<ul>
+<li>Patrick Walton improved Wikipedia paint time by 40x through display list optimization.</li>
+<li>Jack and many others landed a rust upgrade.</li>
+<li>Patrick Walton added reference counted flows, on the path to incremental layout support.</li>
+<li>Edit Balint reduced the number of times that we invoke rustc during the Servo build.</li>
+<li>Martin Robinson fixed many Linux rendering issues, especially on NVidia cards.</li>
+</ul>
+<h2 id="new-contributors_1">New Contributors</h2>
+<ul>
+<li>Edit Balint (ebalint)</li>
+</ul>
+<h2 id="meetings-and-notes">Meetings and Notes</h2>
+<p>There was a <a href="https://github.com/mozilla/servo/wiki/Workweek-roadmap">workweek</a>
+last week, and our previous
+<a href="https://github.com/mozilla/servo/wiki/Meeting-2014-05-19">two</a>
+<a href="https://github.com/mozilla/servo/wiki/Meeting-2014-05-13">meetings</a> covered
+the Rust upgrade, 32-bit support, the HTML parser, and gfx rendering.</p>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

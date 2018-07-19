@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content="programming, rust, This Week in Rust, " />
+
+    <title>This Week in Rust 16  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-09-23T13:08:00-04:00">23 SEP 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/09/23/this-week-in-rust-16/">This Week in Rust 16</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Welcome to another issue of <em>This Week in Rust</em>. We're gearing up for a 0.8
+release, tentatively planned for Thursday. Additionally, a huge welcome of
+Alex Crichton to the Rust team! He's been doing some great work, it's
+wonderful to have another full-time Rust dev.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-in-master">What's cooking in master?</h1>
+<p>There were 86 PRs merged this week.</p>
+<h2 id="rustdoc95ng">rustdoc_ng</h2>
+<p>rustdoc_ng was merged into mainline and enabled as the new rustdoc, in time
+for 0.8. This makes me incredibly happy, as it marks the conclusion of my
+quest to a better rustdoc. Not to say that rustdoc is finished or perfect,
+but it's already much better than the old rustdoc. My sincere thanks go to
+Jordi Boggiano (Seldaek), who worked unceasingly to create a beautiful,
+usable frontend, and to Meret Vollenweider (meretv) for donating her amazing
+design skills. Also thanks to Huon Wilson (dbaupp) for moral support and
+creating the awesome DocFolder interface that passes over the documentation
+use. And, of course, to Alex Crichton, who pushed these past few days to port
+the static site generator to Rust and to integrate it into the build system.</p>
+<p>The new docs have replaced the old docs. You can view them <a href="http://static.rust-lang.org/doc/master/std/index.html">on the Rust
+website</a>. Still to-do
+is proper cross-crate doc hyperlinking. To run it on your own crate, build a
+recent Rust and do <code>rustdoc html path/to/your/crate.rs</code>. It will eventually be
+integrated into <code>rustpkg</code>.</p>
+<h2 id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><code>extra::par</code> has been <a href="https://github.com/mozilla/rust/pull/9380">removed</a>.</li>
+<li>Some unsound functional struct updates (FSU, <code>{a: 5, ..b}</code>) <a href="https://github.com/mozilla/rust/pull/9350">are now
+  disallowed</a>.</li>
+<li><code>--cfg debug</code> is no longer required. If you want to disable debug logging,
+  use <a href="https://github.com/mozilla/rust/pull/9278"><code>--cfg ndebug</code></a>.</li>
+<li>The various uses of <code>NaN</code> are now <a href="https://github.com/mozilla/rust/pull/9321">lowercased to
+  <code>nan</code></a>.</li>
+<li><code>std::util::unreachable</code> has been removed in factor of the
+  <a href="https://github.com/mozilla/rust/pull/9320"><code>unreachable!</code></a> macro.</li>
+<li><code>extra::future</code> has been <a href="https://github.com/mozilla/rust/pull/9285">cleaned
+  up</a> a bit, including some method
+  shuffling/renames.</li>
+<li><code>extra::getopts</code> has been <a href="https://github.com/mozilla/rust/pull/9267">cleaned
+  up</a> as well, with most free
+  functions now being methods.</li>
+<li>The <code>from_str</code> methods in the numeric modules have been
+  <a href="https://github.com/mozilla/rust/pull/9275">removed</a> in favor of the FromStr
+  trait and the <code>from_str</code> free function in the prelude. Same for
+  <a href="https://github.com/mozilla/rust/pull/9209"><code>from_str_radix</code></a>.</li>
+<li>The <code>Drop</code> trait now uses <a href="https://github.com/mozilla/rust/pull/9244"><code>&amp;mut
+  self</code></a>, as part of the transition
+  to by-value drops.</li>
+<li><code>extra::json</code> uses a <a href="https://github.com/mozilla/rust/pull/9231">different
+  encoding</a> when encoding/decoding
+  enums, so any Rust-generated JSON before this patch will now be rejected by
+  the decoder.</li>
+</ul>
+<h2 id="other-changes">Other changes</h2>
+<ul>
+<li>debuginfo now works for <a href="https://github.com/mozilla/rust/pull/9168">recursive
+  types</a>.</li>
+<li>You can now <a href="https://github.com/mozilla/rust/pull/9213">pass parameters</a> to
+  the generated test with <code>rust test</code>.</li>
+<li><code>extern fn</code>s from external crates now use the <a href="https://github.com/mozilla/rust/pull/9196">declared
+  ABI</a>, rather than assuming cdecl.</li>
+<li><code>CString</code> has gained an
+  <a href="https://github.com/mozilla/rust/pull/9220"><code>as_str</code></a> method.</li>
+<li>Some <a href="https://github.com/mozilla/rust/pull/9108">overflow bugs</a> in <code>vec</code> and
+  <code>str</code> have been fixed.</li>
+<li><code>statics</code> are now <a href="https://github.com/mozilla/rust/pull/9130">properly
+  inlined</a> cross-crate.</li>
+<li>The <code>bytes!</code> macro's error reporting has been <a href="https://github.com/mozilla/rust/pull/9245">tightened
+  up</a> to make it more obvious where
+  the error is.</li>
+<li><code>rustpkg init</code> <a href="https://github.com/mozilla/rust/pull/9236">has been added</a>,
+  to create a new workspace.</li>
+<li>File IO in newrt has been <a href="https://github.com/mozilla/rust/pull/9235">massively
+  reworked</a> and is much more
+  complete than the oldrt.</li>
+<li>The exact meaning of "unsafety" <a href="https://github.com/mozilla/rust/pull/9258">is now
+  documented</a>.</li>
+<li><code>\0</code> escapes in strings <a href="https://github.com/mozilla/rust/pull/9248">is now
+  supported</a>.</li>
+<li><code>rustpkg</code> now thinks in terms of crates, not packages, to you can now have
+  <a href="https://github.com/mozilla/rust/pull/9263">multiple crates in a single
+  package</a> and have things work
+  correctly.</li>
+<li>newrt has <a href="https://github.com/mozilla/rust/pull/9260/files">pipes and process
+  support</a> now.</li>
+<li><code>format!</code> now allows <a href="https://github.com/mozilla/rust/pull/9299">trailing
+  commas</a> in its arguments.</li>
+<li>The lexer now throws <a href="https://github.com/mozilla/rust/pull/9308">vastly better
+  errors</a>.</li>
+</ul>
+<h1 id="weekly-meeting">Weekly Meeting</h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-09-17">weekly
+meeting</a>
+discussed quite a bit, most interesting to me was the crypto discussion,
+putting <code>macro_rules!</code> behind an experimental flag, and the default arguments
+discussion.</p>
+<h1 id="project-announcements-etc">Project announcements etc</h1>
+<ul>
+<li><a href="https://github.com/williamw520/rustymem">rustymem</a> - a pure-rust memcached
+  library.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1myesy/where_to_learn_more_about_rusts_concurrency_model/">"Where to learn more about Rust's concurrency
+  model?"</a></li>
+<li><a href="https://raw.github.com/jeaye/q3/master/pics/016_1_animated_skele.png">q3 now has skeletal
+  animation!</a>.</li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

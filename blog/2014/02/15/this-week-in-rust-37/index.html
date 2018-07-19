@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 37  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-02-15T23:20:00-05:00">15 FEB 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/02/15/this-week-in-rust-37/">This Week in Rust 37</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>86 pull requests were merged this week. This ties for week with most merged
+pull requests. <a href="http://cmr.github.io/blog/2013/09/23/this-week-in-rust/">A week in September 2013 is the other record
+holder</a>. To cope with
+the massively inflated queue, there were two roll-ups (not counted).</p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<ul>
+<li><code>extern mod</code> <a href="https://github.com/mozilla/rust/pull/12017">is now written</a>
+<code>extern crate</code>.</li>
+<li>The big codegen compiler flags pull request I warned about last week <a href="https://github.com/mozilla/rust/pull/12084">indeed
+landed</a>. Many <code>-Z</code> options are now
+under <code>-C</code>, and a lot of previously-bare flags (such as <code>--linker</code>) are now
+also under <code>-C</code>.</li>
+<li><code>std::util</code> <a href="https://github.com/mozilla/rust/pull/11956">has been removed</a>.
+<code>swap</code> and <code>replace</code> now live in <code>std::mem</code>.</li>
+<li><code>do</code> is once again <a href="https://github.com/mozilla/rust/pull/12170">a reserved
+word</a>.</li>
+<li><code>extra::rational</code>, <code>extra::bigint</code>, and <code>extra::complex</code> <a href="https://github.com/mozilla/rust/pull/12154">have been
+moved</a> into <code>libnum</code> as part of
+the libextra dissolution.</li>
+<li>The borrow checker's treatment of closures <a href="https://github.com/mozilla/rust/pull/12158">has been
+revamped</a>. It fixes all known
+soundness issues with closures. Unfortunately, it also breaks some programs
+that used to compile.</li>
+<li>Channels <a href="https://github.com/mozilla/rust/pull/11578">have been rewritten</a>
+to use the internally-upgradable design <a href="https://mail.mozilla.org/pipermail/rust-dev/2014-January/007924.html">that was hashed out on the
+list</a>.
+Rather than having a separate <code>SharedChan</code>, <code>Chan</code> is now cloneable.</li>
+<li>The <code>Seek</code> API <a href="https://github.com/mozilla/rust/pull/12204">has changed a
+bit</a>.</li>
+<li>The breaking changes in the <a href="https://github.com/mozilla/rust/pull/12248">first
+rollup</a> are the removal of
+<code>ptr::offset</code>, <code>ptr::mut_offset</code>, <code>ptr::is_null</code>, and <code>ptr::is_not_null</code> as
+free functions and the movement of <code>extra::hex</code> and <code>extra::base64</code> to
+<code>libserialize</code>.</li>
+<li><code>std::num::Orderable</code> <a href="https://github.com/mozilla/rust/pull/12061">has been
+removed</a>.</li>
+<li><code>std::ptr</code> <a href="https://github.com/mozilla/rust/pull/12282">saw some more
+cleanup</a>, most notably every
+function ending in <code>_ptr</code> has had that suffix removed. <code>to_unsafe_ptr</code> and
+<code>to_mut_unsafe_ptr</code> have also been removed.</li>
+</ul>
+<h2 id="other-changes">Other Changes</h2>
+<ul>
+<li>Process arguments and environment variables <a href="https://github.com/mozilla/rust/pull/12283">now use the
+<code>from_utf8_lossy</code> function</a> that
+was introduced last week, rather than failing on invalid utf8. Additionally,
+there are now <code>args_as_bytes</code> and <code>env_as_bytes</code> functions to get arguments
+and the environment raw.</li>
+<li>The makefiles <a href="https://github.com/mozilla/rust/pull/12274">have been
+refactored</a>, and there is now a
+<code>make help</code> and <code>make tips</code> for hints on how to use the build system.</li>
+<li>In yet another multi-thousand-line patch by eddyb, <a href="https://github.com/mozilla/rust/pull/12162"><code>ast_map::Path</code> no
+longer requires cloning</a>, due to
+clever devilry.</li>
+<li>green task spawning <a href="https://github.com/mozilla/rust/pull/12172">was sped up by almost
+5x</a>.</li>
+<li>We now <a href="https://github.com/mozilla/rust/pull/12027">bundle and use
+compiler-rt</a> for intrinsics rather
+than using the system libgcc. We still depend on libgcc for unwinding,</li>
+<li>The pidigits benchmark was made 20x faster <a href="https://github.com/alexcrichton/rust/commit/7dc187afd8a19dad05dbf1a689e6b6f400f7bc0a">by optimizing
+bigint</a>.</li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Bruno de Oliveira Abinader</li>
+<li>Eduard Bopp</li>
+<li>Edward Wang</li>
+<li>Jake Kerr</li>
+<li>Liigo Zhuang</li>
+<li>Matthijs van der Vleuten</li>
+<li>Peiyong Lin</li>
+<li>Tobias Bucher</li>
+<li>WebeWizard</li>
+</ul>
+<h1 id="weekly-meeting">Weekly Meeting</h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2014-02-11">weekly
+meeting</a>
+discussed struct construction sugar, what to allow in statics, the crate
+keyword, a <code>finally</code> macro, and implicit trait bounds.</p>
+<h1 id="this-week-in-servo">This Week in Servo</h1>
+<p>Servo is a web browser engine written in Rust and is one of the primary test
+cases for the Rust language.</p>
+<p>This week, we landed 18 PRs.</p>
+<h2 id="notable-additions">Notable additions</h2>
+<ul>
+<li>Bruno Abinader landed several DOM fixes, including
+<a href="https://github.com/mozilla/servo/pull/1648">#1648</a> and
+<a href="https://github.com/mozilla/servo/pull/1646">#1646</a></li>
+<li>Hyun June Kim landed initial <code>:hover</code> support in
+<a href="https://github.com/mozilla/servo/pull/1633">#1633</a></li>
+<li>Keegan McAllister restored task failure handling in
+<a href="https://github.com/mozilla/servo/pull/1691">#1691</a></li>
+<li>Rui renamed the .rc files to .rs in the main Servo repository in
+<a href="https://github.com/mozilla/servo/pull/1617">#1617</a></li>
+<li>Simon Sapin made some updates to attribute selector namespaces in
+<a href="https://github.com/mozilla/servo/pull/1653">#1653</a> and
+<a href="https://github.com/mozilla/servo/pull/1661">#1661</a></li>
+<li>Lars Bergstrom began the removal of non-script-crate <code>@mut</code>s in preparation
+for a Rust upgrade in <a href="https://github.com/mozilla/servo/pull/1663">#1663</a></li>
+<li>Austin King added some <code>window.console</code> support in
+<a href="https://github.com/mozilla/servo/pull/1666">#1666</a></li>
+<li>Marek Šuppa landed a fix to our contributing document in
+<a href="https://github.com/mozilla/servo/pull/1649">#1649</a></li>
+<li>Patrick Walton made extensive optimizations to style sharing in
+<a href="https://github.com/mozilla/servo/pull/1644">#1644</a></li>
+</ul>
+<h2 id="new-contributors_1">New contributors</h2>
+<ul>
+<li>Austin King (ozten)</li>
+<li>Marek Šuppa (mrshu)</li>
+</ul>
+<h2 id="meetings">Meetings</h2>
+<p>In this week's
+<a href="https://github.com/mozilla/servo/wiki/Meeting-2014-02-10">meeting</a>, we
+discussed our embedding plans, ACID2 status, improving the availability of
+E-Easy issues, and doing a Rust upgrade (we are more than one month behind
+Rust master).</p>
+<h1 id="announcements-etc">Announcements, etc</h1>
+<p>There is simply too much happening in the community to keep track of! I
+recommend browsing <a href="http://www.reddit.com/r/rust">the Rust subreddit</a> for
+goings-on. Some notable ones:</p>
+<ul>
+<li><a href="http://pzol.github.io/getting_rusty/posts/20140203_hashmap/">Rust By Example:
+HashMap</a></li>
+<li><a href="https://gist.github.com/bvssvni/8970459">State machines using phantom
+types</a></li>
+<li><a href="http://golo-lang.org/">golo-lang.org</a>'s homepage design <a href="http://adridu59.github.io/rust-www/">adapted to
+Rust</a>. There is some discussion <a href="http://www.reddit.com/r/rust/comments/1xx3ll/rfc_gololangorg_ported_to_rust/">on
+reddit</a>
+about this.</li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

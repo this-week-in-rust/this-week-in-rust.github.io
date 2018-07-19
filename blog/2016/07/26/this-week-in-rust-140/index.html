@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 140  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2016-07-26T00:00:00-04:00">26 JUL 2016</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2016/07/26/this-week-in-rust-140/">This Week in Rust 140</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We love
+contributions</a>.</p>
+<p><em>This Week in Rust</em> is openly developed <a href="https://github.com/cmr/this-week-in-rust">on GitHub</a>.
+If you find any errors in this week's issue, <a href="https://github.com/cmr/this-week-in-rust/pulls">please submit a PR</a>.</p>
+<h1 id="updates-from-rust-community">Updates from Rust Community</h1>
+<h2 id="news-blog-posts">News &amp; Blog Posts</h2>
+<ul>
+<li><a href="https://blog.rust-lang.org/2016/07/25/conf-lineup.html">The 2016 Rust conference lineup</a>.</li>
+<li><a href="http://blog.adamperry.me/rust/2016/07/24/profiling-rust-perf-flamegraph/">Rust performance: A story featuring perf and flamegraph on Linux</a>.</li>
+<li><a href="https://kha.github.io/2016/07/22/formally-verifying-rusts-binary-search.html">Sebastian Ullrich has formally verified Rust's binary_search
+  function by transpiling Rust to the Lean theorem
+  prover</a>.</li>
+<li><a href="http://www.masonchang.com/blog/2016/7/18/a-short-walkthrough-of-webrender-2">A short walkthrough of WebRender 2</a>.</li>
+<li><a href="http://sunjay.ca/2016/07/25/rust-code-coverage">Rust code coverage guide</a>. kcov + Travis CI + Codecov / Coveralls.</li>
+<li><a href="http://notes.willcrichton.net/rust-the-new-llvm/">Rust: The new LLVM</a>. Making a case for using Rust as compile target for new languages.</li>
+<li><a href="https://medium.com/@ericdreichert/test-setup-and-teardown-in-rust-without-a-framework-ba32d97aa5ab">Test setup and teardown in Rust without a framework</a>.</li>
+<li>[podcast] <a href="http://www.newrustacean.com/show_notes/e016/">New Rustacean podcast episode 16</a>. Digging deeper on smart pointers and mutability with <code>Cell</code> and <code>RefCell</code>.</li>
+</ul>
+<h2 id="new-crates-project-updates">New Crates &amp; Project Updates</h2>
+<ul>
+<li><a href="https://internals.rust-lang.org/t/beta-testing-rustup-rs/3316/147">rustup 0.4.0 released</a>.</li>
+<li><a href="https://users.rust-lang.org/t/announcing-error-chain-a-library-for-consistent-and-reliable-rust-error-handling/6133/20">error-chain 0.2.2 released</a>,
+  featuring a minor ergonomic improvement.</li>
+<li><a href="https://github.com/ticki/termion/blob/master/CHANGELOG.md">Termion 1.0 released</a>.</li>
+<li><a href="https://users.rust-lang.org/t/call-for-proposals-for-next-rust-doc-days-crates/6685">Call for proposals for next Rust Doc Days crates</a>. For the second Rust Doc Days, propose crates that need better documentation!</li>
+<li><a href="https://manishearth.github.io/rust-clippy/master/">All the Clippy lints</a>. Overview and documentation of all Clippy lints with search and filtering.</li>
+<li><a href="https://github.com/3Hren/msgpack-rust">RMP</a>. MessagePack implementation for Rust.</li>
+<li><a href="https://github.com/Kha/electrolysis">electrolysis</a>. A tool for formally verifying Rust programs by transpiling them into definitions in the Lean theorem prover.</li>
+<li><a href="https://github.com/trixnz/rustsym">rustsym</a>. A tool to query symbols from Rust code for use in IDEs.</li>
+<li><a href="https://github.com/BurntSushi/cargo-benchcmp/pull/2">cargo-benchcmp is rewritten in Rust (from Python)</a>.</li>
+<li><a href="https://blog.servo.org/2016/07/25/twis-72/">This week in Servo 72</a>.</li>
+<li><a href="https://guillaumegomez.github.io/this-week-in-rust-docs/blog/this-week-in-rust-docs-14">This week in Rust docs 14</a>.</li>
+<li><a href="http://www.pingcap.com/tikv/2016/07/23/tikv-weekly/">This week in TiKV 2016-07-23</a>.</li>
+<li><a href="https://www.ruma.io/news/this-week-in-ruma-2016-07-24/">This week in Ruma 2016-07-24</a>.</li>
+</ul>
+<h1 id="crate-of-the-week">Crate of the Week</h1>
+<p>In what seems to become a kind of tradition, User <a href="https://users.rust-lang.org/users/gsingh93">gsingh93</a> suggested his <a href="https://crates.io/crates/trace">trace</a> crate, a syntax extension to insert <code>print!</code> statements to functions to help trace execution. Thanks, gsingh93!</p>
+<p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Submit your suggestions for next week</a>!</p>
+<h1 id="call-for-participation">Call for Participation</h1>
+<p>Always wanted to contribute to open-source projects but didn't know where to start?
+Every week we highlight some tasks from the Rust community for you to pick and get started!</p>
+<p>Some of these tasks may also have mentors available, visit the task page for more information.</p>
+<ul>
+<li>[easy] <a href="https://github.com/rust-lang/rust/issues/21696">rust: move coerce_match, coerce_calls and related tests into
+  run-pass-valgrind</a>. Just
+  moving tests around. Easy introduction to the build system.</li>
+<li>[easy] <a href="https://github.com/rust-lang/cargo/issues/2773">cargo: Can't specify precise crate version if there are
+  multiple versions</a>.</li>
+<li>[easy] <a href="https://github.com/brson/error-chain/issues/2">error-chain: Display implementation should show the error's
+  Display, not just the
+  description</a>. Looks
+  like a simple fix.</li>
+<li>[easy] <a href="https://github.com/rust-lang/rust/issues/28784">rust: Parsing inconsistencies (lambda, proc,
+  return)</a>. This bug
+  identifies some bugs where the rustc parser disagrees with the
+  reference parser. Good first bug for someone interested in parsers.</li>
+<li>[easy] <a href="https://github.com/rust-lang/rust/issues/34959">rust: rustbuild should warn on quotes in
+  PATH</a>. Easy fix for
+  Rust's new build system.</li>
+<li>[easy] <a href="https://github.com/rust-lang/rust/issues/2873">rust: Make it easier to locate deadlocked
+  tests</a>.  A simple
+  enhancement to the test runner to notify the user about long-running
+  tests.</li>
+<li>[easy] <a href="https://github.com/rust-lang/rust/issues/34915">rust: Remove obsolete no_stack_check attribute and
+  test</a>. Easy
+  introduction to the compiler and contribution process.</li>
+<li>[easy] <a href="https://github.com/rust-lang-nursery/rustfmt/issues/1049">rustfmt: Wrap overlong function
+  signatures</a>.
+  There are several rustfmt bugs along these lines so this is a
+  fertile entrypoint for contributors.</li>
+<li>[easy] <a href="https://github.com/rust-lang-nursery/rustup.rs/issues/387#issuecomment-234675568">rustup: Add command to install shell
+  completions</a>.</li>
+<li>[easy] <a href="https://github.com/rust-lang-nursery/rustup.rs/issues/596#issuecomment-233716695">rustup: Clean up toolchain directories after
+  uninstall</a>.
+  A simple bug with a clear fix.</li>
+<li>[moderate] <a href="https://github.com/rust-lang/rust/issues/28419">rust: improve error message when resolution via Deref
+  actually required
+  DerefMut</a>. Good
+  first type system bug.</li>
+<li>[easy] <a href="https://github.com/matthiasbeyer/imag/issues/566">imag: Switch to clap in the <code>imag</code> binary</a>.</li>
+</ul>
+<p>If you are a Rust project owner and are looking for contributors, please submit tasks <a href="https://users.rust-lang.org/t/twir-call-for-participation/4821">here</a>.</p>
+<h1 id="updates-from-rust-core">Updates from Rust Core</h1>
+<p>76 pull requests were <a href="https://github.com/issues?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2016-07-11..2016-07-18">merged in the last two weeks</a>.</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/34860"><code>mtwt</code> is now <code>hygiene</code> and cleaned up</a> – nomen est omen</li>
+<li><a href="https://github.com/rust-lang/rust/pull/34828"><code>impl&lt;T&gt; From&lt;T&gt; for Option&lt;T&gt;</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34715">MIR optimization test groundwork</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34544">Fixed interplay between precision and width in format specifiers</a> (<strong>breaking change</strong>)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/34357"><code>ExactSizeIterator::is_empty()</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34910">No more MIPS Soft-Float</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34886">Macros: Statements are now matched greedily</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34925">Nested <code>macro_rules!</code></a></li>
+<li><code>impl Debug for {Entry, VacantEntry, OccupiedEntry}</code> in <a href="https://github.com/rust-lang/rust/pull/34885"><code>btree_map</code></a> and <a href="https://github.com/rust-lang/rust/pull/34937"><code>hash_map</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/34899">More privacy for linker symbols</a> (improves perf)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/34890"><code>impl AddAssign for String</code></a> (wasn't there already?!)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/34927">beta gets new jemalloc</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/2849"><code>cargo publish --dry-run</code></a></li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Evgeny Safronov</li>
+<li>Matt Horn</li>
+</ul>
+<h2 id="approved-rfcs">Approved RFCs</h2>
+<p>Changes to Rust follow the Rust <a href="https://github.com/rust-lang/rfcs#rust-rfcs">RFC (request for comments)
+process</a>. These
+are the RFCs that were approved for implementation this week:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1559">RFC 1559: Allow all literals in attributes</a>.</li>
+</ul>
+<h2 id="final-comment-period">Final Comment Period</h2>
+<p>Every week <a href="https://www.rust-lang.org/team.html">the team</a> announces the
+'final comment period' for RFCs and key PRs which are reaching a
+decision. Express your opinions now. <a href="https://github.com/rust-lang/rfcs/labels/final-comment-period">This week's FCPs</a> are:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1216">Promote <code>!</code> to a type</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1449">Add language support for bitfields</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1504">Add support for 128-bit integers</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1509">Add space-friendly arguments</a>. Add <code>-C link-arg</code> and <code>-C llvm-arg</code> which allow you to pass along argument with spaces.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1517">Exclude macros from importing with <code>#[macro_use(not(...))]</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1548">Add <code>global_asm!</code> for module-level inline assembly</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1560">Some internal and language-level changes to name resolution</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1589">Define a best practices procedure for making bug fixes in the compiler</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1607">RFC process for formatting style and Rustfmt defaults</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1622">Add a compiler flag that emits crate dependencies on a best-effort basis</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1632">Replace synchronization primitives with those from parking_lot</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1643">Dedicated strike team to resolve unsafe code guidelines</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1653">Add <code>assert_ne</code> to compliment <code>assert_eq</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1660">Introduce non-panicking borrow methods on <code>RefCell&lt;T&gt;</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1662">Propose asserts</a>. This rfc proposes that the following macros be added: <code>assert_gt</code>, <code>assert_lt</code>, <code>assert_ge</code>, and <code>assert_le</code>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1663">Clarify behaviour when writing to a union field that implements Drop</a>.</li>
+</ul>
+<h2 id="new-rfcs">New RFCs</h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1687">Add API documentation front page styleguide</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1685">Deprecate anonymous parameters</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1684">Add an environment variable to choose between whether to link the static CRT or dynamic CRT</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1683">Create a team responsible for documentation for the Rust project</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/1682">Propose a shorthand syntax for constructing struct-like values with <em>named</em> fields</a>.</li>
+</ul>
+<h1 id="upcoming-events">Upcoming Events</h1>
+<ul>
+<li>7/27. Rust Community Team Meeting at #rust-community on irc.mozilla.org.</li>
+<li><a href="http://www.meetup.com/Rust-Berlin/events/232583152/">7/27. Rust Berlin July Meetup</a>.</li>
+<li><a href="http://www.meetup.com/Rust-Bay-Area/events/232406852/">7/28. Rust Bay Area: Machine Learning, Bioinformatics, and Embedded OSes</a>.</li>
+<li>8/3. Rust Community Team Meeting at #rust-community on irc.mozilla.org.</li>
+<li>8/4. Rust release triage at #rust-triage on irc.mozilla.org.</li>
+<li><a href="https://www.eventbrite.com/e/mozilla-rust-seattle-meetup-tickets-12222326307?aff=erelexporg">8/8. Seattle Rust Meetup</a>.</li>
+</ul>
+<p>If you are running a Rust event please add it to the <a href="https://www.google.com/calendar/embed?src=apd9vmbc22egenmtu5l6c5jbfc%40group.calendar.google.com">calendar</a> to get
+it mentioned here. Email <a href="mailto:erick.tryzelaar@gmail.com">Erick Tryzelaar</a> or <a href="mailto:banderson@mozilla.com">Brian
+Anderson</a> for access.</p>
+<h1 id="fn-workon-rustproject-money">fn work(on: RustProject) -&gt; Money</h1>
+<p><em>No jobs listed for this week.</em></p>
+<p><em>Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> to get your job offers listed here!</em></p>
+<h1 id="quote-of-the-week">Quote of the Week</h1>
+<blockquote>
+<p>you have a problem. you decide to use Rust. now you have a Rc&lt;RefCell&lt;Box&lt;Problem>>></p>
+</blockquote>
+<p><a href="https://botbot.me/mozilla/rust/2016-07-25/?msg=70207904&amp;page=14">kmc on #rust</a>.</p>
+<p>Thanks to <a href="https://users.rust-lang.org/users/durka">Alex Burka</a> for the tip. <a href="http://users.rust-lang.org/t/twir-quote-of-the-week/328">Submit your quotes for next week</a>!</p>
+<p><em>This Week in Rust is edited by: <a href="https://github.com/nasa42">nasa42</a>, <a href="https://github.com/llogiq">llogiq</a>, and <a href="https://github.com/brson">brson</a>.</em></p>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

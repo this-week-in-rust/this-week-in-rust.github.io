@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 31  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-01-06T01:09:00-05:00">06 JAN 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/01/06/this-week-in-rust-31/">This Week in Rust 31</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>0.9 is on the brink. Perhaps this week, the next at the latest. Some hefty
+changes come this week.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>63 pull requests were merged this week.</p>
+<h2 id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><code>@mut</code> <a href="https://github.com/mozilla/rust/pull/11251">has been removed</a>. The
+replacements are <code>Gc&lt;RefCell&lt;T&gt;&gt;</code> or, preferably, <code>Rc&lt;RefCell&lt;T&gt;&gt;</code>. See also
+<code>Cell&lt;T&gt;</code> for <code>Pod</code> types.</li>
+<li>Dereferencing of unary tuple structs and enums (tuple structs with one field
+and enums with one variant) <a href="https://github.com/mozilla/rust/pull/11188">has been
+removed</a>. An example:</li>
+</ul>
+<p>```
+struct Foo(int);</p>
+<p>fn bar() {
+    let x = Foo(42);
+    // previously <code>*x</code> would return 42
+    let Foo(y) = x; // but now you do this pattern matching
+}
+```</p>
+<ul>
+<li><code>Either</code> <a href="https://github.com/mozilla/rust/pull/11149">has been removed</a>.</li>
+<li><code>extern mod foo (name="bar")</code> syntax <a href="https://github.com/mozilla/rust/pull/10696">has been
+removed</a>. The newer <code>extern mod
+foo = "bar"</code> syntax replaces it.</li>
+<li>The hashmap iterators <a href="https://github.com/mozilla/rust/pull/11242">have
+changed</a>. Use <code>.keys()</code> and
+<code>.values()</code> respectively.</li>
+<li>rustc now outputs <a href="https://github.com/mozilla/rust/pull/11184">1-based column
+numbers</a>. This shouldn't
+affect any tooling that assume columns are 0-based. But, this brings us in
+line with gcc.</li>
+<li>The <code>cfg</code> attribute <a href="https://github.com/mozilla/rust/pull/11093">will now strip struct fields and enum
+variants</a>.</li>
+<li>The contents of the <code>crate_type</code> attribute <a href="https://github.com/mozilla/rust/pull/11264">are now checked for
+validity</a>.</li>
+</ul>
+<h2 id="other-changes">Other changes</h2>
+<ul>
+<li><code>Reader</code>/<code>Writer</code> have regrown some functionality. It can now <a href="https://github.com/mozilla/rust/pull/10861">read and
+write strings</a>, though <em>only</em> real
+UTF-8 strings. Encoding support will come later. <code>write_char</code> <a href="https://github.com/mozilla/rust/pull/11310">also
+reappeared</a>.</li>
+<li>Unwinding on ARM <a href="https://github.com/mozilla/rust/pull/11301">has been
+fixed</a>. Still no C++!</li>
+<li>Native UDP IO <a href="https://github.com/mozilla/rust/pull/11186">has been
+implemented</a>.</li>
+<li>A <code>rust_fail</code> function <a href="https://github.com/mozilla/rust/pull/11231">has been
+added</a>. Break on this function to
+catch failure. Should be easier to remember! Certainly better than
+<code>_Unwind_RaiseException</code>.</li>
+<li>Some more C <a href="https://github.com/mozilla/rust/pull/11208">has been converted to
+Rust</a>.</li>
+<li>volatile load and store intrinsics <a href="https://github.com/mozilla/rust/pull/11173">have been
+added</a>.</li>
+</ul>
+<p>Additionally, it hasn't landed yet, but <a href="https://github.com/mozilla/rust/pull/11151">external syntax
+extensions</a>, aka loadable syntax
+extensions, aka procedural macros, seem to be really close to landing. This is
+quite exciting!</p>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Alan Andrade</li>
+<li>Carl-Anton Ingmarsson</li>
+<li>John Louis Walker</li>
+<li>Peter Zotov</li>
+<li>lyuts</li>
+<li>Matthew Auld</li>
+</ul>
+<h1 id="meeting">Meeting</h1>
+<p>Once again, no meeting due to the holidays. There will be one on January 7,
+however.</p>
+<h1 id="this-week-in-servo">This Week in Servo</h1>
+<p>Servo is a web browser engine written in Rust and is one of the primary test
+cases for the Rust language.</p>
+<p>Mozilla Corp. came back from vacation this Thursday, January 2nd. We landed 14
+PRs this week.</p>
+<h2 id="notable-additions">Notable additions</h2>
+<ul>
+<li>Aydin Kim fixed Android support - hooray! - in
+<a href="https://github.com/mozilla/servo/pull/1445">#1445</a>.</li>
+<li>Mike Blumenkrantz cleaned up our configure script to avoid the "configure
+smashed my submodule edits" problem in
+<a href="https://github.com/mozilla/servo/pull/1449">#1449</a>.</li>
+<li>deokjinkim fixed several font-related issues in
+<a href="https://github.com/mozilla/servo/pull/1454">#1454</a> and
+<a href="https://github.com/mozilla/servo/pull/1452">#1452</a>.</li>
+<li>Simon Sapin refactored font styles in
+<a href="https://github.com/mozilla/servo/pull/1455">#1455</a>.</li>
+<li>Shamir Khodzha implemented <code>child_elements</code> for filtered iteration in
+<a href="https://github.com/mozilla/servo/pull/1443">#1443</a>.</li>
+<li>ms2ger landed several changes to attributes in
+<a href="https://github.com/mozilla/servo/pull/1439">#1439</a>,
+<a href="https://github.com/mozilla/servo/pull/1456">#1456</a>, and
+<a href="https://github.com/mozilla/servo/pull/1460">#1460</a>.</li>
+</ul>
+<h2 id="new-contributors_1">New contributors</h2>
+<ul>
+<li>Shamir Khodzha</li>
+<li>Mike Blumenkrantz</li>
+</ul>
+<h1 id="announcements-etc">Announcements, etc</h1>
+<ul>
+<li><a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/">DST, take
+5</a>. I
+think this might be the last DST proposal, and I quite like it.</li>
+<li><a href="https://mail.mozilla.org/pipermail/rust-dev/2014-January/007687.html">rust-redis and
+rust-msgpack</a>.</li>
+<li><a href="http://dwrensha.github.io/capnproto-rust/2014/01/04/zmq-explorers.html">A capnproto-rust and zmq
+example</a>.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1ucrfg/using_rust_for_an_undergraduate_os_course/">Post-mortem from the OS class taught in
+Rust</a>.</li>
+<li><a href="https://mail.mozilla.org/pipermail/rust-dev/2014-January/007659.html">Using CMake with
+Rust</a></li>
+<li><a href="https://github.com/huonw/boehm-rs">boehm-rs</a>, a <code>Gc&lt;T&gt;</code> type with a real
+GC!</li>
+<li><a href="https://github.com/wellposed/rust-OpenBLAS">rust-OpenBLAS</a>, a (in-progress)
+library for using OpenBLAS and LAPACK.</li>
+<li><a href="https://github.com/WebeWizard/libhttpd/tree/master">libhttpd</a>, a library
+for writing web servers. Intended to be similar to jetty.</li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

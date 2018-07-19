@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content="rust, programming, This Week in Rust, " />
+
+    <title>This Week in Rust 17  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-09-30T13:11:00-04:00">30 SEP 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/09/30/this-week-in-rust-17/">This Week in Rust 17</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Welcome to another issue of <em>This Week in Rust</em>! This week saw the release of
+0.8, the removal of <code>@fn</code>, and a bunch of other changes. The tutorial has been
+updated significantly, surrounding pointers and boxes, so you should re-read
+those sections if you're still feeling shaky on when you should use which.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>There were 79 PRs merged this week.</p>
+<h2 id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><code>printf!</code> and <code>printfln!</code> have been
+  <a href="https://github.com/mozilla/rust/pull/9550">removed</a>.</li>
+<li><code>continue</code> is now a keyword, a <a href="https://github.com/mozilla/rust/pull/9504">synonym for
+  <code>loop</code></a>, preceeding <code>loop</code>'s
+  removal (https://github.com/mozilla/rust/issues/9467)</li>
+<li>Item visibility is <a href="https://github.com/mozilla/rust/pull/9432">properly encoded in
+  metadata</a>, so code which used
+  private items that may have worked before is now rejected.</li>
+<li>Char literals which should have been escaped <a href="https://github.com/mozilla/rust/pull/9335">are now rejected when they
+  aren't escaped</a>.</li>
+<li><code>impl Foo for T;</code> is now <a href="https://github.com/mozilla/rust/pull/9336">disallowed</a>.
+  Use <code>impl Foo for T {}</code>.</li>
+<li><code>@fn</code> has been <a href="https://github.com/mozilla/rust/pull/9310">removed from the
+  language</a>. Replace it with
+  <code>@Trait</code> objects, if you really need <code>@fn</code> (you probably don't).</li>
+<li><code>start</code> <a href="https://github.com/mozilla/rust/pull/9301">no longer takes a crate
+  map</a>.</li>
+<li>Some more keywords have been
+  <a href="https://github.com/mozilla/rust/pull/9389">reserved</a>: <code>alignof</code>,
+  <code>offsetof</code>, and <code>sizeof</code>.</li>
+</ul>
+<h2 id="everything-else">Everything else</h2>
+<ul>
+<li>A ton of documentation work was put in this week. The box section of the
+  tutorial has been <a href="https://github.com/mozilla/rust/pull/9589">rewritten</a>,
+  and there's a new <a href="https://github.com/mozilla/rust/pull/9439">rustpkg
+  tutorial</a> too. The module
+  tutorial saw the file section
+  <a href="https://github.com/mozilla/rust/pull/9398">extended</a>. There was a bunch of
+  module documentation updated/added too.</li>
+<li>rustdoc(_ng) also saw a lot of work. It <a href="https://github.com/mozilla/rust/pull/9402">completely
+  replaced</a> the old rustdoc, as
+  well as seeing a <a href="https://github.com/mozilla/rust/pull/9577">lot</a> of
+  <a href="https://github.com/mozilla/rust/pull/9475">fixes</a>. Huge thanks to Alex
+  Crichton for all the work with it!</li>
+<li><code>std::vec</code> has seen some <a href="https://github.com/mozilla/rust/pull/9583">nice
+  changes</a> to <code>connect_vec</code> and
+  <code>concat_vec</code> (they were really awful before).</li>
+<li><code>rustpkg test</code> is <a href="https://github.com/mozilla/rust/pull/9549">implemented</a>.</li>
+<li><code>type_use</code> has been <a href="https://github.com/mozilla/rust/pull/9538">removed</a>.
+  This did some nasty things and LLVM's <code>mergefunc</code> pass will do a better job
+  of the same optimization (once it's enabled).</li>
+<li><code>with_c_str</code> is now <a href="https://github.com/mozilla/rust/pull/9352">optimized</a>
+  to be allocation-free for short vectors.</li>
+<li>The logging system, when using the new formatting code (so <code>debug2</code> etc) is
+  <a href="https://github.com/mozilla/rust/pull/9261">allocation-free</a>.</li>
+<li><code>std::rand</code> has seen some
+  <a href="https://github.com/mozilla/rust/pull/9362">cleanup</a>, in preparation for its
+  overhaul.</li>
+</ul>
+<h1 id="weekly-meeting">Weekly Meeting</h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-09-24">weekly
+meeting</a>
+discussed a bunch of things, the main things of importance to me being:</p>
+<ul>
+<li><code>loop</code> -&gt; <code>continue</code></li>
+<li>Allowing nested comments</li>
+</ul>
+<h1 id="announcements">Announcements</h1>
+<ul>
+<li><a href="https://github.com/kenz-gelsoft/wxRust">wxRust</a> - A binding to the
+  wxWidgets toolkit.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1neu74/the_start_of_a_sinatra_clone/">widmann</a>
+  -  A Sinatra clone</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1nab2s/rustdev_opengl_glrs_updated_with_command_line/">gl-rs</a>
+  has been updated to generate only bindings for a select version / set of
+  extensions.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1n8y5b/debugging_rust_in_eclipse/">Debugging Rust in
+  Eclipse</a>
+  - Michael Woerister's final GSoC post. He did really great work this
+  summer!</li>
+<li><a href="https://github.com/steveklabnik/rust_for_rubyists">Rust for Rubyists</a> has
+  been open sourced!</li>
+<li>The <a href="https://code.google.com/p/claymore-game/">Claymore</a> project has just
+  come to my attention. Apparently it has been going on for quite some time.
+  There are some screenshots at <a href="http://claymore-dev.blogspot.com/">http://claymore-dev.blogspot.com/</a>.</li>
+<li><a href="https://github.com/JeremyLetang/rustenstein3D/">rustenstein3d</a> - a
+  Wolfenstein3D engine</li>
+<li><a href="https://github.com/eevee/clio">clio</a>, a roguelike. This one also slipped
+  under my radar for a while.</li>
+<li><a href="https://github.com/thestinger/rust-gmp">rust-gmp</a> has been updated for
+  0.8/master.</li>
+<li><a href="https://github.com/cmr/rustdoc_ng">rustdoc_ng</a>, being merged into mainline,
+  has concluded as a project.</li>
+<li>And, of course, the <a href="http://www.reddit.com/r/rust/comments/1n7q8v/08_released/">0.8
+  release</a>
+  discussion on reddit.</li>
+</ul>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

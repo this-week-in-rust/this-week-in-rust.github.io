@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 65  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?3d78820e">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2015-01-12T00:00:00-05:00">12 JAN 2015</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2015/01/12/this-week-in-rust-65/">This Week in Rust 65</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the
+trifecta: safe, concurrent, and fast. This is a weekly summary of its
+progress and community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>This Week in Rust is openly developed <a href="https://github.com/cmr/this-week-in-rust">on
+Github</a>.  If you find any
+errors or omissions in this week's issue, <a href="https://github.com/cmr/this-week-in-rust/pulls">please submit a
+PR</a>.</p>
+<h1 id="the-big-story">The big story</h1>
+<p>This week in Rust was crazy. Rust boldly moved to <a href="http://blog.rust-lang.org/2015/01/09/Rust-1.0-alpha.html">1.0 alpha</a>
+status, and the effort put in to make it happen in the last week was
+staggering, involving a lot of massive patches, a lot of breakage, and
+not a lot of sleep. Thanks to everybody for pitching in.</p>
+<p>Rust 1.0 is going to arrive very quickly and from now to then the
+focus is going to be on nestling it into a warm cradle of stability,
+getting the Cargo ecosystem on the stability bandwagon and making sure
+the stage is set for all those 1.0 newbies to have a swell ride.</p>
+<p>It was discussed on <a href="https://news.ycombinator.com/item?id=8863451">Hacker News</a>, <a href="https://www.reddit.com/r/rust/comments/2rvodx/announcing_rust_100_alpha/">/r/rust</a>,
+<a href="https://www.reddit.com/r/programming/comments/2rvoha/announcing_rust_100_alpha/">/r/programming</a>, <a href="http://lwn.net/Articles/629025/">LWN</a> and surely other
+corners of the Internet.</p>
+<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<p>Around 171 pull requests were <a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+is%3Amerged+updated%3A2015-01-05..2015-01-11">merged in the last
+week</a>. It was a long week.</p>
+<p>Now you can follow breaking changes <em><a href="http://bitrust.octarineparrot.com/">as they happen</a></em>!</p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<ul>
+<li>Boxed closures have finally been <a href="https://github.com/rust-lang/rust/pull/20578">removed</a>. The pull request
+  includes a detailed description of the impact.</li>
+<li>Unused type parameters on <code>impl</code>s are <a href="https://github.com/rust-lang/rust/pull/20593">prohibited</a>. This
+  fixes some soundness holes and generally makes things more
+  sensible. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0447-no-unused-impl-parameters.md">RFC</a>.</li>
+<li><code>int</code> and <code>uint</code> have been <a href="https://github.com/rust-lang/rust/pull/20609">renamed</a> to <code>isize</code> and <code>usize</code>
+  to emphasize that they are not the 'default' integers. The old names
+  are temporarily behind the <a href="https://github.com/rust-lang/rust/pull/20754"><code>int_uint</code> feature gate</a> to
+  provide a transitionary window. The <code>int</code> and <code>uint</code> <a href="https://github.com/rust-lang/rust/pull/20708">modules</a>
+  are now called <code>isize</code> and <code>usize</code>. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0544-rename-int-uint.md">RFC</a>.</li>
+<li>There are <a href="ttps://github.com/rust-lang/rust/pull/20594">new restrictions</a> in the orphan check for impls
+  that ensure that if the implemented trait is not defined in the
+  local crate that the Self type is constrained by local types. Fixes
+  soundness holes revealed by multidispatch. The commit message
+  includes more details.</li>
+<li><code>c_str</code> and <code>c_vec</code> have been <a href="https://github.com/rust-lang/rust/pull/20507">redesigned</a>. There are no longer any
+  scenerios where Rust frees strings allocated by C, and the APIs
+  are more consistent with modern conventions. Details in the
+  <a href="https://github.com/rust-lang/rfcs/blob/master/text/0494-c_str-and-c_vec-stability.md">RFC</a>.</li>
+<li>The <code>trait Foo for Sized?</code> syntax has been <a href="https://github.com/rust-lang/rust/pull/20556">obsoleted</a>
+  after a short deprecation period. <code>Self</code> is no longer implicitly
+  <code>Sized</code>.</li>
+<li>Likewise, the <code>Sized? T</code> syntax for trait bounds has been
+  <a href="https://github.com/rust-lang/rust/pull/20602">obsoleted</a> in favor of <code>T: ?Sized</code>.</li>
+<li>To futureproof for potential alternative designs, chain comparsion
+  operators like <code>a == b == c</code> <a href="https://github.com/rust-lang/rust/pull/20726">must now be parenthesized</a>.
+  <a href="https://github.com/rust-lang/rfcs/blob/master/text/0558-require-parentheses-for-chained-comparisons.md">RFC</a>.</li>
+<li>The <code>FloatMath</code> trait has <a href="https://github.com/rust-lang/rust/pull/20573">merged into <code>Float</code></a>.</li>
+<li><code>std::kinds</code> is <a href="https://github.com/rust-lang/rust/pull/20607">called <code>std::marker</code></a>.</li>
+<li>The <code>std::thread</code> API has <a href="https://github.com/rust-lang/rust/pull/20615">changed again</a>. <code>spawn</code> always
+  creates a detached thread, and <code>scoped</code> creates one which must be
+  joined.  The intention is that by requiring a completely different
+  name to create an attached thread it will be harder to accidentally
+  create a deadlock by misunderstanding the join semantics.</li>
+<li>The <code>target_word_size</code> compiler-defined cfg value has been <a href="https://github.com/rust-lang/rust/pull/20680">renamed
+  to <code>target_pointer_width</code></a>.</li>
+</ul>
+<h2 id="other-changes">Other Changes</h2>
+<ul>
+<li>Feature staging has been partially implemented in a <a href="https://github.com/rust-lang/rust/pull/20663">series</a> of
+  <a href="https://github.com/rust-lang/rust/pull/20738">patches</a>.  Under the current behavior, stability attributes
+  only mean anything when applied to the crates distributed with Rust
+  (primarily std), and the 'experimental' stability level has merged
+  into 'unstable'. Use of unstable APIs is now a warning on the
+  nightly and beta (alpha) release channels, and a new lint,
+  <code>unstable_features</code>, that checks for activation of feature gates, is
+  set to warn in betas. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0507-release-channels.md">RFC</a>.</li>
+<li>The various guides have been <a href="https://github.com/rust-lang/rust/pull/19897">merged into a book</a> called 'The
+  Rust Programming Language'.</li>
+<li>The <code>box</code> has been hidden behind the <a href="https://github.com/rust-lang/rust/pull/20723"><code>box_syntax</code> feature
+  gate</a>. until it is more fully-baked. For the primary use of
+  constructing boxes, just use <code>Box::new</code> for
+  now. <a href="https://www.reddit.com/r/rust/comments/2rr990/box_expr_syntax_is_now_behind_a_feature_gate/">/r/rust</a>.</li>
+<li>Syntax for <a href="https://github.com/rust-lang/rust/pull/20285">negative impls</a> has been added been
+  added behind the <code>optin_builtin_traits</code> feature gate. This will let
+  <code>Sync</code> and <code>Send</code> be implemented completely in the library
+  eventually. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0019-opt-in-builtin-traits.md#default-and-negative-impls">RFC</a>.</li>
+<li>Florian Hahn landed a <a href="https://github.com/rust-lang/rust/pull/20310">series</a> of <a href="https://github.com/rust-lang/rust/pull/20330">patches</a> to
+  <a href="https://github.com/rust-lang/rust/pull/20245">improve</a> the model lexer.</li>
+</ul>
+<h2 id="new-contributors">New Contributors</h2>
+<ul>
+<li>Cristian Kubis</li>
+<li>Dabo Ross</li>
+<li>Daniel Grunwald</li>
+<li>Dylan Ede</li>
+<li>FakeKane</li>
+<li>Guillaume Gomez</li>
+<li>Hyeon Kim</li>
+<li>Jakub Vrána</li>
+<li>John Ericson</li>
+<li>John Kåre Alsaker</li>
+<li>Kelvin Ly</li>
+<li>Kevin Rauwolf</li>
+<li>Laurence Tratt</li>
+<li>Mike English</li>
+<li>Nathan Stoddard</li>
+<li>Peter Schuller</li>
+<li>Raul Gutierrez S</li>
+<li>Sean T Allen</li>
+<li>Thiago Pontes</li>
+<li>Tim Dumol</li>
+<li>York Xiang</li>
+<li>克雷</li>
+</ul>
+<h1 id="approved-rfcs">Approved RFC's</h1>
+<ul>
+<li><a href="https://github.com/nikomatsakis/rfcs/blob/unused-impl-parameters/text/0000-no-unused-impl-parameters.md">447: Prohibit unused type parameters in impls</a>. Disallows
+  unconstrained type parameters in trait impls to clean up
+  semantics. <a href="https://github.com/rust-lang/rfcs/pull/447">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0494-c_str-and-c_vec-stability.md">494: Stabilize <code>c_str</code> and <code>c_vec</code></a>. Overhauls these two
+  interop modules for modern tastes. <a href="https://github.com/rust-lang/rfcs/pull/494">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0501-consistent_no_prelude_attributes.md">501: Consistent no_prelude attribute</a>. Renames
+  <code>no_implicit_prelude</code> to <code>no_prelude</code> and makes it only apply to the
+  current module. <a href="https://github.com/rust-lang/rfcs/pull/501">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0507-release-channels.md">507: Release channels</a>. The post-1.0 release model and the
+  'feature staging' process by which new features are
+  intrtoduced. <a href="https://github.com/rust-lang/rfcs/pull/507">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0526-fmt-text-writer.md">526: Statically enforce unicode in <code>std::fmt</code></a>. By making
+  <code>fmt</code> only deal in unicode some almost-always-redundant sanity
+  checks can be eliminated. <a href="https://github.com/rust-lang/rfcs/pull/526">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0544-rename-int-uint.md">544: Rename <code>int</code>/<code>uint</code></a>. Renames <code>int</code> to <code>isize</code> and
+  <code>uint</code> to <code>usize</code>. <a href="https://github.com/rust-lang/rfcs/pull/544">PR</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0558-require-parentheses-for-chained-comparisons.md">558: Require parentheses for chained comparisons</a>. Minor
+  futureproofing that leaves open the option of making <code>a == b == c</code>
+  behave more like people expect. <a href="https://github.com/rust-lang/rfcs/pull/558">PR</a>.</li>
+</ul>
+<h1 id="new-rfcs">New RFC's</h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/550">Macro future proofing</a>. Places restrictions on some
+  <code>macro_rules!</code> matchers to allow for Rust's grammer to evolve in the
+  future (the implementation has already landed).</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/555">Unchecked downcast methods for <code>Any</code></a>. New unsafe
+  methods are added to <code>Any</code> for unchecked downcasting, a small
+  performance and code-bloat-avoidance optimisation in cases where the
+  dynamic type is already known.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/556">Lifetime parameters for unsafe pointer
+  conversions</a>. APIs for handling lifetimes correctly when
+  dealing with raw pointers.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/560">Integer overflow</a>. Change the semantics of built-in
+  integer types to be a program error on overflow. Implementations are
+  not required to check for these errors except in debug mode. Adds
+  wrapping int types to the library.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/563">Remove official <code>ndebug</code> variable support</a>. A more rusty
+  solution to turning on debug assertions.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/564">Relative paths by default</a>. Make paths in <code>use</code>
+  statements relative instead of absolute.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/565">Guidelines for <code>fmt::Show</code> and <code>fmt::String</code></a>. When to
+  use which of the two format types that convert to strings.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/566">A byte string concatenation macro</a>. Add a <code>bytes!</code>
+  macro that produces static expressions of type <code>&amp;'static [u8]</code> by
+  concatenating the arguments.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/567">Lose the tick</a>. Remove the tick from some parts of the
+  lifetime syntax.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/570">Add methods to <code>String</code> and <code>Vec</code> which can remove multiple
+  elements at once</a>.  Ads <code>remove_range</code> to <code>Vec</code> and
+  <code>String</code> to remove multiple elements efficiently.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/571">Change <code>foo::&lt;T&gt;(x)</code> to <code>foo@&lt;T&gt;(x)</code></a>. A different
+  syntax for solving the ambiguity.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/572">Reserve <code>#[rustc_*]</code> for future language
+  features</a>. Futureproofing around the lack of namespacing
+  an attributes.</li>
+</ul>
+<h1 id="community">Community</h1>
+<p>The #rust IRC channel now peaks at more than 900 users.</p>
+<h2 id="from-the-team">From the Team</h2>
+<ul>
+<li><a href="http://blog.rust-lang.org/2015/01/09/Rust-1.0-alpha.html">Announcing Rust 1.0
+  Alpha</a>. <a href="https://news.ycombinator.com/item?id=8863451">HN</a>. <a href="https://www.reddit.com/r/programming/comments/2rvoha/announcing_rust_100_alpha/">/r/rust</a>. <a href="https://www.reddit.com/r/rust/comments/2rvodx/announcing_rust_100_alpha/">/r/programming</a>.</li>
+<li><a href="https://github.com/rust-lang/meeting-minutes/blob/master/weekly-meetings/2015-01-06.md">weekly-meetings/2015-01-06</a>. fott; 1.0 alpha priorities; LLVM
+  updates; the fate of <code>box</code></li>
+</ul>
+<h2 id="blog-posts">Blog Posts</h2>
+<ul>
+<li><a href="http://huonw.github.io/blog/2015/01/peeking-inside-trait-objects/">Peeking inside Trait Objects</a>. Huon explains the runtime
+  representation of Rust's opaque types. <a href="https://www.reddit.com/r/rust/comments/2rutqb/peeking_inside_trait_objects/">/r/rust</a>.</li>
+<li><a href="http://huonw.github.io/blog/2015/01/the-sized-trait/">The Sized trait</a>. Then Huon explains
+  DST. <a href="https://www.reddit.com/r/rust/comments/2rutqb/peeking_inside_trait_objects/">/r/rust</a>.</li>
+<li><a href="http://huonw.github.io/blog/2015/01/object-safety/">Object safety</a>. Then Huon explains the conditions under
+  which a trait may be cast to an object. <a href="https://www.reddit.com/r/rust/comments/2s2okp/object_safety/">/r/rust</a>.</li>
+<li><a href="https://medium.com/@jreem/advanced-rust-using-traits-for-argument-overloading-c6a6c8ba2e17">Rust Patterns: Using traits for function
+  overloading</a>. Jonathan Reem demonstrates how to overload
+  functions. <a href="https://www.reddit.com/r/rust/comments/2s4tbx/advanced_rust_using_traits_for_function/">/r/rust</a>.</li>
+<li><a href="https://kentaromiura.wordpress.com/2015/01/10/my-experience-converting-a-project-from-rust-0-12-to-1-0/">My experience converting a project from Rust 0.12 to 1.0
+  (alpha)</a>. Looks painful...</li>
+<li><a href="https://www.codementor.io/learn-programming/now-good-time-learn-rust">Is now a good time to learn Rust?</a>. A: wait 6-12
+  weeks. <a href="https://www.reddit.com/r/programming/comments/2ruixg/is_now_a_good_time_to_learn_rust/">/r/programming</a>.</li>
+<li><a href="http://bettong.net/2015/01/07/iomrascalai-a-great-way-to-learn-rust-or-about-ai/">Iomrascálaí: A Great Way to Learn Rust or About AI</a>. An AI for the
+  game of Go.</li>
+<li><a href="https://twitter.com/notch/status/554348548053929984">Notch says something about Rust</a>. Rust is official.</li>
+</ul>
+<h2 id="discussions">Discussions</h2>
+<ul>
+<li><a href="https://www.reddit.com/r/rust/comments/2rnked/rust_book_by_packt_publishing/">Rust book by Packt Publishing</a>. There is opportunity to be
+  involved in one of the first Rust books.</li>
+<li><a href="https://www.reddit.com/r/rust/comments/2rg60o/final_decision_on_builtin_integer_types_again/">Final decision on builtin integer types. Again</a>. Aftermath.</li>
+<li><a href="https://news.ycombinator.com/item?id=8871357">Operating system development in Rust</a>. Well-commented hacker
+  news discussion. Nothing new though.</li>
+<li><a href="http://news.ycombinator.com/item?id=8869167">151-byte static binary in Rust</a>. Keegan shows that Rust can
+  be small. <a href="https://www.reddit.com/r/rust/comments/2s0s9n/151byte_static_linux_binary_in_rust/">/r/rust</a>. <a href="https://www.reddit.com/r/programming/comments/2s1sgg/151byte_static_linux_binary_in_rust/">/r/programming</a>.</li>
+<li><a href="http://news.ycombinator.com/item?id=8869572">"hello world" contains Lovecraft quotes</a>. /me eyerolls</li>
+<li><a href="https://www.reddit.com/r/hackernews/comments/2rlaf5/tell_hn_google_removes_rust_netflix_other_github/">Google removes rust, Netflix, other GitHub repos after DMCA
+  takedown</a>. 'Cargo' looks suspiciously like
+  pornography. <a href="https://www.reddit.com/r/rust/comments/2rlaug/cargo_github_repo_link_has_been_dmcad_off_the/">/r/rust</a>.</li>
+<li><a href="https://www.reddit.com/r/programming/comments/2rlef7/how_big_a_deal_is_rust_really/">How big a deal is Rust, Really</a>? A: the biggest.</li>
+<li><a href="http://internals.rust-lang.org/t/pre-rfc-linear-type-modifier/1225">Pre-RFC: Linear type modifier</a>. Requires certain types to be
+  explicitly disposed.</li>
+<li><a href="https://www.reddit.com/r/rust/comments/2s4kp9/using_rust_10_for_video_game_development/">Using Rust 1. for video game development?</a>. Some up to date
+  info here.</li>
+</ul>
+<h2 id="new-projects">New Projects</h2>
+<ul>
+<li><a href="https://github.com/brson/multirust">multirust</a>. Manage multiple Rust toolchains.</li>
+<li><a href="https://github.com/ajtulloch/roogle">Roogle</a>. Hoogle 4 Rust.</li>
+<li><a href="https://gist.github.com/oakes/4af1023b6c5162c6f8f0">Rust for Clojurists</a>. An introduction to
+  Rust. <a href="https://www.reddit.com/r/rust/comments/2rsl5s/rust_for_clojurists/">/r/programming</a>.</li>
+<li><a href="https://github.com/Manishearth/rust-clippy">Clippy for Rust</a>. A collection of
+  lints. <a href="https://www.reddit.com/r/rust/comments/2rihkk/clippy_for_rust/">/r/rust</a>.</li>
+<li><a href="https://github.com/mikkyang/rust-blas">rust-blas</a>. Bindings to the immortal BLAS numerical library.</li>
+<li><a href="https://github.com/pythonesque/fallthrough">fallthrough</a>. A macro for fall-through match cases.</li>
+<li><a href="https://github.com/untitaker/rust-vobject">rust-vobject</a>. A vObject/iCalendar parser.</li>
+<li><a href="https://github.com/Ap0ph1s/ProjectEuler">ProjectEuler</a>. A new attempt at the Project Euler problems.</li>
+<li><a href="https://github.com/kmcallister/forkallcc">forkallcc</a>. Continuations with fork(2)!</li>
+<li><a href="https://github.com/TyOverby/construct">construct</a>. A macro for building arbitrary collections.</li>
+<li><a href="https://github.com/talevy/float_macros">float_macros</a>. CTFE for some float functions.</li>
+</ul>
+<h2 id="project-updates">Project Updates</h2>
+<ul>
+<li><a href="http://blog.servo.org/2015/01/06/twis-18/">This Week in Servo 18</a>.</li>
+<li><a href="https://lifthrasiir.github.io/rustlog/worklog-2015-01-10.html">Grisu and rust-strconv</a>. Yurume talks about his
+  implementation of the Grisu algorithm for converting floats to
+  strings. This work is likely to make it into std someday.</li>
+<li><a href="http://internals.rust-lang.org/t/announcing-support-for-rust-1-0-in-rust-explorer/1287">Announcing support for 1.0 in Rust Explorer</a>. Shows the
+  assembly of Rust code.</li>
+</ul>
+<h2 id="upcoming-events">Upcoming Events</h2>
+<p><a href="https://www.eventbrite.com/e/mozilla-rust-seattle-meetup-tickets-12222326307?aff=erelexporg">January 12 - Seattle Meetup</a>.
+<a href="https://www.eventbrite.com/e/rust-meet-up-in-beijing-tickets-14905925023">January 17 - Beijing Meetup</a>. Presantations about servo and
+zmq.rs.
+<a href="http://www.meetup.com/Rust-Bay-Area/events/203782472/">January 17 - Getting starting contributing to Rust</a>. A special SF
+Bay area meetup.</p>
+  </article>
+
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
