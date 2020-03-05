@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 328  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/web-min.css?83e113a5">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2020-03-03T00:00:00-05:00">03 MAR 2020</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2020/03/03/this-week-in-rust-328/">This Week in Rust 328</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta: safety, concurrency, and speed.
+This is a weekly summary of its progress and community.
+Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="https://github.com/cmr/this-week-in-rust">send us a pull request</a>.
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We love contributions</a>.</p>
+<p><em>This Week in Rust</em> is openly developed <a href="https://github.com/cmr/this-week-in-rust">on GitHub</a>.
+If you find any errors in this week's issue, <a href="https://github.com/cmr/this-week-in-rust/pulls">please submit a PR</a>.</p>
+<h1 id="updates-from-rust-community">Updates from Rust Community</h1>
+<h2 id="news-blog-posts">News &amp; Blog Posts</h2>
+<ul>
+<li><a href="https://blog.rust-lang.org/2020/02/27/Rust-1.41.1.html">Announcing Rust 1.41.1</a>.</li>
+<li><a href="https://fasterthanli.me/blog/2020/a-half-hour-to-learn-rust/">A half-hour to learn Rust</a>.</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2020/03/04/recent-future-pattern-matching-improvements.html">Recent and future pattern matching improvements</a>.</li>
+<li><a href="https://deterministic.space/high-performance-rust.html">Cheap tricks for high-performance Rust</a>.</li>
+<li><a href="https://blog.thoughtram.io/string-vs-str-in-rust/">Understanding String and &amp;str in Rust</a>.</li>
+<li><a href="https://caniuse.rs/">caniuse.rs - Rust feature search</a>.</li>
+<li><a href="https://ferrous-systems.com/blog/async-on-embedded/">Async/await on embedded Rust</a>.</li>
+<li><a href="https://research.nccgroup.com/2020/02/26/public-report-rustcrypto-aes-gcm-and-chacha20poly1305-implementation-review/">Audit of the RustCrypto <code>aes-gcm</code> and <code>chacha20poly1305</code> crates by NCC group</a>.</li>
+<li><a href="https://crisal.io/words/2020/02/28/C++-rust-ffi-patterns-1-complex-data-structures.html">FFI patterns #1 - Complex Rust data structures exposed seamlessly to C++</a>.</li>
+<li><a href="https://shahinrostami.com/posts/programming/rust-notebooks/multidimensional-arrays-and-operations-with-ndarray/">Multidimensional arrays and operations with NDArray</a>.</li>
+<li><a href="https://therealprof.github.io/blog/interrupt-comparison/">A look into ways to implement and share data with interrupt handlers in Rust</a>.</li>
+<li><a href="https://www.slowtec.de/posts/2020-02-28-porting-javascript-to-rust-part-3.html">Porting a JavaScript App to WebAssembly with Rust (Part 3)</a>.</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2020/02/27/pietro-joins-core-team.html">Pietro Albini has joined the core team</a>.</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2020/02/27/ffi-unwind-design-meeting.html">Announcing the first FFI-unwind project design meeting</a>.</li>
+<li><a href="https://os.phil-opp.com/status-update/2020-03-02/">Writing an OS in Rust: Updates in February 2020</a>.</li>
+<li><a href="https://rust-analyzer.github.io/thisweek/2020/03/02/changelog-14.html">rust-analyzer Changelog 14</a>.</li>
+<li><a href="https://intellij-rust.github.io/2020/03/02/changelog-117.html">IntelliJ Rust Changelog 117</a>.</li>
+<li><a href="https://www.rustsim.org/blog/2020/03/01/this-month-in-rustsim/">This month in rustsim 9</a>.</li>
+<li><a href="https://rustinblockchain.org/2020/03/04/rib-newsletter-9-the-month-of-working-from-home/">Rust in Blockchain newsletter 9: The month of working from home</a>.</li>
+<li><a href="https://github.com/tokio-rs/tokio/releases/tag/tokio-0.2.12">Tokio v0.2.12, includes <code>Notify</code>, an async/await synchronization primitive, and <code>StreamMap</code> for dynamic merging of streams</a>.</li>
+</ul>
+<h1 id="crate-of-the-week">Crate of the Week</h1>
+<p>This week's crates is <a href="https://github.com/huggingface/tokenizers">tokenizers</a>, a Rust crate with python &amp; nodejs bindings for fast text tokenization for machine learning.</p>
+<p>llogiq (who singlehandedly selected the crate) is pretty self-congratulatory.</p>
+<p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Submit your suggestions and votes for next week</a>!</p>
+<h1 id="call-for-participation">Call for Participation</h1>
+<p>Always wanted to contribute to open-source projects but didn't know where to start?
+Every week we highlight some tasks from the Rust community for you to pick and get started!</p>
+<p>Some of these tasks may also have mentors available, visit the task page for more information.</p>
+<ul>
+<li><a href="https://cfp.rustconf.com/events/rustconf-2020">The RustConf 2020 CFP is now open</a>. We'd love to hear from you at RustConf!</li>
+</ul>
+<p>If you are a Rust project owner and are looking for contributors, please submit tasks <a href="https://users.rust-lang.org/t/twir-call-for-participation/4821">here</a>.</p>
+<h1 id="updates-from-rust-core">Updates from Rust Core</h1>
+<p>304 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2020-02-24..2020-03-02">merged in the last week</a></p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/61812">implement Associated Type Defaults</a> (RFC #<a href="https://rust-lang.github.io/rfcs/2532-associated-type-defaults.html">2532</a>)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/69562">don't <code>bug</code> when taking discriminant of generator during dataflow</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69227">perf: buffer stderr when writing json errors/warnings</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69412">mark attributes consumed by <code>check_mod_attrs</code> as normal</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69623">stash API: remove panic to fix ICE</a></li>
+<li><a href="https://github.com/rust-lang/chalk/pull/332">chalk: changes needed to build in rustc</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69257">adjust Miri value visitor, and doc-comment layout components</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69408">miri: let machine canonicalize AllocIDs</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69379">fail on multiple declarations of <code>main</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/67332">don't instantiate so many copies of <code>drop_in_place</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/68528">mark other variants as uninitialized after switch on discriminant</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/68943">skip <code>Drop</code> terminators for enum variants without drop glue</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/67290">audit liballoc for leaks in <code>Drop</code> impls when user destructor panics</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/67637">add primitive module to libcore</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69385">relax str::get_unchecked precondition to permit empty slicing</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69581">fix aliasing violation in <code>align_to_mut</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/68712">add methods to 'leak' RefCell borrows as references with the lifetime of the original reference</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69538">stabilize <code>boxed_slice_try_from</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/68827"><code>BTreeMap</code> navigation done safer &amp; faster</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/69617">constify mem::forget</a></li>
+<li><a href="https://github.com/rust-lang/crates.io/pull/2214">crates.io: enable sorting crates by most recently added</a></li>
+<li><a href="https://github.com/rust-lang/rustlings/pull/269">rustlings: add clippy lints</a></li>
+</ul>
+<h2 id="approved-rfcs">Approved RFCs</h2>
+<p>Changes to Rust follow the Rust <a href="https://github.com/rust-lang/rfcs#rust-rfcs">RFC (request for comments) process</a>. These
+are the RFCs that were approved for implementation this week:</p>
+<p><em>No RFCs were approved this week.</em></p>
+<h2 id="final-comment-period">Final Comment Period</h2>
+<p>Every week <a href="https://www.rust-lang.org/team.html">the team</a> announces the
+'final comment period' for RFCs and key PRs which are reaching a
+decision. Express your opinions now.</p>
+<h3 id="rfcs"><a href="https://github.com/rust-lang/rfcs/labels/final-comment-period">RFCs</a></h3>
+<ul>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rfcs/pull/2834">Cargo report future-incompat</a>.</li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rfcs/pull/2843">Add llvm_asm! and deprecate asm!</a>.</li>
+</ul>
+<h3 id="tracking-issues-prs"><a href="https://github.com/rust-lang/rust/labels/final-comment-period">Tracking Issues &amp; PRs</a></h3>
+<ul>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/69201">Permit attributes on 'if' expressions</a>.</li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/66059">mem::zeroed/uninit: panic on types that do not permit zero-initialization</a>.</li>
+</ul>
+<h2 id="new-rfcs">New RFCs</h2>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/2873">Inline assembly</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/2872">Rust-lang org GitHub access policy</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/2871">Clarifying UnwindSafe</a>.</li>
+</ul>
+<h1 id="upcoming-events">Upcoming Events</h1>
+<h3 id="asia-pacific">Asia Pacific</h3>
+<ul>
+<li><a href="https://docs.google.com/forms/d/e/1FAIpQLScSe4xQycs5i3PtEtR9GAj4vdkWUhwW3v0BiTQFpps4l7PgIA/viewform">Mar 21-22. Kuala Lumpur, MY - Rust Workshop + Mini-Hackathon</a>.</li>
+</ul>
+<h3 id="europe">Europe</h3>
+<ul>
+<li><a href="https://www.meetup.com/Rust-Hack-Learn-Karlsruhe/events/268299172/">Mar  9. Karlsruhe, DE - Rust Meetup</a></li>
+<li><a href="https://www.meetup.com/Rust-Oslo/events/268738879">Mar 11. Oslo, NO - Rust Oslo - Lightning talks</a>.</li>
+<li><a href="https://www.meetup.com/Mozilla-Torino/events/268822794">Mar 12. Turin, IT - Mozilla Torino - Gruppo di studio Rust alla Torino hacknight</a>.</li>
+<li><a href="https://www.meetup.com/Rust-Warsaw/events/269164365/">Mar 19. Warsaw, PL - Rust Warsaw 4</a>.</li>
+<li><a href="https://www.meetup.com/opentechschool-berlin/events/gztznrybcfbzb/">Mar 19. Berlin, DE - OpenTechSchool Berlin - Rust Hack and Learn</a>.</li>
+</ul>
+<h3 id="north-america">North America</h3>
+<ul>
+<li><a href="https://www.meetup.com/Rust-Boulder-Denver/events/267834799/">Mar 10. Denver, CO, US - Rust Boulder/Denver - March Meetup</a>.</li>
+<li><a href="https://www.meetup.com/Seattle-Rust-Meetup/events/prbtdrybcfbnb/">Mar 10. Redmond, WA, US - Seattle Rust Meetup - Monthly meetup in Redmond</a>.</li>
+<li><a href="https://www.meetup.com/Rust-ATL/events/qxqdgrybcfbpb/">Mar 11. Atlanta, GA, US - Rust Atlanta - Grab a beer with fellow Rustaceans</a>.</li>
+<li><a href="https://www.facebook.com/events/469382520642102">Mar 11. Houston, TX, US - Houston Linux Users Group - Rust Study Group</a>.</li>
+<li><a href="https://www.meetup.com/PDXRust/events/269055813/">Mar 11. Portland, OR, US - PDXRust - Rust Lightning Talks! By You</a>.</li>
+<li><a href="https://www.meetup.com/columbus-rs/events/dpkhgrybcfbqb/">Mar 12. Columbus, OH, US - Columbus Rust Society - Monthly Meeting</a>.</li>
+<li><a href="https://www.meetup.com/utah-rust/events/268567961/">Mar 12. Lehi, UT, US - Utah Rust - The Blue Pill: Rust on Microcontrollers</a>.</li>
+<li><a href="https://www.meetup.com/San-Diego-Rust/events/269191953/">Mar 12. San Diego, CA, US - San Diego Rust - March Meetup</a>.</li>
+<li><a href="https://www.meetup.com/Vancouver-Rust/events/qnrgnrybcfbxb/">Mar 18. Vancouver, BC, CA - Vancouver Rust - Rust Study/Hack/Hang-out night</a>.</li>
+</ul>
+<p>If you are running a Rust event please add it to the <a href="https://www.google.com/calendar/embed?src=apd9vmbc22egenmtu5l6c5jbfc%40group.calendar.google.com">calendar</a> to get
+it mentioned here. Please remember to add a link to the event too.
+Email the <a href="mailto:community-team@rust-lang.org">Rust Community Team</a> for access.</p>
+<h1 id="rust-jobs">Rust Jobs</h1>
+<ul>
+<li><a href="https://aleph-alpha.de/sw_engineer.html?language=de">Infrastructure Engineer at Aleph Alpha, Heidelberg, Germany</a>.</li>
+</ul>
+<p><em>Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> to get your job offers listed here!</em></p>
+<h1 id="quote-of-the-week">Quote of the Week</h1>
+<blockquote>
+<p>Hi, fellow Crustaceans!
+I am a newbie of Rust programming language. A nauplius.</p>
+</blockquote>
+<p>– <a href="https://users.rust-lang.org/t/how-can-i-improve-this/38711">GhostProc on rust-users</a></p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328/822">Tom Phinney</a> for the suggestions!</p>
+<p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
+<p><em>This Week in Rust is edited by: <a href="https://github.com/nasa42">nasa42</a> and <a href="https://github.com/llogiq">llogiq</a>.</em></p>
+<p><small><a href="">Discuss on r/rust</a>.</small></p>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2020/02/25/this-week-in-rust-327/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 327</span>
+    </span>
+  </a>
+
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter, every Tuesday. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/cmr/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
