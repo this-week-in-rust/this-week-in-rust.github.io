@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 395  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg">
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000">
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2021-06-16T00:00:00-04:00">16 JUN 2021</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2021/06/16/this-week-in-rust-395/">This Week in Rust 395</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta: safety, concurrency, and speed.
+This is a weekly summary of its progress and community.
+Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="https://github.com/rust-lang/this-week-in-rust">send us a pull request</a>.
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We love contributions</a>.</p>
+<p><em>This Week in Rust</em> is openly developed <a href="https://github.com/rust-lang/this-week-in-rust">on GitHub</a>.
+If you find any errors in this week's issue, <a href="https://github.com/rust-lang/this-week-in-rust/pulls">please submit a PR</a>.</p>
+<h2 id="updates-from-rust-community">Updates from Rust Community</h2>
+<p><strong>Highlight</strong>
+CW: Suicide, Mental Health</p>
+<p>The following post mourns the death of somebody in the Rust community.
+This is a very sensitive topic, and it's hard to truly do justice to the loss of human life.
+The most important thing we can do is to raise awareness surrounding mental health.</p>
+<p>If you or somebody you know is in need of a suicide prevention hotline,
+please visit <a href="https://www.opencounseling.com/suicide-hotlines">https://www.opencounseling.com/suicide-hotlines</a> for emergency and suicide prevention hotline phone numbers in your country.</p>
+<p><a href="https://www.redox-os.org/news/open-source-mental-health/">Open Source and Mental Health</a></p>
+<h3 id="official">Official</h3>
+<ul>
+<li>[Inside] <a href="https://blog.rust-lang.org/inside-rust/2021/06/15/1.53.0-prelease.html">1.53.0 pre-release testing</a></li>
+<li>[Inside] <a href="https://blog.rust-lang.org/inside-rust/2021/06/15/boxyuwu-leseulartichaut-the8472-compiler-contributors.html">Please welcome Boxy, Léo Lanteri Thauvin and the8472 to compiler-contributors</a></li>
+</ul>
+<h3 id="newsletters">Newsletters</h3>
+<ul>
+<li><a href="https://gamedev.rs/news/022/">This Month in Rust GameDev #22 - May 2021</a></li>
+</ul>
+<h3 id="projecttooling-updates">Project/Tooling Updates</h3>
+<ul>
+<li><a href="https://rust-analyzer.github.io/thisweek/2021/06/14/changelog-81.html">rust-analyzer Changelog #81</a></li>
+<li><a href="https://github.com/awslabs/aws-sdk-rust/releases/tag/v0.0.8-alpha">AWS-SDK-Rust: CloudFormation, SageMaker, EC2, and SES</a></li>
+<li><a href="https://confused.ai/posts/announcing-aya">Announcing Aya</a></li>
+<li><a href="https://tensorbase.io/thisweek/2021-06-16-tw_7/">This Week In TensorBase 7</a></li>
+<li><a href="https://blog.sunfishcode.online/introducing-cap-std/">Introducing cap-std, a capability-based version of the Rust standard library</a></li>
+<li><a href="https://wasmer.io/posts/wasmer-2.0">Wasmer 2.0, it's a big deal!</a></li>
+<li><a href="https://www.reddit.com/r/rust/comments/nwdyip/new_create_announcement_iterate/">New crate announcement, <code>iterate</code></a></li>
+<li><a href="https://github.com/BurntSushi/ripgrep/releases/tag/13.0.0">ripgrep 13.0.0 release</a></li>
+</ul>
+<h3 id="observationsthoughts">Observations/Thoughts</h3>
+<ul>
+<li><a href="https://blog.cr0.org/2021/06/a-few-thoughts-on-fuchsia-security.html">A few thoughts on Fuchsia security</a></li>
+<li><a href="https://console.dev/interviews/atuin-ellie-huxtable/">On using Rust to implement shell history search/sync (interview with Ellie Huxtable)</a></li>
+<li><a href="https://deepu.tech/memory-management-in-rust/">Visualizing memory management in Rust</a></li>
+<li>[audio] <a href="https://youtu.be/iQer8hUu0Es">Using Rust with Flutter</a></li>
+</ul>
+<h3 id="rust-walkthroughs">Rust Walkthroughs</h3>
+<ul>
+<li><a href="https://blog.knoldus.com/embedded-rust-build-flash-binary-to-stm32f3discovery/">Embedded-Rust: Build &amp; Flash binary to STM32F3DISCOVERY</a></li>
+<li><a href="https://pwy.io/en/posts/learning-to-fly-pt4/">Learning to Fly: Let's simulate evolution in Rust! (pt 4)</a></li>
+<li><a href="https://dstancu.net/macos/rust/ffi/xpc/ncurses/2021/06/15/rust-xpc-ffi.html">Baby's first Rust with extra steps (XPC, launchd, and FFI)!</a></li>
+<li><a href="https://cprimozic.net/blog/speeding-up-webcola-with-webassembly/">Speeding Up the WebCola Graph Viz Library with Rust + WebAssembly</a></li>
+<li><a href="https://blog.alexqua.ch/posts/from-nand-to-raytracer/">From NAND to Raytracer: Raytracing on the Hack computer (feat. Rust)</a></li>
+<li><a href="https://rymc.io/blog/2021/cacao-rs-macos-ios-rust/">Cacao: Building macOS (and iOS) Apps in Rust</a></li>
+<li><a href="https://dev.to/naruhodo/build-an-api-in-rust-part-1-5c4g">Build an API in Rust (Part 1)</a></li>
+<li><a href="https://dev.to/pancy/learn-to-build-a-parser-in-rust-for-fun-and-profit-2id5">Learn to Build a Parser in Rust for Fun and Profit</a></li>
+<li><a href="https://dev.to/nicholaschiasson/beginner-s-guide-to-running-rust-on-aws-lambda-277n">Beginner's Guide to Running Rust on AWS Lambda</a></li>
+<li><a href="https://dev.to/sirneij/a-command-line-key-value-data-store-using-the-rust-programming-language-33b6">A Command Line Key-Value Data Store using the Rust Programming Language.</a></li>
+<li><a href="https://dev.to/smrpn/how-to-use-casbin-authorization-in-your-rust-web-app-part-3-4g2f">How to use casbin authorization in your rust web-app (part 3)</a></li>
+<li><a href="https://medium.com/tezedge/speeding-up-incoming-message-parsing-by-3-to-10-times-by-switching-from-serde-to-the-nom-library-a74b04391bb4">Speeding up incoming message parsing by 3- to 10-times by switching from serde to the nom library</a></li>
+<li>[ZH] [series] <a href="https://blog.budshome.com/budshome/rust-he-wasm-de-rong-he-,shi-yong-yew-gou-jian-web-qian-duan-(3)--zi-yuan-wen-jian-ji-xiao-zhong-gou">Build front-end web apps with Yew and WebAssembly in Rust -part 3: Assets &amp; Refactor (Rust 和 Wasm 的融合，使用 yew 构建 web 前端（3）- 资源文件及小重构)</a></li>
+<li>[ZH] [series] <a href="https://blog.budshome.com/budshome/rust-he-wasm-de-rong-he-,shi-yong-yew-gou-jian-web-qian-duan-(4)--huo-qu-graphql-shu-ju-bing-jie-xi">Build front-end web apps with Yew and WebAssembly in Rust -part 4: GraphQL data &amp; Parsing (Rust 和 Wasm 的融合，使用 yew 构建 web 前端（4）- 获取 GraphQL 数据并解析)</a></li>
+<li>[video] <a href="https://youtu.be/Wmq3etdwCbM">Building a Web Application with Rust - Part 1 - Configuration</a></li>
+<li>[video] <a href="https://youtu.be/c9qSGUHgE1c">Building a Web Application with Rust - Part 2 - Database Setup</a></li>
+<li>[video] <a href="https://youtu.be/tNzCj8691LE">Lock-Free to Wait-Free Simulation in Rust (part 2)</a></li>
+</ul>
+<h3 id="research">Research</h3>
+<h3 id="miscellaneous">Miscellaneous</h3>
+<ul>
+<li><a href="https://developers.facebook.com/blog/post/2021/06/03/meet-rustaceans-neil-mitchell/">Meet the Rustaceans: A series of interviews with Facebook Rust engineers</a></li>
+<li><a href="https://www.reddit.com/r/rust/comments/nyd1qw/pop_os_uses_a_lot_of_rust/">Pop!_OS uses a lot of Rust</a></li>
+<li><a href="https://blog.cr0.org/2021/06/a-few-thoughts-on-fuchsia-security.html?m=1">A few thoughts on Fuchsia security</a></li>
+<li>[video] <a href="https://youtu.be/nY07zWzhyn4">Keynote: Bryan Cantrill - Hardware/Software Co-design: The Coming Golden Age</a></li>
+</ul>
+<h2 id="crate-of-the-week">Crate of the Week</h2>
+<p>This week has two crates: <a href="https://github.com/nativeshell/nativeshell">nativeshell</a> gets you a Flutter app in Rust, while <a href="https://github.com/matthieu-m/static-rc">static-rc</a> is a compile-time reference-counted smart pointer.</p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/crate-of-the-week/2704/922">Zicklag</a> for both nominations</p>
+<p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Submit your suggestions and votes for next week</a>!</p>
+<h2 id="call-for-participation">Call for Participation</h2>
+<p>Always wanted to contribute to open-source projects but didn't know where to start?
+Every week we highlight some tasks from the Rust community for you to pick and get started!</p>
+<p>Some of these tasks may also have mentors available, visit the task page for more information.</p>
+<ul>
+<li><a href="https://github.com/boa-dev/boa/labels/good%20first%20issue">boa-dev/boa has some good first issues</a></li>
+<li><a href="https://github.com/softprops/shiplift/issues/301">softprops/shiplift - We have too many unwrap() calls in the codebase</a></li>
+</ul>
+<p>If you are a Rust project owner and are looking for contributors, please submit tasks <a href="https://users.rust-lang.org/t/twir-call-for-participation/4821">here</a>.</p>
+<h2 id="updates-from-rust-core">Updates from Rust Core</h2>
+<p>289 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2021-06-07..2021-06-14">merged in the last week</a></p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/86117">fix force-warns to allow dashes</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86116">suggest a trailing comma if a 1-tuple is expected and a parenthesized expression is found</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86215">do not suggest to add type annotations for unnameable types</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85630"><code>to_digit</code> simplification (less jumps)</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/84687">multiple improvements to <code>RwLock</code>s</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85791">add <code>Ipv6Addr::is_unicast</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86204">stabilize <code>wasm simd intrinsics</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86273">stabilize <code>maybe_uninit_ref</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86233">stabilize <code>simd_x86_bittest</code></a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/9561">cargo: implement warning for ignored trailing arguments</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7262">clippy: fix <code>while_let_on_iterator</code> suggestion in a closure</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7345">clippy: remove requirement of fully qualified path for <code>disallowed_method</code>/<code>type</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7326">clippy: fix false positive on <code>semicolon_if_nothing_returned</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7325">clippy: fix false positive in <code>default_numeric_fallback</code> with external macro expansion</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7270">clippy: <code>Vec</code> <code>extend</code> to <code>append</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/79608">BPF target support</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85788">support for force-warns</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85292">improve debugging experience for enums on windows-msvc</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/84995">parser: ensure that all nonterminals have tokens after parsing</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85979">don't suggest unsized indirection in where-clauses</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/84988">rustc: allow safe <code>#[target_feature]</code> on wasm</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/86002">always go through the <code>expn_that_defined</code> query</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85892">perf: miscellaneous inlining improvements</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85905">perf: only compute the trait map once</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/83362">stabilize <code>vecdeque_binary_search</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/85930">update standard library for <code>IntoIterator</code> implementation of arrays</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7319">clippy: don't warn about <code>cfg!(..)</code> as a constant in assertions</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7289">clippy: fix <code>needless_collect</code> with binding shadowing</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/7265">clippy: add lint <code>manual_str_repeat</code></a></li>
+</ul>
+<h3 id="rust-compiler-performance-triage">Rust Compiler Performance Triage</h3>
+<p>Some good improvements, and a few regressions. No large changes.</p>
+<p>Triage done by <strong>@simulacrum</strong>.
+Revision range: <a href="https://perf.rust-lang.org/?start=1160cf864f2a0014e3442367e1b96496bfbeadf4&amp;end=a50d72158e08e02cfc051b863017bdbd2c45b637&amp;absolute=false&amp;stat=instructions%3Au">1160cf..a50d721</a></p>
+<p>3 Regressions, 3 Improvements, 1 Mixed; 1 of them in rollups</p>
+<p><a href="https://github.com/rust-lang/rustc-perf/blob/master/triage/2021-06-08.md">Full report here</a>.</p>
+<h3 id="approved-rfcs">Approved RFCs</h3>
+<p>Changes to Rust follow the Rust <a href="https://github.com/rust-lang/rfcs#rust-rfcs">RFC (request for comments) process</a>. These
+are the RFCs that were approved for implementation this week:</p>
+<p><em>No RFCs were approved this week.</em></p>
+<h3 id="final-comment-period">Final Comment Period</h3>
+<p>Every week <a href="https://www.rust-lang.org/team.html">the team</a> announces the
+'final comment period' for RFCs and key PRs which are reaching a
+decision. Express your opinions now.</p>
+<h3 id="rfcs"><a href="https://github.com/rust-lang/rfcs/labels/final-comment-period">RFCs</a></h3>
+<ul>
+<li>[disposition: close] <a href="https://github.com/rust-lang/rfcs/pull/3057">Add the boxed!() macro to "de-magic" box syntax</a></li>
+</ul>
+<h3 id="tracking-issues-prs"><a href="https://github.com/rust-lang/rust/labels/final-comment-period">Tracking Issues &amp; PRs</a></h3>
+<ul>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/86136">Stabilize span_open() and span_close().</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/85746">Redefine ErrorKind::Other and stop using it in std.</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/85270">When using process::Command on Windows, environment variable names must be case-preserving but case-insensitive</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/85200">Ignore derived Clone and Debug implementations during dead code analysis</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/81360">Support forwarding caller location through trait object method call</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/issues/61356">Tracking issue for ops::Bound::cloned()</a></li>
+</ul>
+<h3 id="new-rfcs">New RFCs</h3>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3140">RFC: fallible-allocation</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3139">Cargo alternative registry auth</a></li>
+</ul>
+<h2 id="upcoming-events">Upcoming Events</h2>
+<h3 id="online">Online</h3>
+<ul>
+<li><a href="https://www.meetup.com/Rust-Boulder-Denver/events/277575285/">June 17, 2021, Denver, CO, US - Learning Rust as a Python/Javascript developer by Juhis - Rust Denver</a></li>
+<li><a href="https://www.youtube.com/watch?v=DIxjk0HTx5U">June 18, 2021, Online - Learn Rust Fundamentals | Rust 101 - KubeDaily</a></li>
+<li><a href="https://www.meetup.com/Dallas-Rust/events/jqxqwryccjbmc/">June 29. 2021, Dallas, TX, US - Last Tuesday - Dallas Rust</a></li>
+</ul>
+<p>If you are running a Rust event please add it to the <a href="https://www.google.com/calendar/embed?src=apd9vmbc22egenmtu5l6c5jbfc%40group.calendar.google.com">calendar</a> to get
+it mentioned here. Please remember to add a link to the event too.
+Email the <a href="mailto:community-team@rust-lang.org">Rust Community Team</a> for access.</p>
+<h1 id="rust-jobs">Rust Jobs</h1>
+<p><strong>Tweede golf</strong></p>
+<ul>
+<li><a href="https://tweedegolf.nl/vacatures/2/lead-developer-embedded-rust">Lead Developer Embedded Rust (Nijmegen, NL)</a></li>
+</ul>
+<p><strong>Paige</strong></p>
+<ul>
+<li><a href="https://boards.greenhouse.io/paige/jobs/5210311002">Senior Software Engineer, Visualization (Remote, Europe)</a></li>
+</ul>
+<p><strong>ChainSafe Systems</strong></p>
+<ul>
+<li><a href="https://jobs.smartrecruiters.com/ChainSafeSystemsInc/743999739358248-rust-developer">Rust Developer (Remote)</a></li>
+</ul>
+<p><strong>Gnosis</strong></p>
+<ul>
+<li><a href="https://arbeitnow.com/view/ethereum-core-developer-mwd-gnosis-126355">Ethereum Core Developer (Remote)</a></li>
+</ul>
+<p><strong>Braiins</strong></p>
+<ul>
+<li><a href="https://braiins.com/careers/rust-developer">Rust Developer (Prague, CZ)</a></li>
+</ul>
+<p><strong>NZXT</strong></p>
+<ul>
+<li><a href="https://nzxt.bamboohr.com/jobs/view.php?id=259">Senior Software Engineer for CAM (Remote)</a></li>
+<li><a href="https://nzxt.bamboohr.com/jobs/view.php?id=317">Senior Software Engineer for Streaming Software (Remote)</a></li>
+</ul>
+<p><strong>Kollider</strong></p>
+<ul>
+<li><a href="https://kollider.homerun.co/junior-backend-engineer/en">Junior Backend Engineer (Remote)</a></li>
+<li><a href="https://kollider.homerun.co/senior-backend-engineer/en">Senior Backend Engineer (Remote)</a></li>
+<li><a href="https://kollider.homerun.co/devops-engineer/en">DevOps Engineer (Remote)</a></li>
+</ul>
+<p><em>Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> to get your job offers listed here!</em>
+ChainSafe Systems </p>
+<h1 id="quote-of-the-week">Quote of the Week</h1>
+<blockquote>
+<p>If manually managing memory is like wielding a gun, the borrow checker is an automatic safety that prevents you from pulling the trigger when you're roughly pointing it at yourself. But it's coarse-grained and errs on the side of caution; it simulates your foot as as the rectangular box that would contain it, not as a detailed 3D mesh. If you <em>really</em> think you can aim it between your toes and avoid hitting yourself (for example, "the value returned by this function must remain alive for no more than 15 successive invocations of this function"), unsafe will let you try, but the borrow checker's built-in rules isn't granular enough to help you, though it will still stop you if you accidentally put your hand in front without declaring it.</p>
+</blockquote>
+<p>– <a href="https://news.ycombinator.com/item?id=27468885">infogulch on Hacker News</a></p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328/1056">StyMaar</a> for the suggestion!</p>
+<p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
+<p><em>This Week in Rust is edited by: <a href="https://github.com/nellshamrell">nellshamrell</a>, <a href="https://github.com/llogiq">llogiq</a>, and <a href="https://github.com/cdmistman">cdmistman</a>.</em></p>
+<p><small><a href="https://www.reddit.com/r/rust/comments/k5nsab/this_week_in_rust_367/">Discuss on r/rust</a></small></p>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2021/06/09/this-week-in-rust-394/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 394</span>
+    </span>
+  </a>
+
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
