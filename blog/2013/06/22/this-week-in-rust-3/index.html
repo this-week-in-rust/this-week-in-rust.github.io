@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <meta name="author" content="TWiR Contributors" />
     <meta name="copyright" content="TWiR Contributors" />
@@ -18,12 +18,12 @@
     <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
     <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg">
-    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000">
+    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
 
   </head>
   <body>
@@ -58,7 +58,7 @@ inclusion into twir. I'll no longer be including issue churn/PR numbers, and I
 hope I didn't miss any import PRs in the last two issues.</p>
 <!-- more -->
 
-<h1 id="whats-cooking-in-incoming">What's cooking in incoming?</h1>
+<h1>What's cooking in incoming?</h1>
 <p>The last of the tree breakage has been cleaned up. The mysterious stack
 corruption was traced down by Blei to occur in jemalloc. It has been disabled
 until the real cause of the error is found. A bunch more buildbot
@@ -68,7 +68,7 @@ tree is open, and aatch got out a new snapshot!</p>
 tree has been closed (and the extra auto buildbots lengthen the time it takes
 for a PR to be tested for the day it has been open), not much has landed these
 past few days, but a bunch happened earlier this week.</p>
-<h2 id="notable-additions-bugfixes-and-cleanup">Notable additions, bugfixes, and cleanup</h2>
+<h2>Notable additions, bugfixes, and cleanup</h2>
 <ul>
 <li>doener made compiles faster by emitting less useless copies and allocations
   in <a href="https://github.com/mozilla/rust/pull/7259">7259</a></li>
@@ -87,52 +87,53 @@ past few days, but a bunch happened earlier this week.</p>
   IR better, reducing compile time, and also allowing better optimization,
   reducing binary size.</li>
 </ul>
-<p>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7259 %}
-They reduce compile times by about 10% in total.
-{% endblockquote %}</p>
-<p>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7186 %}
+<p _="%" endblockquote>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7259 %}
+They reduce compile times by about 10% in total.</p>
+<p _="%" endblockquote>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7186 %}
 Reduces the size of librustc by about 5% and the time required to build
-it by about 10%.
-{% endblockquote %}</p>
-<p>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7154 %}
+it by about 10%.</p>
+<p _="%" endblockquote>{% blockquote @dotdash https://github.com/mozilla/rust/pull/7154 %}
 The resulting code for rustc is about 13% faster (measured up to and
 including the "trans" pass) and the resulting librustc is about 5%
-smaller.
-{% endblockquote %}</p>
-<h2 id="breaking-changes">Breaking changes</h2>
+smaller.</p>
+<h2>Breaking changes</h2>
 <p>strcat <a href="https://github.com/mozilla/rust/pull/7263">continues</a>
 <a href="https://github.com/mozilla/rust/pull/7162">work</a> with iterators. The changes
 that landed are vector cleanups. Probably most importantly, the <code>each</code> and
 <code>eachi</code> methods are being removed. The <code>eachi</code> removal landed but the <code>each</code>
 one broke bors, so it's currently in limbo (<strong>UPDATE</strong> 6/23/2013: it landed).
 The current replacement is:</p>
-<p><code>// each
-for your_vec.iter().advance |element| {
-  ...
-}
-// eachi
-for your_vec.iter().enumerate().advance |(i, element)| {
-  ...
-}</code></p>
+<div class="highlight"><pre><span></span><code><span class="err">// each</span>
+<span class="err">for your_vec.iter().advance |element| {</span>
+<span class="err">  ...</span>
+<span class="err">}</span>
+<span class="err">// eachi</span>
+<span class="err">for your_vec.iter().enumerate().advance |(i, element)| {</span>
+<span class="err">  ...</span>
+<span class="err">}</span>
+</code></pre></div>
+
 <p>Once the rest of the iterator work is hashed out and lands, it will just be</p>
-<p><code>// each
-for your_vec |element| {
-  ...
-}
-// eachi
-for your_vec.enumerate() |(i, element)| {
-  ...
-}</code></p>
+<div class="highlight"><pre><span></span><code><span class="err">// each</span>
+<span class="err">for your_vec |element| {</span>
+<span class="err">  ...</span>
+<span class="err">}</span>
+<span class="err">// eachi</span>
+<span class="err">for your_vec.enumerate() |(i, element)| {</span>
+<span class="err">  ...</span>
+<span class="err">}</span>
+</code></pre></div>
+
 <p>although the syntax might be slightly different (<code>for element in your_vec</code> is
 my favorite proposal).</p>
-<h1 id="meetings">Meetings</h1>
+<h1>Meetings</h1>
 <p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-06-18">Tuesday
 meeting's</a>
 main topics were once fn's and how namespaces work. For once fn's, graydon
 says "I'm concerned with adding new features and I want to see if we can live
 without it, I understand it is common," not yet making a decision to include
 them in the language.</p>
-<h1 id="meetups">Meetups</h1>
+<h1>Meetups</h1>
 <ul>
 <li>tjc's pre-talk and talk, "Rust: A Friendly Introduction" went very well. The
   <a href="http://catamorphism.org/Writing/Rust-Tutorial-tjc.pdf">slides</a> are up, and
@@ -141,7 +142,7 @@ them in the language.</p>
 <li>nmatsakis has expressed willingness/interest in a Boston meetup sometime. If
   you're interested, contact him on IRC or the ML.</li>
 </ul>
-<h1 id="notable-discourse-and-external-projects">Notable discourse and external projects</h1>
+<h1>Notable discourse and external projects</h1>
 <ul>
 <li><a href="http://maniagnosis.crsr.net/2013/06/mmap-and-rust-foreign-function-interface.html">mmap and the Rust FFI</a>
   (indutny is working on mman bindings in libc, for the record. will mention
@@ -154,7 +155,7 @@ them in the language.</p>
 <li><a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004520.html">rustdoc rewrite and redesign</a></li>
 <li><a href="http://www.reddit.com/r/rust/comments/1gmac5/linux_rustbench_a_tool_for_profiling_memory_usage/">rust-bench: a tool for profiling memory usage</a></li>
 </ul>
-<h1 id="other-announcements">Other announcements</h1>
+<h1>Other announcements</h1>
 <ul>
 <li>Michael Woerister (mw), the GSoC student working on debug info, has begun
   work. His <a href="http://michaelwoerister.github.io/">project log</a> will be updated
@@ -162,23 +163,6 @@ them in the language.</p>
 </ul>
   </article>
 
-<nav class="post-neighbors">
-  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2013/06/15/this-week-in-rust-2/">
-    <span class="neighbor-arrow">«</span>
-    <span class="neighbor-content">
-      <span class="neighbor-label">Previous:</span>
-      <span class="neighbor-title">This Week In Rust 2</span>
-    </span>
-  </a>
-
-  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2013/06/29/this-week-in-rust-4/">
-    <span class="neighbor-content">
-      <span class="neighbor-label">Next:</span>
-      <span class="neighbor-title">This Week in Rust 4</span>
-    </span>
-    <span class="neighbor-arrow">»</span>
-  </a>
-</nav>
 </div>
 
 <div class="row text-center">

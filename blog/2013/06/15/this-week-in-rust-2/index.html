@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <meta name="author" content="TWiR Contributors" />
     <meta name="copyright" content="TWiR Contributors" />
@@ -18,12 +18,12 @@
     <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
     <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg">
-    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000">
+    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
 
   </head>
   <body>
@@ -56,7 +56,7 @@ meeting summaries, meetups, and anything else pertinent.</p>
 that is how I, and most everyone, interacts in the community.</p>
 <!-- more -->
 
-<h1 id="whats-cooking-in-incoming">What's cooking in incoming?</h1>
+<h1>What's cooking in incoming?</h1>
 <p>There's been a lot of breakage on incoming this week, with jemalloc breaking
 32bit cross-compilation as well as random segfaults and stack corruption of
 unknown cause.  Some heroics by the core devs have got it mostly cleaned up,
@@ -65,11 +65,11 @@ improvements have landed, and achricto rewrote <code>rusti</code>.</p>
 <p>There were 17 pull requests merged this week. Total issue churn (excludes pull
 requests) this week was +2 (this excludes the 38 pull requests that were
 closed when incoming was killed).</p>
-<h2 id="incoming-branch-annihilated"><code>incoming</code> branch annihilated</h2>
+<h2><code>incoming</code> branch annihilated</h2>
 <p>Goodbye <code>incoming</code>, hello <code>master</code>! This change, long in coming, unfortunately
 closed all open PRs. Start doing your development against <code>master</code> rather than
 incoming.</p>
-<h2 id="notable-additions-bugfixes-and-cleanups">Notable additions, bugfixes, and cleanups</h2>
+<h2>Notable additions, bugfixes, and cleanups</h2>
 <p>There's a concerted effort to remove duplicate freestanding functions where
 possible.</p>
 <ul>
@@ -92,7 +92,7 @@ possible.</p>
 <li>doener has got <a href="https://github.com/mozilla/rust/pull/7154">some nice</a> <a href="https://github.com/mozilla/rust/pull/7144">performance</a> PRs in place.</li>
 <li>aatch is working on <a href="https://github.com/mozilla/rust/pull/7124">cleaning up trans</a>. Huge thanks to him!</li>
 </ul>
-<h2 id="breaking-changes">Breaking changes</h2>
+<h2>Breaking changes</h2>
 <ul>
 <li>dbaupp and strcat continue their cleanup of the standard library, removing
   the ad-hoc iterator functions where <code>std::iterator</code> can replace them.</li>
@@ -101,7 +101,7 @@ possible.</p>
 <li>If you're working in the stdlib, acrichto has toggled most of the lint
   settings to "deny" for std/extra, so watch out.</li>
 </ul>
-<h1 id="meetings">Meetings</h1>
+<h1>Meetings</h1>
 <p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-06-11">Tuesday meeting</a> talked about bblum's <a href="https://github.com/mozilla/rust/wiki/Proposal-for-effects">Effect proposal</a>,
 removing the master/incoming split, and "alloc expressions", a replacement for
 @-sigils.</p>
@@ -114,14 +114,13 @@ coverage on bors would harmfully impact development speed.</p>
 <p>The proposed syntax for alloc expressions is <code>new (provider) expr</code>, with <code>new
 expr</code> becoming the replacement for the current <code>~expr</code>. This would allow
 custom smart pointers. pcwalton ended the meeting with a huge cliff hanger</p>
-<p>{% blockquote %}
+<p _="%" endblockquote>{% blockquote %}
 I've been meaning to talk a little bit today about simplifying the
 mut-borrowing story in regards to this, we may be able to effect a large
-simplification on the language
-{% endblockquote %}</p>
+simplification on the language</p>
 <p>Personally, I think <a href="https://gist.github.com/Kimundi/5744578">kimundi's proposal</a> has a lot of promise, and the
 syntax is more pleasing to me. It wasn't brought up at the meeting, though.</p>
-<h1 id="meetups">Meetups</h1>
+<h1>Meetups</h1>
 <ul>
 <li>The Mountain View meetup was a great success. 18 showed up. erickt is
   planning for another SF Bay area meetup in July. If you want to give a
@@ -132,7 +131,7 @@ syntax is more pleasing to me. It wasn't brought up at the meeting, though.</p>
   details. This is a preview of a talk he will be giving at <a href="http://opensourcebridge.org/sessions/970">Open Source
   Bridge</a>, also in Portland.</li>
 </ul>
-<h1 id="notable-discourse">Notable discourse</h1>
+<h1>Notable discourse</h1>
 <ul>
 <li>Still more discussion about <a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004364.html">iterators</a>, this time focusing around
   <a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004465.html">changing the semantics</a> of the <code>for</code> loop.</li>
@@ -147,29 +146,12 @@ syntax is more pleasing to me. It wasn't brought up at the meeting, though.</p>
   http://smallcultfollowing.com/babysteps/blog/2013/06/11/data-parallelism-in-rust/</li>
 <li>http://smallcultfollowing.com/babysteps/blog/2013/06/11/on-the-connection-between-memory-management-and-data-race-freedom/</li>
 </ul>
-<h1 id="other-announcements">Other announcements</h1>
+<h1>Other announcements</h1>
 <ul>
 <li>bjz tells me lmath is <em>actually</em> fixed now, and is usable</li>
 </ul>
   </article>
 
-<nav class="post-neighbors">
-  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2013/06/07/this-week-in-rust-1/">
-    <span class="neighbor-arrow">«</span>
-    <span class="neighbor-content">
-      <span class="neighbor-label">Previous:</span>
-      <span class="neighbor-title">This Week In Rust 1</span>
-    </span>
-  </a>
-
-  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2013/06/22/this-week-in-rust-3/">
-    <span class="neighbor-content">
-      <span class="neighbor-label">Next:</span>
-      <span class="neighbor-title">This Week in Rust 3</span>
-    </span>
-    <span class="neighbor-arrow">»</span>
-  </a>
-</nav>
 </div>
 
 <div class="row text-center">

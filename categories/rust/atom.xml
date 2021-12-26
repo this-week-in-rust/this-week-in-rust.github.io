@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>This Week in Rust</title><link href="https://this-week-in-rust.org/" rel="alternate"></link><link href="https://this-week-in-rust.org/categories/rust/atom.xml" rel="self"></link><id>https://this-week-in-rust.org/</id><updated>2014-07-15T15:40:00-04:00</updated><entry><title>State of Rust 0.11.0</title><link href="https://this-week-in-rust.org/blog/2014/07/15/state-of-rust-0.11.0/" rel="alternate"></link><updated>2014-07-15T15:40:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2014-07-15:blog/2014/07/15/state-of-rust-0.11.0/</id><summary type="html">&lt;p&gt;Hello and welcome to the &lt;em&gt;State of Rust&lt;/em&gt;.  &lt;a class="reference external" href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems
+<feed xmlns="http://www.w3.org/2005/Atom"><title>This Week in Rust - Rust</title><link href="https://this-week-in-rust.org/" rel="alternate"></link><link href="https://this-week-in-rust.org/categories/rust/atom.xml" rel="self"></link><id>https://this-week-in-rust.org/</id><updated>2014-07-15T15:40:00-04:00</updated><entry><title>State of Rust 0.11.0</title><link href="https://this-week-in-rust.org/blog/2014/07/15/state-of-rust-0.11.0/" rel="alternate"></link><published>2014-07-15T15:40:00-04:00</published><updated>2014-07-15T15:40:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2014-07-15:/blog/2014/07/15/state-of-rust-0.11.0/</id><summary type="html">&lt;p&gt;Hello and welcome to the &lt;em&gt;State of Rust&lt;/em&gt;.  &lt;a class="reference external" href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems
+language pursuing the trifecta: safe, concurrent, and fast.&lt;/p&gt;
+&lt;p&gt;Over the past 6 months since the last one of these updates was
+written, Rust has evolved significantly: the standard library was
+refactored to make Rust more convenient to use …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Hello and welcome to the &lt;em&gt;State of Rust&lt;/em&gt;.  &lt;a class="reference external" href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems
 language pursuing the trifecta: safe, concurrent, and fast.&lt;/p&gt;
 &lt;p&gt;Over the past 6 months since the last one of these updates was
 written, Rust has evolved significantly: the standard library was
@@ -104,12 +108,19 @@ yet complete. There are also many minor changes to improve ergonomics in the
 pipeline. That said, it is becoming more stable, and many major features are
 complete. If you want to, give it a spin, and let us know how it goes!&lt;/p&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>The State of Rust 0.9</title><link href="https://this-week-in-rust.org/blog/2014/01/12/the-state-of-rust-09/" rel="alternate"></link><updated>2014-01-12T21:13:00-05:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2014-01-12:blog/2014/01/12/the-state-of-rust-09/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems language pursuing the trifecta:
+</content><category term="Rust"></category></entry><entry><title>The State of Rust 0.9</title><link href="https://this-week-in-rust.org/blog/2014/01/12/the-state-of-rust-09/" rel="alternate"></link><published>2014-01-12T21:13:00-05:00</published><updated>2014-01-12T21:13:00-05:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2014-01-12:/blog/2014/01/12/the-state-of-rust-09/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems language pursuing the trifecta:
 safe, concurrent, and fast. This is my post-mortem of the past 3 months, the
 current status of Rust, and its future.&lt;/p&gt;
 &lt;!-- more --&gt;
 
-&lt;h1 id="compiler"&gt;Compiler&lt;/h1&gt;
+&lt;h1&gt;Compiler&lt;/h1&gt;
+&lt;p&gt;The compiler saw a fair bit of work this release cycle. Some polish has gone
+into &lt;code&gt;mut&lt;/code&gt; in patterns. For …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://www.rust-lang.org/"&gt;Rust&lt;/a&gt; is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is my post-mortem of the past 3 months, the
+current status of Rust, and its future.&lt;/p&gt;
+&lt;!-- more --&gt;
+
+&lt;h1&gt;Compiler&lt;/h1&gt;
 &lt;p&gt;The compiler saw a fair bit of work this release cycle. Some polish has gone
 into &lt;code&gt;mut&lt;/code&gt; in patterns. For example, &lt;code&gt;let (mut x, y) = foo();&lt;/code&gt; now works as
 expected. We now have "feature gates", or feature flags, that let us mark
@@ -124,7 +135,7 @@ performance has further improved. From the 112ms compiling &lt;code&gt;fn main()
 linking (&lt;code&gt;-Z prefer-dynamic&lt;/code&gt;). Our debuginfo is in a much better state. The
 entire codebase (compiler + standard library + tools) compiles with it, and
 &lt;a href="https://github.com/mozilla/servo/"&gt;Servo&lt;/a&gt; compiles with it by default.&lt;/p&gt;
-&lt;h1 id="runtime"&gt;Runtime&lt;/h1&gt;
+&lt;h1&gt;Runtime&lt;/h1&gt;
 &lt;p&gt;The runtime has seen tons of work this release. &lt;code&gt;std::io&lt;/code&gt; has been swapped
 over to the new runtime, which is written entirely in Rust. We now support
 both 1:1 and M:N threading models, their respective runtimes supplied by
@@ -147,7 +158,7 @@ when using libnative for I/O.&lt;/p&gt;
 &lt;p&gt;You can run the benchmarks yourself. &lt;code&gt;cd comparisons; python run.py&lt;/code&gt;. You'll
 need to build rust-http first (&lt;code&gt;make&lt;/code&gt;), and have go, nodejs, and ab (apache
 bench) installed.&lt;/p&gt;
-&lt;h1 id="documentation"&gt;Documentation&lt;/h1&gt;
+&lt;h1&gt;Documentation&lt;/h1&gt;
 &lt;p&gt;Our documentation hasn't been in the best state in the past. It still isn't
 where it should be, but &lt;a href="http://static.rust-lang.org/doc/master/index.html"&gt;they have been
 reorganized&lt;/a&gt;, on top of
@@ -160,13 +171,13 @@ meetup, Chris Morgan talked about the technologies we use in our documentation
 stack. In the long run, the consensus seems to be that reStructuredText and
 Sphinx are they way forward. Thanks to the rustdoc rewrite, it will be able to
 have first-class status as a documentation backend.&lt;/p&gt;
-&lt;h1 id="the-future"&gt;The Future&lt;/h1&gt;
+&lt;h1&gt;The Future&lt;/h1&gt;
 &lt;p&gt;For 0.10, we have &lt;a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/"&gt;Dynamically Sized Types
 (DST)&lt;/a&gt; to
 look forward to, as well as the removal of &lt;code&gt;@&lt;/code&gt; pointers. &lt;code&gt;box&lt;/code&gt;, aka "placement
 new", along with smart pointer sugar (overloadable dereferencing/borrowing),
 should also be in by then. We may also see an actual garbage collector.&lt;/p&gt;
-&lt;h1 id="is-rust-ready-yet"&gt;Is Rust Ready Yet?&lt;/h1&gt;
+&lt;h1&gt;Is Rust Ready Yet?&lt;/h1&gt;
 &lt;p&gt;Nope. It still has some work to do. 1.0 is estimated before the end of 2014,
 though that may slip depending on how things land. An early estimate puts the
 release over the summer! We still need a robust package manager. We now have
@@ -185,13 +196,21 @@ contributions&lt;/a&gt;.
 Want to follow development? I post a &lt;a href="http://cmr.github.io/blog/categories/this-week-in-rust/"&gt;weekly
 newsletter&lt;/a&gt;
 summarizing the important changes. There is also a
-&lt;a href="http://reddit.com/r/rust"&gt;subreddit&lt;/a&gt;. Here's to an awesome 0.10!&lt;/p&gt;</summary></entry><entry><title>The State of Rust 0.8</title><link href="https://this-week-in-rust.org/blog/2013/10/06/the-state-of-rust-08/" rel="alternate"></link><updated>2013-10-06T20:32:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2013-10-06:blog/2013/10/06/the-state-of-rust-08/</id><summary type="html">&lt;p&gt;Another 3 months, another release. This is the first release that I've
+&lt;a href="http://reddit.com/r/rust"&gt;subreddit&lt;/a&gt;. Here's to an awesome 0.10!&lt;/p&gt;</content><category term="Rust"></category></entry><entry><title>The State of Rust 0.8</title><link href="https://this-week-in-rust.org/blog/2013/10/06/the-state-of-rust-08/" rel="alternate"></link><published>2013-10-06T20:32:00-04:00</published><updated>2013-10-06T20:32:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2013-10-06:/blog/2013/10/06/the-state-of-rust-08/</id><summary type="html">&lt;p&gt;Another 3 months, another release. This is the first release that I've
 witnessed in its entirety! This is a summary of Rust: its compiler,
 libraries, documentation, and community. (&lt;a href="http://rust-lang.org"&gt;What is
 Rust?&lt;/a&gt;)&lt;/p&gt;
 &lt;!-- more --&gt;
 
-&lt;h1 id="compiler"&gt;Compiler&lt;/h1&gt;
+&lt;h1&gt;Compiler&lt;/h1&gt;
+&lt;p&gt;The compiler is faring well. It received a lot of attention in compile speed,
+although memory usage regressed …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Another 3 months, another release. This is the first release that I've
+witnessed in its entirety! This is a summary of Rust: its compiler,
+libraries, documentation, and community. (&lt;a href="http://rust-lang.org"&gt;What is
+Rust?&lt;/a&gt;)&lt;/p&gt;
+&lt;!-- more --&gt;
+
+&lt;h1&gt;Compiler&lt;/h1&gt;
 &lt;p&gt;The compiler is faring well. It received a lot of attention in compile speed,
 although memory usage regressed significantly. It is now mostly fixed in
 master. Time compiling &lt;code&gt;fn main() { }&lt;/code&gt; went from 172ms to 112ms on my box.
@@ -204,14 +223,14 @@ extensive testsuite, so it shouldn't regress. The pretty printer hasn't seen
 much improvement. Default methods, one of the major things Michael Sullivan
 worked on over the summer, are in a much better state. If there are any
 remaining bugs in them, I haven't seen them.&lt;/p&gt;
-&lt;h1 id="iterators"&gt;Iterators&lt;/h1&gt;
+&lt;h1&gt;Iterators&lt;/h1&gt;
 &lt;p&gt;Iterators are hugely improved for 0.8. The &lt;code&gt;for&lt;/code&gt; loop syntax now uses the
 Iterator trait. Additionally, most uses of vector iterators now compile to the
 exact same code that indexing or iteration would in C or C++, including the
 ability to be vectorized. Additionally, they now use default methods instead
 of extension implementations. A bunch of other extensions to Iterator were
 added, such as DoubleEndedIterator and RandomAccessIterator.&lt;/p&gt;
-&lt;h1 id="documentation"&gt;Documentation&lt;/h1&gt;
+&lt;h1&gt;Documentation&lt;/h1&gt;
 &lt;p&gt;The documentation is in a much better state than it was 3 months ago. The new
 rustdoc was started and finished. I started it, and Alex Crichton really
 polished and finished it the last two weeks before the release. The API
@@ -219,7 +238,7 @@ documentation is now navigable, and one can actually see the relationship
 between various types. A bunch of work also went into the tutorials, yielding
 three new documents: error handling and conditions, iterators and containers,
 and rustpkg.&lt;/p&gt;
-&lt;h1 id="rustpkg"&gt;&lt;code&gt;rustpkg&lt;/code&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;code&gt;rustpkg&lt;/code&gt;&lt;/h1&gt;
 &lt;p&gt;Rustpkg continues to advance. Tim put out the call for community involvement,
 and it's getting significant traction in actual libraries. There are still a
 few kinks when using it for development, but when just fetching and building
@@ -227,7 +246,7 @@ dependencies, it works very well. Servo is porting its whole mini-ecosystem
 over to rustpkg, uncovering bunches of problems and deficiencies in the
 process. If you're interested in helping out with Rust, rustpkg is a major
 area. Tim is also super nice, and will happily help you get into the codebase.&lt;/p&gt;
-&lt;h1 id="libraries"&gt;Libraries&lt;/h1&gt;
+&lt;h1&gt;Libraries&lt;/h1&gt;
 &lt;p&gt;Rust is slowly accreting more and more useful libraries: mostly coming from
 the gamedev community, but sometimes other useful things as well. The
 new runtime has completely replaced the old, a significant step forward for
@@ -235,14 +254,14 @@ Rust's maturity. &lt;code&gt;rust-http&lt;/code&gt; is making some really nice s
 the opengl bindings. The standard libraries are becoming nicer to use.
 &lt;code&gt;std::run&lt;/code&gt;, in particular, stands out to me as something that's quite easy to
 use, and &lt;code&gt;std::str&lt;/code&gt; saw a lot of work making it more correct.&lt;/p&gt;
-&lt;h1 id="the-future"&gt;The Future&lt;/h1&gt;
+&lt;h1&gt;The Future&lt;/h1&gt;
 &lt;p&gt;This was a great release cycle, and I think the next one will be even better.
 Alex Crichton was hired as a full-time Rust developer, and he has been doing a
 lot of important work that just would have taken a while to happen otherwise.
 I'm very optimistic about this release, much more so than 0.7. I think we
 might be able to hit milestone 1 for 0.9 or 0.10, though that's just
 speculation on my part.&lt;/p&gt;
-&lt;h1 id="is-rust-ready"&gt;Is Rust Ready?&lt;/h1&gt;
+&lt;h1&gt;Is Rust Ready?&lt;/h1&gt;
 &lt;p&gt;No. Rust is approaching maturity, but it isn't there yet. There are still
 backwards-incompatible changes being made to try and get to milestone 2.  The
 major things that come to mind are closure reform and privacy overhaul (which
@@ -254,14 +273,17 @@ Those probably won't be fixed in the time leading up to 1.0, but this is also
 speculation.&lt;/p&gt;
 &lt;p&gt;Experimenting with Rust is becoming more viable as time goes on, but using it
 in production is a bad idea, especially if "low maintenance" is at all
-valuable.&lt;/p&gt;</summary></entry><entry><title>The State of Rust 0.7</title><link href="https://this-week-in-rust.org/blog/2013/07/05/the-state-of-rust-07/" rel="alternate"></link><updated>2013-07-05T09:51:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2013-07-05:blog/2013/07/05/the-state-of-rust-07/</id><summary type="html">&lt;p&gt;Given the influx of newcomers from the 0.7 release, I thought it'd be a good
+valuable.&lt;/p&gt;</content><category term="Rust"></category></entry><entry><title>The State of Rust 0.7</title><link href="https://this-week-in-rust.org/blog/2013/07/05/the-state-of-rust-07/" rel="alternate"></link><published>2013-07-05T09:51:00-04:00</published><updated>2013-07-05T09:51:00-04:00</updated><author><name>TWiR Contributors</name></author><id>tag:this-week-in-rust.org,2013-07-05:/blog/2013/07/05/the-state-of-rust-07/</id><summary type="html">&lt;p&gt;Given the influx of newcomers from the 0.7 release, I thought it'd be a good
+idea to summarize the condition of Rust, its libraries, and its documentation.
+bstrie said it best I think, "basically, any question of the form 'is there a
+reason for this stupid and terrible thing' …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Given the influx of newcomers from the 0.7 release, I thought it'd be a good
 idea to summarize the condition of Rust, its libraries, and its documentation.
 bstrie said it best I think, "basically, any question of the form 'is there a
 reason for this stupid and terrible thing' is 'no, sorry, we're working on
 it'&amp;nbsp;".&lt;/p&gt;
 &lt;!-- more --&gt;
 
-&lt;h1 id="iterators"&gt;Iterators&lt;/h1&gt;
+&lt;h1&gt;Iterators&lt;/h1&gt;
 &lt;p&gt;External iterators are a main feature of the 0.7 release, and there is ongoing
 work to remove all of the library features that use internal iterators. Most
 of them are gone, and there are few uses of internal iterators. However, they
@@ -274,7 +296,7 @@ things will hopefully implement. Due to
 &lt;a href="https://github.com/mozilla/rust/issues/5898"&gt;5898&lt;/a&gt;, many methods are oddly
 named or have an underscore appended (ie, &lt;code&gt;transform&lt;/code&gt; instead of &lt;code&gt;map&lt;/code&gt;,
 &lt;code&gt;position_&lt;/code&gt; instead of &lt;code&gt;position&lt;/code&gt;).&lt;/p&gt;
-&lt;h1 id="io"&gt;IO&lt;/h1&gt;
+&lt;h1&gt;IO&lt;/h1&gt;
 &lt;p&gt;IO has been a bit of a losing proposition since at least 0.2. The interface is
 very primitive and inefficient. It requires using &lt;code&gt;@Trait&lt;/code&gt; objects (&lt;code&gt;@Reader&lt;/code&gt;
 / &lt;code&gt;@Writer&lt;/code&gt;). It's also very undocumented. But the situation isn't going to
@@ -288,7 +310,7 @@ work to be done in this area:&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://github.com/mozilla/rust/issues/4419"&gt;issue 4419&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://mail.mozilla.org/pipermail/rust-dev/2013-May/004305.html"&gt;brson's status report for June&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="compiler"&gt;Compiler&lt;/h1&gt;
+&lt;h1&gt;Compiler&lt;/h1&gt;
 &lt;p&gt;The compiler is still buggy and inefficient. Lots of things work, but lots of
 things don't. There's still some resolve bugs (the one mentioned above, as
 well as some others, and perpetually poor error messages), default methods
@@ -299,13 +321,13 @@ contributors get started and grok how it all fits together. The only thing
 making Rust usable right now is LLVM's fantastic optimization. Our no-opt
 builds run slower than our opt builds under Valgrind. Ponder that for a
 minute.&lt;/p&gt;
-&lt;h1 id="rustpkg"&gt;&lt;code&gt;rustpkg&lt;/code&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;code&gt;rustpkg&lt;/code&gt;&lt;/h1&gt;
 &lt;p&gt;rustpkg is still heavily in-progress and unfinished. It's usable, but not
 everything is implemented, and the documentation is incomplete. It's rather
 unintuitive to use right now, but it does work! Read the
 &lt;a href="https://github.com/mozilla/rust/blob/master/doc/rustpkg.md"&gt;manual&lt;/a&gt; carefully
 if you want to use it.&lt;/p&gt;
-&lt;h1 id="documentation"&gt;Documentation&lt;/h1&gt;
+&lt;h1&gt;Documentation&lt;/h1&gt;
 &lt;p&gt;Documentation is poor. &lt;code&gt;rustdoc&lt;/code&gt; is really bad, which doesn't help. I'm
 working on a new rustdoc (&lt;a href="http://rustlog.octayn.net"&gt;I log my progress
 here&lt;/a&gt;), but it won't be ready for some weeks. Lots
@@ -314,7 +336,7 @@ of things are undocumented or near impossible to find because of how bad
 libraries would be nice, as well as a "Rust By Example," showing how to
 accomplish common goals. These aren't really hard to do, it's just that nobody
 has done them yet.&lt;/p&gt;
-&lt;h1 id="libraries"&gt;Libraries&lt;/h1&gt;
+&lt;h1&gt;Libraries&lt;/h1&gt;
 &lt;p&gt;There are few robust libraries or bindings to libraries, for anything, besides
 what is in std/extra. There's the stuff servo uses (glfw, skia, sdl), and an
 opengl binding somewhere, but beyond that, you're on your own. The
@@ -323,7 +345,7 @@ wrapping a C library. There is no GUI library available yet, no real
 networking. It's easy to wrap a C library, you just need to be careful with
 your &lt;code&gt;unsafe&lt;/code&gt; blocks. Once again, these things aren't hard, they just haven't
 been done yet.&lt;/p&gt;
-&lt;h1 id="the-future"&gt;The future&lt;/h1&gt;
+&lt;h1&gt;The future&lt;/h1&gt;
 &lt;p&gt;Basically everything is heavily WIP, but it's constantly improving. We always
 need more contributors, ask in IRC if you're interested. Rust 0.7 is pre-alpha
 quality, IMO. It would be silly to use Rust for something important, but don't
@@ -337,7 +359,7 @@ listed &lt;a href="https://github.com/mozilla/rust/issues/milestones"&gt;as mile
 &lt;p&gt;But don't be discouraged. It was far worse before! Rust is in a good position,
 it's just not quite all there yet. This post may seem pessimistic, but the
 progress Rust has made is astonishing. Here's to a wonderful 0.8!&lt;/p&gt;
-&lt;h1 id="some-links"&gt;Some links&lt;/h1&gt;
+&lt;h1&gt;Some links&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.reddit.com/r/rust/"&gt;Rust subreddit&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://mail.mozilla.org/listinfo/rust-dev"&gt;Mailing list&lt;/a&gt;&lt;/li&gt;
@@ -345,4 +367,4 @@ progress Rust has made is astonishing. Here's to a wonderful 0.8!&lt;/p&gt;
 &lt;li&gt;&lt;a href="http://chat.mibbit.com/?server=irc.mozilla.org&amp;amp;channel=%23rust"&gt;IRC
   Channel&lt;/a&gt;
   (it's &lt;code&gt;#rust&lt;/code&gt; on irc.mozilla.org)&lt;/li&gt;
-&lt;/ul&gt;</summary></entry></feed>
+&lt;/ul&gt;</content><category term="Rust"></category></entry></feed>

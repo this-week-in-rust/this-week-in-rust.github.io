@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <meta name="author" content="TWiR Contributors" />
     <meta name="copyright" content="TWiR Contributors" />
@@ -18,12 +18,12 @@
     <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
     <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg">
-    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000">
+    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
 
   </head>
   <body>
@@ -60,9 +60,9 @@ contributions</a>.</p>
 changes come this week.</p>
 <!-- more -->
 
-<h1 id="whats-cooking-on-master">What's cooking on master?</h1>
+<h1>What's cooking on master?</h1>
 <p>63 pull requests were merged this week.</p>
-<h2 id="breaking-changes">Breaking changes</h2>
+<h2>Breaking changes</h2>
 <ul>
 <li><code>@mut</code> <a href="https://github.com/mozilla/rust/pull/11251">has been removed</a>. The
 replacements are <code>Gc&lt;RefCell&lt;T&gt;&gt;</code> or, preferably, <code>Rc&lt;RefCell&lt;T&gt;&gt;</code>. See also
@@ -71,14 +71,15 @@ replacements are <code>Gc&lt;RefCell&lt;T&gt;&gt;</code> or, preferably, <code>R
 and enums with one variant) <a href="https://github.com/mozilla/rust/pull/11188">has been
 removed</a>. An example:</li>
 </ul>
-<p>```
-struct Foo(int);</p>
-<p>fn bar() {
-    let x = Foo(42);
-    // previously <code>*x</code> would return 42
-    let Foo(y) = x; // but now you do this pattern matching
-}
-```</p>
+<div class="highlight"><pre><span></span><code><span class="n">struct</span> <span class="n">Foo</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
+
+<span class="n">fn</span> <span class="n">bar</span><span class="p">()</span> <span class="err">{</span>
+    <span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+    <span class="o">//</span> <span class="n">previously</span> <span class="o">`*</span><span class="n">x</span><span class="o">`</span> <span class="n">would</span> <span class="k">return</span> <span class="mi">42</span>
+    <span class="n">let</span> <span class="n">Foo</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="o">//</span> <span class="n">but</span> <span class="n">now</span> <span class="n">you</span> <span class="k">do</span> <span class="n">this</span> <span class="n">pattern</span> <span class="n">matching</span>
+<span class="err">}</span>
+</code></pre></div>
+
 <ul>
 <li><code>Either</code> <a href="https://github.com/mozilla/rust/pull/11149">has been removed</a>.</li>
 <li><code>extern mod foo (name="bar")</code> syntax <a href="https://github.com/mozilla/rust/pull/10696">has been
@@ -96,7 +97,7 @@ variants</a>.</li>
 <li>The contents of the <code>crate_type</code> attribute <a href="https://github.com/mozilla/rust/pull/11264">are now checked for
 validity</a>.</li>
 </ul>
-<h2 id="other-changes">Other changes</h2>
+<h2>Other changes</h2>
 <ul>
 <li><code>Reader</code>/<code>Writer</code> have regrown some functionality. It can now <a href="https://github.com/mozilla/rust/pull/10861">read and
 write strings</a>, though <em>only</em> real
@@ -119,7 +120,7 @@ added</a>.</li>
 extensions</a>, aka loadable syntax
 extensions, aka procedural macros, seem to be really close to landing. This is
 quite exciting!</p>
-<h2 id="new-contributors">New Contributors</h2>
+<h2>New Contributors</h2>
 <ul>
 <li>Alan Andrade</li>
 <li>Carl-Anton Ingmarsson</li>
@@ -128,15 +129,15 @@ quite exciting!</p>
 <li>lyuts</li>
 <li>Matthew Auld</li>
 </ul>
-<h1 id="meeting">Meeting</h1>
+<h1>Meeting</h1>
 <p>Once again, no meeting due to the holidays. There will be one on January 7,
 however.</p>
-<h1 id="this-week-in-servo">This Week in Servo</h1>
+<h1>This Week in Servo</h1>
 <p>Servo is a web browser engine written in Rust and is one of the primary test
 cases for the Rust language.</p>
 <p>Mozilla Corp. came back from vacation this Thursday, January 2nd. We landed 14
 PRs this week.</p>
-<h2 id="notable-additions">Notable additions</h2>
+<h2>Notable additions</h2>
 <ul>
 <li>Aydin Kim fixed Android support - hooray! - in
 <a href="https://github.com/mozilla/servo/pull/1445">#1445</a>.</li>
@@ -155,12 +156,12 @@ smashed my submodule edits" problem in
 <a href="https://github.com/mozilla/servo/pull/1456">#1456</a>, and
 <a href="https://github.com/mozilla/servo/pull/1460">#1460</a>.</li>
 </ul>
-<h2 id="new-contributors_1">New contributors</h2>
+<h2>New contributors</h2>
 <ul>
 <li>Shamir Khodzha</li>
 <li>Mike Blumenkrantz</li>
 </ul>
-<h1 id="announcements-etc">Announcements, etc</h1>
+<h1>Announcements, etc</h1>
 <ul>
 <li><a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/">DST, take
 5</a>. I
@@ -182,23 +183,6 @@ for writing web servers. Intended to be similar to jetty.</li>
 </ul>
   </article>
 
-<nav class="post-neighbors">
-  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2013/12/30/this-week-in-rust-30/">
-    <span class="neighbor-arrow">«</span>
-    <span class="neighbor-content">
-      <span class="neighbor-label">Previous:</span>
-      <span class="neighbor-title">This Week in Rust 30</span>
-    </span>
-  </a>
-
-  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2014/01/11/this-week-in-rust-32/">
-    <span class="neighbor-content">
-      <span class="neighbor-label">Next:</span>
-      <span class="neighbor-title">This Week in Rust 32</span>
-    </span>
-    <span class="neighbor-arrow">»</span>
-  </a>
-</nav>
 </div>
 
 <div class="row text-center">
