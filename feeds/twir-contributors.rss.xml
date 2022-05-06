@@ -66,7 +66,7 @@ Every week we highlight some tasks from the Rust community for you to pick and g
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/96376"&gt;add &lt;code&gt;do yeet&lt;/code&gt; expressions to allow experimentation in nightly&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/95819"&gt;enforce Copy bounds for repeat elements while considering lifetimes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[enforce static lifetimes in consts during late resolution](https://github.com/rust-lang/rust/(ull/95776)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/95776"&gt;enforce static lifetimes in consts during late resolution&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/95312"&gt;ensure that &lt;code&gt;'_&lt;/code&gt; and GAT yields errors&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/96466"&gt;better error messages when collecting into &lt;code&gt;[T; n]&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rust-lang/rust/pull/96347"&gt;erase type params when suggesting fully qualified path&lt;/a&gt;&lt;/li&gt;
@@ -109,12 +109,45 @@ in memory usage across all profiles due to
 used on x86_64-unknown-linux-gnu to compile C and C++ code linked into rustc.&lt;/p&gt;
 &lt;p&gt;Triage done by &lt;strong&gt;@simulacrum&lt;/strong&gt;.
 Revision range: &lt;a href="https://perf.rust-lang.org/?start=1c988cfa0b7f4d3bc5b1cb40dc5002f5adbfb9ad&amp;amp;end=468492c2af3993f18b1fe98052200575c4a2e678&amp;amp;absolute=false&amp;amp;stat=instructions%3Au"&gt;1c988cfa..468492&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;:
-|            | Regressions 😿 &lt;br /&gt;(primary) | Regressions 😿 &lt;br /&gt;(secondary) | Improvements 🎉 &lt;br /&gt;(primary) | Improvements 🎉 &lt;br /&gt;(secondary) | All 😿 🎉 &lt;br /&gt;(primary) |
-|:----------:|:------------------------------:|:--------------------------------:|:-------------------------------:|:---------------------------------:|:------------------------:|
-| count      | 13                             | 1                                | 78                              | 29                                | 91                       |
-| mean       | 0.8%                           | 0.3%                             | -0.9%                           | -0.8%                             | -0.7%                    |
-| max        | 1.5%                           | 0.3%                             | -2.7%                           | -2.1%                             | -2.7%                    |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;&lt;/th&gt;
+&lt;th align="center"&gt;Regressions 😿 &lt;br /&gt;(primary)&lt;/th&gt;
+&lt;th align="center"&gt;Regressions 😿 &lt;br /&gt;(secondary)&lt;/th&gt;
+&lt;th align="center"&gt;Improvements 🎉 &lt;br /&gt;(primary)&lt;/th&gt;
+&lt;th align="center"&gt;Improvements 🎉 &lt;br /&gt;(secondary)&lt;/th&gt;
+&lt;th align="center"&gt;All 😿 🎉 &lt;br /&gt;(primary)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;count&lt;/td&gt;
+&lt;td align="center"&gt;13&lt;/td&gt;
+&lt;td align="center"&gt;1&lt;/td&gt;
+&lt;td align="center"&gt;78&lt;/td&gt;
+&lt;td align="center"&gt;29&lt;/td&gt;
+&lt;td align="center"&gt;91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;mean&lt;/td&gt;
+&lt;td align="center"&gt;0.8%&lt;/td&gt;
+&lt;td align="center"&gt;0.3%&lt;/td&gt;
+&lt;td align="center"&gt;-0.9%&lt;/td&gt;
+&lt;td align="center"&gt;-0.8%&lt;/td&gt;
+&lt;td align="center"&gt;-0.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;max&lt;/td&gt;
+&lt;td align="center"&gt;1.5%&lt;/td&gt;
+&lt;td align="center"&gt;0.3%&lt;/td&gt;
+&lt;td align="center"&gt;-2.7%&lt;/td&gt;
+&lt;td align="center"&gt;-2.1%&lt;/td&gt;
+&lt;td align="center"&gt;-2.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;4 Regressions, 3 Improvements, 1 Mixed; 1 of them in rollups&lt;/p&gt;
 &lt;p&gt;52 artifact comparisons made in total&lt;/p&gt;
 &lt;p&gt;See the &lt;a href="https://github.com/rust-lang/rustc-perf/blob/master/triage/2022-05-03.md"&gt;full report&lt;/a&gt; for more.&lt;/p&gt;

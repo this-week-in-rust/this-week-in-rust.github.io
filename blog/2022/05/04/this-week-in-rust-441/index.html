@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?84010e5b" />
+    <link rel="stylesheet" href="/theme/css/web-min.css?5d361268" />
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
     <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
     <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
@@ -116,7 +116,7 @@ Every week we highlight some tasks from the Rust community for you to pick and g
 <ul>
 <li><a href="https://github.com/rust-lang/rust/pull/96376">add <code>do yeet</code> expressions to allow experimentation in nightly</a></li>
 <li><a href="https://github.com/rust-lang/rust/pull/95819">enforce Copy bounds for repeat elements while considering lifetimes</a></li>
-<li>[enforce static lifetimes in consts during late resolution](https://github.com/rust-lang/rust/(ull/95776)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/95776">enforce static lifetimes in consts during late resolution</a></li>
 <li><a href="https://github.com/rust-lang/rust/pull/95312">ensure that <code>'_</code> and GAT yields errors</a></li>
 <li><a href="https://github.com/rust-lang/rust/pull/96466">better error messages when collecting into <code>[T; n]</code></a></li>
 <li><a href="https://github.com/rust-lang/rust/pull/96347">erase type params when suggesting fully qualified path</a></li>
@@ -159,12 +159,45 @@ in memory usage across all profiles due to
 used on x86_64-unknown-linux-gnu to compile C and C++ code linked into rustc.</p>
 <p>Triage done by <strong>@simulacrum</strong>.
 Revision range: <a href="https://perf.rust-lang.org/?start=1c988cfa0b7f4d3bc5b1cb40dc5002f5adbfb9ad&amp;end=468492c2af3993f18b1fe98052200575c4a2e678&amp;absolute=false&amp;stat=instructions%3Au">1c988cfa..468492</a></p>
-<p><strong>Summary</strong>:
-|            | Regressions 😿 <br />(primary) | Regressions 😿 <br />(secondary) | Improvements 🎉 <br />(primary) | Improvements 🎉 <br />(secondary) | All 😿 🎉 <br />(primary) |
-|:----------:|:------------------------------:|:--------------------------------:|:-------------------------------:|:---------------------------------:|:------------------------:|
-| count      | 13                             | 1                                | 78                              | 29                                | 91                       |
-| mean       | 0.8%                           | 0.3%                             | -0.9%                           | -0.8%                             | -0.7%                    |
-| max        | 1.5%                           | 0.3%                             | -2.7%                           | -2.1%                             | -2.7%                    |</p>
+<p><strong>Summary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Regressions 😿 <br />(primary)</th>
+<th align="center">Regressions 😿 <br />(secondary)</th>
+<th align="center">Improvements 🎉 <br />(primary)</th>
+<th align="center">Improvements 🎉 <br />(secondary)</th>
+<th align="center">All 😿 🎉 <br />(primary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">count</td>
+<td align="center">13</td>
+<td align="center">1</td>
+<td align="center">78</td>
+<td align="center">29</td>
+<td align="center">91</td>
+</tr>
+<tr>
+<td align="center">mean</td>
+<td align="center">0.8%</td>
+<td align="center">0.3%</td>
+<td align="center">-0.9%</td>
+<td align="center">-0.8%</td>
+<td align="center">-0.7%</td>
+</tr>
+<tr>
+<td align="center">max</td>
+<td align="center">1.5%</td>
+<td align="center">0.3%</td>
+<td align="center">-2.7%</td>
+<td align="center">-2.1%</td>
+<td align="center">-2.7%</td>
+</tr>
+</tbody>
+</table>
 <p>4 Regressions, 3 Improvements, 1 Mixed; 1 of them in rollups</p>
 <p>52 artifact comparisons made in total</p>
 <p>See the <a href="https://github.com/rust-lang/rustc-perf/blob/master/triage/2022-05-03.md">full report</a> for more.</p>
