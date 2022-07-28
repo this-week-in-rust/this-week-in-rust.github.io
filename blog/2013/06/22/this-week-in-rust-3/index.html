@@ -103,25 +103,25 @@ that landed are vector cleanups. Probably most importantly, the <code>each</code
 <code>eachi</code> methods are being removed. The <code>eachi</code> removal landed but the <code>each</code>
 one broke bors, so it's currently in limbo (<strong>UPDATE</strong> 6/23/2013: it landed).
 The current replacement is:</p>
-<div class="highlight"><pre><span></span><code><span class="err">// each</span>
-<span class="err">for your_vec.iter().advance |element| {</span>
-<span class="err">  ...</span>
-<span class="err">}</span>
-<span class="err">// eachi</span>
-<span class="err">for your_vec.iter().enumerate().advance |(i, element)| {</span>
-<span class="err">  ...</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">each</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">your_vec</span><span class="o">.</span><span class="n">iter</span><span class="p">()</span><span class="o">.</span><span class="n">advance</span><span class="w"> </span><span class="o">|</span><span class="n">element</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="n">eachi</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">your_vec</span><span class="o">.</span><span class="n">iter</span><span class="p">()</span><span class="o">.</span><span class="n">enumerate</span><span class="p">()</span><span class="o">.</span><span class="n">advance</span><span class="w"> </span><span class="o">|</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Once the rest of the iterator work is hashed out and lands, it will just be</p>
-<div class="highlight"><pre><span></span><code><span class="err">// each</span>
-<span class="err">for your_vec |element| {</span>
-<span class="err">  ...</span>
-<span class="err">}</span>
-<span class="err">// eachi</span>
-<span class="err">for your_vec.enumerate() |(i, element)| {</span>
-<span class="err">  ...</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">each</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">your_vec</span><span class="w"> </span><span class="o">|</span><span class="n">element</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="n">eachi</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="n">your_vec</span><span class="o">.</span><span class="n">enumerate</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>although the syntax might be slightly different (<code>for element in your_vec</code> is
