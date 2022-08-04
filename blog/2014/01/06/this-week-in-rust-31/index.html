@@ -71,13 +71,13 @@ replacements are <code>Gc&lt;RefCell&lt;T&gt;&gt;</code> or, preferably, <code>R
 and enums with one variant) <a href="https://github.com/mozilla/rust/pull/11188">has been
 removed</a>. An example:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nv">struct</span> <span class="nv">Foo</span><span class="ss">(</span><span class="nv">int</span><span class="ss">)</span><span class="c1">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">struct</span> <span class="n">Foo</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
 
-<span class="nv">fn</span> <span class="nv">bar</span><span class="ss">()</span> {
-    <span class="nv">let</span> <span class="nv">x</span> <span class="o">=</span> <span class="nv">Foo</span><span class="ss">(</span><span class="mi">42</span><span class="ss">)</span><span class="c1">;</span>
-    <span class="o">//</span> <span class="nv">previously</span> `<span class="o">*</span><span class="nv">x</span>` <span class="nv">would</span> <span class="k">return</span> <span class="mi">42</span>
-    <span class="nv">let</span> <span class="nv">Foo</span><span class="ss">(</span><span class="nv">y</span><span class="ss">)</span> <span class="o">=</span> <span class="nv">x</span><span class="c1">; // but now you do this pattern matching</span>
-}
+<span class="n">fn</span> <span class="n">bar</span><span class="p">()</span> <span class="err">{</span>
+    <span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+    <span class="o">//</span> <span class="n">previously</span> <span class="o">`*</span><span class="n">x</span><span class="o">`</span> <span class="n">would</span> <span class="k">return</span> <span class="mi">42</span>
+    <span class="n">let</span> <span class="n">Foo</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="o">//</span> <span class="n">but</span> <span class="n">now</span> <span class="n">you</span> <span class="k">do</span> <span class="n">this</span> <span class="n">pattern</span> <span class="n">matching</span>
+<span class="err">}</span>
 </code></pre></div>
 
 <ul>
