@@ -1,152 +1,508 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+     body {
+       width: 100%;
+       max-width: 660px;
+       -webkit-text-size-adjust: 100%;
+       -ms-text-size-adjust: 100%;
+       margin: 0 auto;
+       padding: 0;
+       color: #444444;
+     }
 
-    <meta name="author" content="TWiR Contributors" />
-    <meta name="copyright" content="TWiR Contributors" />
+     .container{
+       border: 1px solid #DCDCDC;
+       border-top: 5px solid #000000;
+     }
 
+     .container img {
+       max-width: 100%;
+     }
 
+     table .row {
+       border-collapse: collapse;
+       border: none;
+     }
+     td .row-header-01 {
+       padding-top: 6px;
+       padding-bottom: 6px;
+       font-size: 12px;
+       text-align: center;
+       color: #444444;
+     }
+     td .row-header-01 a {
+       color: #ee5533;
+     }
+     td .row-header-02 {
+       border-top: 1px solid #e6e6e6;
+       border-bottom: 1px solid #e6e6e6;
+       background-color: #fdfdfd;
+     }
 
-    <title>This Week in Rust - Articles by TWiR Contributors</title>
+     td .wrapper {
+       padding:6px 12px 1px;
+     }
 
+     table .row-container{
+       width:100%;
+     }
 
-    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
-    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+     table .wrapper-container-01 {
+       width:50%
+     }
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+     table .wrapper-container-02{
+       text-align:right;
+       width:50%;
+     }
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?5d361268" />
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
-    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
-    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+     @media (max-width: 800px) {
+       table .wrapper-container-01,
+       table .wrapper-container-02{
+         width: 100%;
+       }
+     }
 
+     .wrapper-header-01{
+       line-height:27px;
+       font-size:23px;
+       font-weight:bold;
+       color:#444444
+     }
+
+     .wrapper-header-02{
+       font-size:16px;
+       line-height:36px;
+       font-weight:normal;
+       color:#444444;
+     }
+
+     tr .footer {
+       border-top: 1px solid #e6e6e6;
+       background-color: #fdfdfd;
+     }
+
+     table.center, td.center {
+       text-align: center;
+     }
+
+     .ExternalClass {
+       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+       color: #444444;
+     }
+
+     body, table.body, h1, h2, h3, h4, h5, h6, p, td {
+       font-family: 'Helvetica Neue', Helvetica, sans-serif;
+     }
+
+     table.container {
+       border: 1px solid #dcdcdc;
+       border-top: 5px solid #000000;
+       padding-left: 12px;
+       padding-right: 12px;
+     }
+
+     td.wrapper {
+       padding-left: 24px;
+       padding-right: 24px;
+     }
+
+     p {
+       margin: 0 0 15px;
+       font-size: 16px;
+       color: #444444;
+       line-height: 24px;
+     }
+
+     li {
+       font-size: 16px;
+     }
+
+     a, a:visited {
+       color: #2a7ae2;
+       text-decoration: none;
+     }
+
+     code {
+       color: #c7254e;
+       border: 1px solid #e8e8e8;
+       border-radius: 3px;
+       background-color: #eeeeff;
+       font-weight:600;
+       font-family: monospace;
+     }
+
+     h1, h2 {
+       font-size: 19px;
+       color: #444444;
+       margin: 10px 0px;
+       font-weight: bold;
+     }
+
+     h1 {
+       font-size: 24px;
+       margin: 16px 0px;
+     }
+
+     ul {
+       margin-top: 0px;
+     }
+
+     .rust-container{
+       padding:16px 12px 12px 12px;
+     }
+
+     .rust-row{
+       border-collapse:collapse;
+       width:100%
+     }
+
+     .wrapper-image{
+       width:30px;
+       vertical-align:bottom;
+     }
+
+     .emoji {
+       width: 20px;
+       height: 20px;
+       vertical-align: middle;
+       border: 0px none;
+     }
+
+     blockquote {
+       color: #828282;
+       border-left: 4px solid #E8E8E8;
+       padding-left: 15px;
+       font-size: 18px;
+       font-style: italic;
+     }
+
+     blockquote p {
+       white-space: pre-line;
+     }
+
+     @media (prefers-color-scheme: dark) {
+       body {
+         background: #111 !important;
+         color: white !important;
+       }
+
+       a, a:visited {
+         color: #409df2 !important;
+       }
+
+       p {
+         color: white !important;
+       }
+
+       td .row-header-01 {
+         color: white !important;
+       }
+
+       td .row-header-02 {
+         border-top: 1px solid #1d1d1d;
+         border-bottom: 1px solid #1d1d1d;
+         background-color: #040404;
+       }
+
+       .wrapper-header-01 {
+         line-height: 27px;
+         font-size: 23px;
+         font-weight: bold;
+         color: #dddddd;
+       }
+
+       .wrapper-header-02 {
+         font-size: 16px;
+         line-height: 36px;
+         font-weight: normal;
+         color: #dddddd;
+       }
+
+       code {
+         color: #eb7f98 !important;
+         border: 1px solid #333 !important;
+         background-color: #222 !important;
+       }
+
+       h1,
+       h2 {
+         color: white !important;
+       }
+
+       table .container {
+         border-color: #222 !important;
+       }
+
+       blockquote {
+         background-color: #3c3c3c !important;
+         color: white !important;
+       }
+
+       tr .footer {
+         border-color: #222 !important;
+         background-color: #111 !important;
+         color: white !important;
+       }
+     }
+    </style>
   </head>
+
   <body>
-    <header class="site-header">
-      <div class="container wrapper">
-        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
-      </div>
-    </header>
+    <div style="margin:0">
+      <table class="body" align="center" border="0" cellpadding="0" cellspacing="0"  >
+        <tbody>
+          <tr>
+            <td class="container" align="center" valign="top">
+              <table class="row" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="row-header-01">
+                      <span>Email isn't displaying correctly?<br></span>
+                      <a href="">Read this e-mail on the Web</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="row" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="row-header-02">
+                      <table class="row-container" cellspacing="0" cellpadding="0" align="left">
+                        <tbody>
+                          <tr>
+                            <td class="wrapper" align="left">
+                              <table class="wrapper-container-01" align="left">
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <img class="wrapper-image " src="https://this-week-in-rust.org/images/logo32.png" alt="This Week in Rust">
+                                      <span class="wrapper-header-01" style="">This Week in Rust</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table class="wrapper-container-02" align="left">
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <span class="wrapper-header-02">  </span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="rust-container" align="left">
+                      <table class="rust-row" align="left" cellpadding="0" cellspacing="0" style="">
+                        <tbody>
+                          <tr>
+                            <td>
+<section id="content">
+<h2>Articles by TWiR Contributors</h2>
 
-    <div class="page-content">
-      <div class="container wrapper">
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="pitch">Handpicked Rust updates, <br /> delivered to your inbox.</h1>
-    <p class="subtext">Stay up to date with events, learning resources, and recent developments in Rust community.</p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-1"></div>
-  <div class="col-sm-10">
-    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
-      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
-      <div class="input-group input-group-lg">
-        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
-        <span class="input-group-btn">
-          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
-        </span>
-      </div>
-      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
-    </form>
-  </div>
-  <div class="col-sm-1"></div>
-</div><div class="row">
-  <div class="col-md-12">
-    <ul class="list-unstyled past-issues">
-      <li class="nav-header disabled"><h2>Past issues</h2></li>
-      <li>
-<div class="row post-title">
-  <div class="col-xs-12 col-sm-4">
-    <span class="small text-muted time-prefix">
-      <time pubdate="pubdate" datetime="2022-09-14T00:00:00-04:00">14 SEP 2022</time>
-    </span>
-  </div>
-  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
-    <a href="https://this-week-in-rust.org/blog/2022/09/14/this-week-in-rust-460/">This Week in Rust 460</a>
-  </div>
-</div>      </li>
-      <li>
-<div class="row post-title">
-  <div class="col-xs-12 col-sm-4">
-    <span class="small text-muted time-prefix">
-      <time pubdate="pubdate" datetime="2022-09-07T00:00:00-04:00">07 SEP 2022</time>
-    </span>
-  </div>
-  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
-    <a href="https://this-week-in-rust.org/blog/2022/09/07/this-week-in-rust-459/">This Week in Rust 459</a>
-  </div>
-</div>      </li>
-      <li>
-<div class="row post-title">
-  <div class="col-xs-12 col-sm-4">
-    <span class="small text-muted time-prefix">
-      <time pubdate="pubdate" datetime="2022-08-31T00:00:00-04:00">31 AUG 2022</time>
-    </span>
-  </div>
-  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
-    <a href="https://this-week-in-rust.org/blog/2022/08/31/this-week-in-rust-458/">This Week in Rust 458</a>
-  </div>
-</div>      </li>
-      <li>
-<div class="row post-title">
-  <div class="col-xs-12 col-sm-4">
-    <span class="small text-muted time-prefix">
-      <time pubdate="pubdate" datetime="2022-08-24T00:00:00-04:00">24 AUG 2022</time>
-    </span>
-  </div>
-  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
-    <a href="https://this-week-in-rust.org/blog/2022/08/24/this-week-in-rust-457/">This Week in Rust 457</a>
-  </div>
-</div>      </li>
-      <li>
-<div class="row post-title">
-  <div class="col-xs-12 col-sm-4">
-    <span class="small text-muted time-prefix">
-      <time pubdate="pubdate" datetime="2022-08-17T00:00:00-04:00">17 AUG 2022</time>
-    </span>
-  </div>
-  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
-    <a href="https://this-week-in-rust.org/blog/2022/08/17/this-week-in-rust-456/">This Week in Rust 456</a>
-  </div>
-</div>      </li>
-      <li class="text-right">
-        <a href="https://this-week-in-rust.org/blog/archives/index.html">View more &rarr;</a>
-      </li>
-    </ul>
-  </div>
-</div>
-      </div>
+<ol id="post-list">
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/11/09/this-week-in-rust-104/" rel="bookmark" title="Permalink to This Week in Rust 104">This Week in Rust 104</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-11-09T00:00:00-05:00"> Mon 09 November 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/11/02/this-week-in-rust-103/" rel="bookmark" title="Permalink to This Week in Rust 103">This Week in Rust 103</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-11-02T00:00:00-05:00"> Mon 02 November 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/10/26/this-week-in-rust-102/" rel="bookmark" title="Permalink to This Week in Rust 102">This Week in Rust 102</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-10-26T00:00:00-04:00"> Mon 26 October 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/10/19/this-week-in-rust-101/" rel="bookmark" title="Permalink to This Week in Rust 101">This Week in Rust 101</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-10-19T00:00:00-04:00"> Mon 19 October 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/10/12/this-week-in-rust-100/" rel="bookmark" title="Permalink to This Week in Rust 100">This Week in Rust 100</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-10-12T00:00:00-04:00"> Mon 12 October 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/10/05/this-week-in-rust-99/" rel="bookmark" title="Permalink to This Week in Rust 99">This Week in Rust 99</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-10-05T00:00:00-04:00"> Mon 05 October 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/09/28/this-week-in-rust-98/" rel="bookmark" title="Permalink to This Week in Rust 98">This Week in Rust 98</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-09-28T00:00:00-04:00"> Mon 28 September 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/09/21/this-week-in-rust-97/" rel="bookmark" title="Permalink to This Week in Rust 97">This Week in Rust 97</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-09-21T00:00:00-04:00"> Mon 21 September 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/09/14/this-week-in-rust-96/" rel="bookmark" title="Permalink to This Week in Rust 96">This Week in Rust 96</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-09-14T00:00:00-04:00"> Mon 14 September 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+        <li><article class="hentry">
+                <header> <h2 class="entry-title"><a href="https://this-week-in-rust.org/blog/2015/09/07/this-week-in-rust-95/" rel="bookmark" title="Permalink to This Week in Rust 95">This Week in Rust 95</a></h2> </header>
+                <footer class="post-info">
+                    <time class="published" datetime="2015-09-07T00:00:00-04:00"> Mon 07 September 2015 </time>
+                    <address class="vcard author">By
+                        <a class="url fn" href="https://this-week-in-rust.org/author/twir-contributors.html">TWiR Contributors</a>
+                    </address>
+                </footer><!-- /.post-info -->
+                <div class="entry-content"> <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safety, concurrency, and speed. This is a weekly summary of its progress and
+community. Want something mentioned? Tweet us at <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a> or <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">send us an
+email</a>!
+Want to get involved? <a href="https://github.com/rust-lang/rust/wiki/Note-guide-for-new-contributors">We …</a></p> </div><!-- /.entry-content -->
+        </article></li>
+</ol><!-- /#posts-list -->
+<p class="paginator">
+        <a href="https://this-week-in-rust.org/author/twir-contributors.html">&#8647;</a>
+        <a href="https://this-week-in-rust.org/author/twir-contributors35.html">&laquo;</a>
+    Page 36 / 46
+        <a href="https://this-week-in-rust.org/author/twir-contributors37.html">&raquo;</a>
+        <a href="https://this-week-in-rust.org/author/twir-contributors46.html">&#8649;</a>
+</p>
+</section><!-- /#content -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr class="footer">
+                    <td class="wrapper last">
+                      <table style="width:100%;">
+                        <tr>
+                          <td class="center">
+                            <small>
+                              twitter: <a href="https://twitter.com/ThisWeekInRust">@ThisWeekInRust</a>
+                              <br />
+                              <a href="https://this-week-in-rust.org/pages/privacy-policy.html">Privacy policy</a>
+                              |
+                              <a href="*|UNSUB|*">Unsubscribe</a>
+                              |
+                              <a href="*|UPDATE_PROFILE|*">Change email address</a>
+                              |
+                              <a href="">Read this issue on the Web</a>
+                            </small>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <footer>
-      <div class="container wrapper">
-        <div class="row">
-          <div class="col-sm-4 col-xs-12">
-            <ul class="list-unstyled">
-              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
-              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
-              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
-              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
-            </ul>
-          </div>
-          <div class="col-sm-4 col-xs-12">
-            <ul class="list-unstyled">
-              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
-            </ul>
-          </div>
-          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
-            <ul class="list-unstyled">
-              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
-              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
