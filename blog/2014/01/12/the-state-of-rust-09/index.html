@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="/theme/css/web-min.css?5d361268" />
+    <link rel="stylesheet" href="/theme/css/web-min.css?0e0537fd" />
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
     <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
     <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
@@ -54,7 +54,7 @@ safe, concurrent, and fast. This is my post-mortem of the past 3 months, the
 current status of Rust, and its future.</p>
 <!-- more -->
 
-<h1>Compiler</h1>
+<h1 id="compiler"><a class="toclink" href="#compiler">Compiler</a></h1>
 <p>The compiler saw a fair bit of work this release cycle. Some polish has gone
 into <code>mut</code> in patterns. For example, <code>let (mut x, y) = foo();</code> now works as
 expected. We now have "feature gates", or feature flags, that let us mark
@@ -69,7 +69,7 @@ performance has further improved. From the 112ms compiling <code>fn main() { }</
 linking (<code>-Z prefer-dynamic</code>). Our debuginfo is in a much better state. The
 entire codebase (compiler + standard library + tools) compiles with it, and
 <a href="https://github.com/mozilla/servo/">Servo</a> compiles with it by default.</p>
-<h1>Runtime</h1>
+<h1 id="runtime"><a class="toclink" href="#runtime">Runtime</a></h1>
 <p>The runtime has seen tons of work this release. <code>std::io</code> has been swapped
 over to the new runtime, which is written entirely in Rust. We now support
 both 1:1 and M:N threading models, their respective runtimes supplied by
@@ -92,7 +92,7 @@ when using libnative for I/O.</p>
 <p>You can run the benchmarks yourself. <code>cd comparisons; python run.py</code>. You'll
 need to build rust-http first (<code>make</code>), and have go, nodejs, and ab (apache
 bench) installed.</p>
-<h1>Documentation</h1>
+<h1 id="documentation"><a class="toclink" href="#documentation">Documentation</a></h1>
 <p>Our documentation hasn't been in the best state in the past. It still isn't
 where it should be, but <a href="http://static.rust-lang.org/doc/master/index.html">they have been
 reorganized</a>, on top of
@@ -105,13 +105,13 @@ meetup, Chris Morgan talked about the technologies we use in our documentation
 stack. In the long run, the consensus seems to be that reStructuredText and
 Sphinx are they way forward. Thanks to the rustdoc rewrite, it will be able to
 have first-class status as a documentation backend.</p>
-<h1>The Future</h1>
+<h1 id="the-future"><a class="toclink" href="#the-future">The Future</a></h1>
 <p>For 0.10, we have <a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/">Dynamically Sized Types
 (DST)</a> to
 look forward to, as well as the removal of <code>@</code> pointers. <code>box</code>, aka "placement
 new", along with smart pointer sugar (overloadable dereferencing/borrowing),
 should also be in by then. We may also see an actual garbage collector.</p>
-<h1>Is Rust Ready Yet?</h1>
+<h1 id="is-rust-ready-yet"><a class="toclink" href="#is-rust-ready-yet">Is Rust Ready Yet?</a></h1>
 <p>Nope. It still has some work to do. 1.0 is estimated before the end of 2014,
 though that may slip depending on how things land. An early estimate puts the
 release over the summer! We still need a robust package manager. We now have
