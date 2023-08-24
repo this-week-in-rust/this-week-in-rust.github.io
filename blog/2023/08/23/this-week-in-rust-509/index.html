@@ -106,7 +106,8 @@ and just ask the editors to select the category.
 <li>[video]<a href="https://www.youtube.com/watch?v=wpx9qhKEuP8">I failed to build multiplayer pong in Rust</a></li>
 </ul>
 <h2 id="crate-of-the-week"><a class="toclink" href="#crate-of-the-week">Crate of the Week</a></h2>
-<p><em>No crate was selected for CotW.</em></p>
+<p>This week's crate is <a href="https://github.com/slint-ui/document-features">document-features</a>, a crate to extract documentation for the feature flags from comments in Cargo.toml.</p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/crate-of-the-week/2704/1227">Zicklag</a> for the suggestion!</p>
 <p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Please submit your suggestions and votes for next week</a>!</p>
 <h2 id="call-for-participation"><a class="toclink" href="#call-for-participation">Call for Participation</a></h2>
 <p>Always wanted to contribute to open-source projects but did not know where to start?
@@ -124,8 +125,93 @@ Every week we highlight some tasks from the Rust community for you to pick and g
 </ul>
 <p>If you are a Rust project owner and are looking for contributors, please submit tasks <a href="https://users.rust-lang.org/t/twir-call-for-participation/4821">here</a>.</p>
 <h2 id="updates-from-the-rust-project"><a class="toclink" href="#updates-from-the-rust-project">Updates from the Rust Project</a></h2>
-<!-- Rust updates go here -->
-
+<p>342 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2023-08-14..2023-08-21">merged in the last week</a></p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/111908">Restrict the parsing of <code>count</code></a> (RFC <a href="https://rust-lang.github.io/rfcs/3086-macro-metavar-expr.html">#3086</a>)</li>
+<li><a href="https://github.com/rust-lang/rust/pull/115000"><code>custom_mir</code>: change <code>Call()</code> terminator syntax to something more readable</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/113124">add MIR validation for unwind out from nounwind functions + fixes to make validation pass</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114899">add missing Clone/Debug impls to SMIR Trait related tys</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/115039">add projection obligations when comparing impl too</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/113966">add the <code>relocation_model</code> to the cfg</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114834">avoid side-effects from <code>try_coerce</code> when suggesting borrowing LHS of cast</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114831">check projection args before substitution in new solver</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114992">const-eval: ensure we never const-execute a function marked <code>rustc_do_not_const_check</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114803">couple of global state and driver refactors</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114668">deny <code>FnDef</code> in patterns</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114536">do not mark <code>shallow_lint_levels_on</code> as <code>eval_always</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114990">fix a stack overflow with long else if chains</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/112500">fix argument removal suggestion around macros</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114802">fix bad suggestion when wrong parentheses around a dyn trait</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114913">fix suggestion for attempting to define a string with single quotes</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114784">improve <code>invalid_reference_casting</code> lint</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114934">instantiate response: no unnecessary new universe</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114993">interpret/miri: call the <code>panic_nounwind</code> machinery the same way codegen does</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/113679">match scrutinee need necessary parentheses for structs</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114948">normalize before checking if local is freeze in <code>deduced_param_attrs</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114914">normalize return type of <code>deduce_future_output_from_obligations</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114827">only consider object candidates for object-safe dyn types in new solver</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114819">point at return type when it influences non-first <code>match</code> arm</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114644">point out expectation even if we have <code>TypeError::RegionsInsufficientlyPolymorphic</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114828">probe when assembling upcast candidates so they don't step on eachother's toes in new solver</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114829">separate <code>consider_unsize_to_dyn_candidate</code> from other unsize candidates</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114611">speed up compilation of <code>type-system-chess</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114689">stabilize thread local cell methods</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114591">synchronize with all calls to <code>unpark</code> in id-based thread parker</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114825">upgrade std to gimli 0.28.0</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114983">usage zero as language id for <code>FormatMessageW()</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114467">use <code>unstable_target_features</code> when checking inline assembly</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114023">warn on inductive cycle in coherence leading to impls being considered not overlapping</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/113115">we are migrating to askama</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/2972">miri: C <code>mem</code> function shims: consistently treat "invalid" pointers as UB</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3027">miri: avoid unnecessary Vec resize</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3030">miri: on out-of-bounds error, show where the allocation was created</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3032">miri: pin a version of serde without intransparent unreproducible binary blobs</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3028">miri: replace hand-written binary search with <code>Vec::binary_search_by</code></a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3031">miri: tree borrows: more comments in <code>foreign_read</code> transition</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/2940">miri: when reporting a heap use-after-free, say where the allocation was allocated and deallocated</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/111555">only run MaybeInitializedPlaces dataflow once to elaborate drops</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/108693">optimize DroplessArena arena allocation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114721">optimizing the rest of bool's Ord implementation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/112387">don't panic in <code>ceil_char_boundary</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114973">expose <code>core::error::request_value</code> in std</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114968">fix UB in <code>std::sys::os::getenv()</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/111071">cleaner <code>assert_eq!</code> &amp; <code>assert_ne!</code> panic messages</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/114950">inline <code>strlen_rt</code> in <code>CStr::from_ptr</code></a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12518">cargo-credential-gnome-secret: dynamically load libsecret</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/11447">cargo: crate checksum lookup query should match on semver build metadata</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12507">cargo: credential-providers: make 1password no longer built-in</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12512">cargo: credential: rename cargo:basic to cargo:token-from-stdout</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12382">cargo: fix: change the defaults to always check-in <code>Cargo.lock</code></a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12526">cargo: improve error message for when no credential providers are available</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12499">cargo: login: allow passing additional args to provider</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12521">cargo: make cargo-credential-gnome-secret built-in as cargo:libsecret</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/12498">cargo: print environment variables for <code>cargo run</code> in extra verbose mode</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/106561">rustdoc: udd warning block support in rustdoc</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/113167">rustdoc: add lint <code>redundant_explicit_links</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/112751">rustdoc: fixes with --test-run-directory and relative paths</a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/5879">rustfmt: prevent ICE when formatting item-only <code>vec!{}</code></a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/5867">rustfmt: remove newlines in where clauses for v2</a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/5889">rustfmt: use <code>OR</code> operator in Cargo.toml <code>license</code> field</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11319">clippy: <code>iter_overeager_cloned</code>: detect <code>.cloned().map()</code> and <code>.cloned().for_each()</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11280">clippy: <code>new_without_default</code>: include <code>where</code> clause in suggestions, make applicable</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11070">clippy: <code>useless_conversion</code>: only lint on paths to fn items and fix FP in macro</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11321">clippy: allow calling <code>to_owned</code> on borrowed value for <code>implicit_clone</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11359">clippy: check that the suggested method exists in <code>unwrap_or_default</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11314">clippy: correctly handle async blocks for <code>NEEDLESS_PASS_BY_REF_MUT</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/11204">clippy: new lint: <code>should_panic_without_expect</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15446">rust-analyzer: add status bar button to toggle check on save state</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15374">rust-analyzer: implement extern crate completion</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15477">rust-analyzer: record import aliases in symbol index</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15490">rust-analyzer: fix help text for rust-analyzer.check.invocation{Strategy,Location}</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15418">rust-analyzer: fix signature help of methods from macros</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15473">rust-analyzer: fix auto-import (and completions) importing <code>#[doc(hidden)]</code> items</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15410">rust-analyzer: rewrite DeMorgan assist</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15463">rust-analyzer: start hovering default values of generic constants</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15420">rust-analyzer: increase the buffer size for discover project command</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15383">rust-analyzer: suggest type completions for type arguments and constant completions for constant arguments</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15179">rust-analyzer: the "add missing members" assists: implemented substitution of default values of const params</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15480">rust-analyzer: upgrade lsp server</a></li>
+</ul>
 <h3 id="rust-compiler-performance-triage"><a class="toclink" href="#rust-compiler-performance-triage">Rust Compiler Performance Triage</a></h3>
 <p>A week with very few real regressions and some good improvements through work done by @cjgillot who found a few spots where the compiler was doing unnecessary work.</p>
 <p>Triage done by <strong>@rylev</strong>.
@@ -359,8 +445,12 @@ https://github.com/rust-lang/this-week-in-rust/issues/3412
 
 <p>Please see the latest <a href="https://www.reddit.com/r/rust/comments/14zmcpw/official_rrust_whos_hiring_thread_for_jobseekers/">Who's Hiring thread on r/rust</a></p>
 <h1 id="quote-of-the-week"><a class="toclink" href="#quote-of-the-week">Quote of the Week</a></h1>
-<!-- QOTW goes here -->
-
+<blockquote>
+<p>[...] there's no benefit to haranguing people.</p>
+<p>Unless they use three spaces for indentation. <em>Those</em> people need to be relentlessly mocked and publicly harassed until they see sense and use <em>five</em> spaces like all proper, <em>civilised</em> people do. Damn barbarians...</p>
+</blockquote>
+<p>– <a href="https://users.rust-lang.org/t/return-funcname-versus-funcname-at-end-of-function/98414/3">Daniel Keep on rust-users</a></p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328/1461">Jonas Fassbender</a> for the suggestion!</p>
 <p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
 <p><em>This Week in Rust is edited by: <a href="https://github.com/nellshamrell">nellshamrell</a>, <a href="https://github.com/llogiq">llogiq</a>, <a href="https://github.com/cdmistman">cdmistman</a>, <a href="https://github.com/ericseppanen">ericseppanen</a>, <a href="https://github.com/extrawurst">extrawurst</a>, <a href="https://github.com/andrewpollack">andrewpollack</a>, <a href="https://github.com/U007D">U007D</a>, <a href="https://github.com/kolharsam">kolharsam</a>, <a href="https://github.com/joelmarcey">joelmarcey</a>, <a href="https://github.com/mariannegoldin">mariannegoldin</a>, <a href="https://github.com/bennyvasquez">bennyvasquez</a>.</em></p>
 <p><em>Email list hosting is sponsored by <a href="https://foundation.rust-lang.org/">The Rust Foundation</a></em></p>
