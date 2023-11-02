@@ -74,12 +74,12 @@ replacements are <code>Gc&lt;RefCell&lt;T&gt;&gt;</code> or, preferably, <code>R
 and enums with one variant) <a href="https://github.com/mozilla/rust/pull/11188">has been
 removed</a>. An example:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>struct Foo(int);
+<div class="highlight"><pre><span></span><code><span class="nv">struct</span><span class="w"> </span><span class="nv">Foo</span><span class="ss">(</span><span class="nv">int</span><span class="ss">)</span><span class="c1">;</span>
 
-fn bar() {
-    let x = Foo(42);
-    // previously <span class="sb">`*x`</span> would return 42
-    let Foo(y) = x; // but now you do this pattern matching
+<span class="nv">fn</span><span class="w"> </span><span class="nv">bar</span><span class="ss">()</span><span class="w"> </span>{
+<span class="w">    </span><span class="nv">let</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Foo</span><span class="ss">(</span><span class="mi">42</span><span class="ss">)</span><span class="c1">;</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="nv">previously</span><span class="w"> </span>`<span class="o">*</span><span class="nv">x</span>`<span class="w"> </span><span class="nv">would</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">    </span><span class="nv">let</span><span class="w"> </span><span class="nv">Foo</span><span class="ss">(</span><span class="nv">y</span><span class="ss">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">x</span><span class="c1">; // but now you do this pattern matching</span>
 }
 </code></pre></div>
 
