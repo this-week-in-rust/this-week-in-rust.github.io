@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 62  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-12-22T00:00:00-05:00">22 DEC 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/12/22/this-week-in-rust-62/">This Week in Rust 62</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>This Week in Rust is openly developed <a href="https://github.com/cmr/this-week-in-rust">on Github</a>.
+If you find any errors or omissions in this week's issue, <a href="https://github.com/cmr/this-week-in-rust/pulls">please submit a PR</a>.</p>
+<h1 id="whats-cooking-on-master"><a class="toclink" href="#whats-cooking-on-master">What's cooking on master?</a></h1>
+<p>149 pull requests were <a href="https://github.com/rust-lang/rust/pulls?q=is%3Apr+is%3Amerged+updated%3A2014-12-15..2014-12-22">merged in the last week</a>.</p>
+<p>Now you can follow breaking changes <em><a href="http://bitrust.octarineparrot.com/">as they happen</a></em>!</p>
+<h2 id="breaking-changes"><a class="toclink" href="#breaking-changes">Breaking Changes</a></h2>
+<ul>
+<li>Macros using parens and square brackets (<code>macro!()</code>, <code>macro![]</code>) are
+  <a href="https://github.com/rust-lang/rust/pull/19984">parsed as expressions</a> if not followed by a semicolon. This
+  makes expressions like <code>vec![1i, 2, 3].len();</code> work as
+  expected. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0378-expr-macros.md">RFC</a>.</li>
+<li><a href="https://github.com/rust-lang/rust/pull/19448">Binops take their arguments by value</a>, including <code>Add</code>,
+  <code>Sub</code>, <code>Mul</code>, <code>Div</code> <code>Rem</code>, <code>BitAnd</code>, <code>BitOr</code>, <code>BitXor</code>, <code>Shl</code>,
+  <code>Shr</code>. This breaks all existing implementations!  <code>String</code> and <code>Vec</code>
+  addition now reuse the LHS buffer. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0439-cmp-ops-reform.md">RFC</a>.</li>
+<li>The <code>Neg</code> and <code>Not</code> unary ops <a href="https://github.com/rust-lang/rust/pull/19899">also take their arguments by
+  value</a>.</li>
+<li><a href="https://github.com/rust-lang/rust/pull/19654">A number of changes to the runtime appeared</a>, including
+  renaming <code>std::task</code> to <code>std::thread</code>, that maps more directly to OS
+  threads.</li>
+<li>The in-tree <code>getopts</code>, <code>log</code>, <code>regex</code>, and <code>regex_macros</code> crates are
+  <a href="https://github.com/rust-lang/rust/pull/19820">deprecated</a> in favor of the ones from <code>crates.io</code>. Nearly
+  everything that isn't std is moving to the registry.</li>
+<li>Command-line flags to <code>rustc</code> are <a href="https://github.com/rust-lang/rust/pull/19900">being adjusted</a> with
+  an eye towards stabilizing and futureproofing. See PR for details.</li>
+<li><code>TreeMap</code>, <code>TreeSet</code>, <code>TrieMap</code>, <code>TrieSet</code>, <code>LruCache</code> and <code>EnumSet</code>
+  have all been <a href="https://github.com/rust-lang/rust/pull/19955">removed from the <code>collections</code> crate</a>, and
+  can for now live in <a href="https://github.com/Gankro/collect-rs/">collect-rs</a>. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0509-collections-reform-part-2.md">RFC</a>.</li>
+<li>The <code>VecMap</code> iterators are now <a href="https://github.com/rust-lang/rust/pull/19720">newtypes instead of type
+  aliases</a> to encapsulate the implementation.</li>
+<li>The <code>BTreeMap</code>, <code>BTreeSet</code>, <code>HashMap</code>, and <code>HashSet</code> iterators are
+  <a href="https://github.com/rust-lang/rust/pull/19770">also newtypes</a>..</li>
+<li><a href="https://github.com/rust-lang/rust/pull/19640"><code>is_power_of_two</code> no longer incorrectly considers 0 to be a power
+  of 2</a>.</li>
+<li><code>regex::Captures::at</code> and <code>Captures::name</code> <a href="https://github.com/rust-lang/rust/pull/19818">return <code>Option</code></a>.</li>
+<li>Many, many public reexports of enum variants <a href="https://github.com/rust-lang/rust/pull/19842">have been removed</a>.</li>
+<li>The <code>HashSet</code> iterators <a href="https://github.com/rust-lang/rust/pull/19993">have been
+  renamed</a>.</li>
+</ul>
+<h2 id="other-changes"><a class="toclink" href="#other-changes">Other Changes</a></h2>
+<ul>
+<li>Backtraces are <a href="https://github.com/rust-lang/rust/pull/19819">demangled correctly on Windows</a>.</li>
+<li><code>RingBuf</code> now exposes its buffers via the <a href="https://github.com/rust-lang/rust/pull/19903"><code>as_slices</code>
+  method</a>.</li>
+<li>A number of collections implement <a href="https://github.com/rust-lang/rust/pull/19946">a new method called
+  <code>drain</code></a> which removes all members of the collection without
+  deallocating the underlying buffers.</li>
+<li>Work is progressing on <a href="https://github.com/rust-lang/rust/pull/20073">generalized where clauses</a> which is
+  necessary for associated types to be fully useful. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0135-where.md">RFC</a>.</li>
+</ul>
+<h2 id="new-contributors"><a class="toclink" href="#new-contributors">New Contributors</a></h2>
+<ul>
+<li>Aaron Friel</li>
+<li>Akos Kiss</li>
+<li>Andrew Wagner</li>
+<li>Eric Kidd</li>
+<li>Jacob Edelman</li>
+<li>Jake Goulding</li>
+<li>Jared Roesch</li>
+<li>Ken Tossell</li>
+<li>Kevin Yap</li>
+<li>Martin Pool</li>
+<li>Mathieu Poumeyrol</li>
+<li>Mike Pedersen</li>
+<li>Niels Egberts</li>
+<li>Pedro Larroy</li>
+<li>Sean Collins</li>
+<li>Seth Pollack</li>
+<li>mchaput</li>
+</ul>
+<h1 id="approved-rfcs"><a class="toclink" href="#approved-rfcs">Approved RFC's</a></h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0503-prelude-stabilization.md">503: prelude stabilization</a>. Removes a ton of stuff from the prelude,
+  and moves what remains to a <code>std::prelude::v1</code> module.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0474-path-reform.md">474: path reform</a>. Tightens up the <code>Path</code> API, and makes some changes
+  around their internal representation.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0504-show-stabilization.md">504: <code>Show</code> stabilization</a>. Splits <code>Show</code> into <code>Show</code> and <code>String</code>,
+  with <code>Show</code> being tied to the re-introduced <code>{:?}</code> format string specifier
+  for debugging purposes.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0453-macro-reform.md">453: macro reform</a>. Tightens up how macro import/export "works", and
+  solves the "curious inner module" problem with a <code>$crate</code> meta-variable.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0486-std-ascii-reform.md">486: <code>std::ascii</code> reform</a>. Removes the <code>Ascii</code> newtype and implements
+  the old functionality on various forms of arrays of <code>u8</code> instead.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0509-collections-reform-part-2.md">509: collections reform part 2</a>. Finalizes the fate of
+  <code>std::collections</code>, marking some as stable and moving some to the external
+  <code>collect-rs</code> crate.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0520-new-array-repeat-syntax.md">520: new array repeat syntax</a>. Due to an ambiguity with range
+  notation, the fixed-length array syntax has changed to <code>[T; N]</code> for the type
+  and <code>[expr; N]</code> for the constructor.</li>
+<li><a href="https://github.com/rust-lang/rfcs/blob/master/text/0522-self-impl.md">522: Allow <code>Self</code> to be used in impls</a>. As it sounds. Reduces
+  verbosity.</li>
+</ul>
+<h1 id="new-rfcs"><a class="toclink" href="#new-rfcs">New RFC's</a></h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/536">Mark <code>std::mem::drop</code> as unstable until negative bounds are
+  implemented</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/535">Rename <code>std::mem::drop</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/534">Rename the <code>deriving</code> syntax extension to
+  <code>derive</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/533">Remove certain array elem moves to prepare for non-zeroing
+  drop</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/532"><code>self</code> in <code>use</code></a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/531">Amend RFC process with a defined
+  scope</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/529">Generic conversion traits</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/528">Generic string pattern matching
+  API</a>.</li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/526">Statically enforce Unicode in
+  <code>std::fmt</code></a>.</li>
+</ul>
+<h1 id="community"><a class="toclink" href="#community">Community</a></h1>
+<p>The <a href="https://air.mozilla.org/bay-area-rust-meetup-december-2014/">video from the Thursday's SF Meetup</a> about crypto has
+several interesting presentations.</p>
+<h2 id="from-the-team"><a class="toclink" href="#from-the-team">From the Team</a></h2>
+<ul>
+<li><a href="https://github.com/rust-lang/meeting-minutes/blob/master/weekly-meetings/2014-12-16.md">Weekly-meetings/2014-12-16</a>:  <a href="http://www.reddit.com/r/rust/comments/2pjmve/weekly_meeting_20141216/">Reddit</a>.</li>
+</ul>
+<h2 id="blog-posts"><a class="toclink" href="#blog-posts">Blog Posts</a></h2>
+<ul>
+<li><a href="http://jvns.ca/blog/2014/12/14/fun-with-threads/">Diving into concurrency</a>: trying out mutexes and atomics (in Rust and
+  C). <a href="http://www.reddit.com/r/rust/comments/2pabnd/diving_into_concurrency_trying_out_mutexes_and/">Reddit</a>.</li>
+<li><a href="http://kukuruku.co/hub/rust/comparing-rust-and-cpp">Comparing Rust and C++</a>. <a href="http://www.reddit.com/r/rust/comments/2pbzug/comparing_rust_and_c/">Reddit</a>. Note that this
+  appears to be a translation of an <a href="http://habrahabr.ru/post/225003/">older post in
+  Russian</a>.</li>
+<li><a href="http://words.steveklabnik.com/update-github-pages-with-travis-ci">Updating Github Pages with Travis
+  CI</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2phrge/updating_github_pages_with_travis_ci/">Reddit</a></li>
+<li><a href="http://blog.servo.org/2014/12/15/twis-15/">This Week in Servo 15</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pj6bv/this_week_in_servo_15/">Reddit</a>.</li>
+<li><a href="http://www.frankmcsherry.org/columnarization/serialization/rust/2014/12/15/Columnarization-in-Rust.html">Columnarization in
+  Rust</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pozxt/columnarization_in_rust/">Reddit</a>.</li>
+<li><a href="http://seanmonstar.com/post/105541782562/hyper">Introducing Hyper</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pqnjn/hyper_intro/">Reddit</a>.</li>
+<li><a href="http://erickt.github.io/blog/2014/12/13/performance-digression/">Rewriting Rust Serialization, Part 3.1: Another Performance
+  Digression</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pxx52/rewriting_serialization_part_31_another/">Reddit</a>.</li>
+</ul>
+<h2 id="24-days-of-rust-continues"><a class="toclink" href="#24-days-of-rust-continues">24 Days of Rust continues!</a></h2>
+<ul>
+<li><a href="https://siciarz.net/24-days-of-rust-nalgebra/">nalgebra</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pa7md/24_days_of_rust_nalgebra/">Reddit</a></li>
+<li><a href="https://siciarz.net/24-days-of-rust-fuse-filesystems-part-1/">FUSE filesystems, part
+  1</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pdxbe/24_days_of_rust_fuse_filesystems_part_1/">Reddit</a>.</li>
+<li><a href="https://siciarz.net/24-days-of-rust-fuse-filesystems-part-2/">FUSE filesystems, part
+  2</a>.</li>
+<li><a href="https://siciarz.net/24-days-of-rust-from_fn/"><code>from_fn</code></a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pljk9/24_days_of_rust_from_fn/">Reddit</a>.</li>
+<li><a href="https://siciarz.net/24-days-of-rust-redis/">redis</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2ppltp/24_days_of_rust_redis/">Reddit</a>.</li>
+<li><a href="https://siciarz.net/24-days-of-rust-zeromq/">zeromq</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2pwt70/24_days_of_rust_zeromq/">Reddit</a>.</li>
+<li><a href="https://siciarz.net/24-days-of-rust-rusti/">rusti</a></li>
+<li><a href="https://siciarz.net/24-days-of-rust-rust-crypto/">rust-crypto</a>.
+  <a href="http://www.reddit.com/r/rust/comments/2q07jv/24_days_of_rust_rustcrypto/">Reddit</a>.</li>
+</ul>
+<h2 id="discussions"><a class="toclink" href="#discussions">Discussions</a></h2>
+<ul>
+<li><a href="http://www.reddit.com/r/rust/comments/2pyg8f/anyone_working_on_cc_to_rust_transpilers/">Anyone working on C/C++ to Rust
+  transpilers?</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/2pi3ju/rust_ruined_c_for_me/">Rust ruined C++ for
+  me</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/2pmaqz/well_written_rust_code_to_read_and_learn_from/">Well written rust code to read and learn
+  from?</a></li>
+</ul>
+<h2 id="new-projects"><a class="toclink" href="#new-projects">New Projects</a></h2>
+<ul>
+<li><a href="https://github.com/mttr/rusql">rusql</a>, "A naive, SQL based RDBMS written in
+  Rust."</li>
+<li><a href="https://github.com/rusthon/Rusthon">Rusthon</a>, "a python-like language that
+  converts and compiles into: Rust, C++, and JavaScript."</li>
+<li><a href="https://github.com/asamy45/rbencode">rbencode</a>, a Bencode implementation.</li>
+<li><a href="https://github.com/Kintaro/wtftw">wtftw</a>, "Window Tiling For The Win. A
+  tiling window manager written in Rust."</li>
+<li><a href="http://joshitech.blogspot.com/2014/12/rust-customer-logger.html">Custom Logger with time-stamp, file name and line
+  number</a>.</li>
+<li><a href="https://crates.io/crates/cpal">cpal</a>, pure Rust audio renderer.</li>
+<li><a href="https://github.com/murarth/rusti">rusti reborn</a>, a REPL for Rust</li>
+<li><a href="https://github.com/klutzy/nadeko">nadeko</a>, "an experimental syntax
+  extension which converts functions into amd64 assembly code."</li>
+<li><a href="https://github.com/reem/rust-traverse">traverse</a>, "proof-of-concept trait
+  for internal iterators called traversals."</li>
+</ul>
+<h2 id="upcoming-events"><a class="toclink" href="#upcoming-events">Upcoming Events</a></h2>
+<p>Nothing on the calendar for the next two weeks!</p>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2014/12/15/this-week-in-rust-61/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 61</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2014/12/29/this-week-in-rust-63/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">This Week in Rust 63</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
