@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 51  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-06-10T22:46:00-04:00">10 JUN 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/06/10/this-week-in-rust-51/">This Week in Rust 51</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>This issue combines two weeks of Rust and three weeks of Servo. Additionally,
+in a little over a month month, I'll be releasing <a href="http://blog.octayn.net/blog/2014/06/09/future-of-twir/">an entirely reworked TWiR
+website</a>. Until then,
+TWiR might be a bit lighter than usual.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master"><a class="toclink" href="#whats-cooking-on-master">What's cooking on master?</a></h1>
+<p>126 pull requests were merged in the last week.</p>
+<h2 id="breaking-change-log"><a class="toclink" href="#breaking-change-log">Breaking Change Log</a></h2>
+<ul>
+<li>std: Remove the <code>as_utf16_p</code> functions</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">These</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="n">much</span><span class="w"> </span><span class="n">better</span><span class="w"> </span><span class="n">expressed</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">RAII</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">to_utf16</span><span class="p">()</span>
+<span class="n">method</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">strings</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">refactoring</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">takes</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">opportunity</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">properly</span>
+<span class="n">handle</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">filenames</span><span class="w"> </span><span class="n">aren</span><span class="s1">&#39;t valid unicode when passed through to the windows</span>
+<span class="s1">I/O layer by properly returning I/O errors.</span>
+
+<span class="s1">All previous users of the `as_utf16_p` or `as_utf16_mut_p` functions will need</span>
+<span class="s1">to convert their code to using `foo.to_utf16().append_one(0)` to get a</span>
+<span class="s1">null-terminated utf16 string.</span>
+
+<span class="s1">[breaking-change]</span>
+</code></pre></div>
+
+<ul>
+<li>Implement <code>#[plugin_registrar]</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>See RFC 22.
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>core: Move the collections traits to libcollections</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">moves</span><span class="w"> </span><span class="n">Mutable</span><span class="p">,</span><span class="w"> </span><span class="n">Map</span><span class="p">,</span><span class="w"> </span><span class="n">MutableMap</span><span class="p">,</span><span class="w"> </span><span class="k">Set</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">MutableSet</span><span class="w"> </span><span class="k">from</span>
+<span class="n n-Quoted">`core::collections`</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`collections`</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">top</span><span class="o">-</span><span class="k">level</span><span class="p">.</span><span class="w"> </span><span class="n">Additionally</span><span class="p">,</span>
+<span class="n">this</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`deque`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">moves</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Deque`</span><span class="w"> </span><span class="n">trait</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">being</span>
+<span class="n">available</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">top</span><span class="o">-</span><span class="k">level</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">collections</span><span class="w"> </span><span class="n">crate</span><span class="p">.</span>
+
+<span class="k">All</span><span class="w"> </span><span class="n">functionality</span><span class="w"> </span><span class="n">continues</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">reexported</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n n-Quoted">`std::collections`</span><span class="p">.</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+</code></pre></div>
+
+<ul>
+<li>core: Rename <code>container</code> mod to <code>collections</code>. Closes #12543</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">Also</span><span class="w"> </span><span class="n">renames</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Container`</span><span class="w"> </span><span class="n">trait</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`Collection`</span><span class="p">.</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+</code></pre></div>
+
+<ul>
+<li>std: Extract librustrt out of libstd</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">As</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">libstd</span><span class="w"> </span><span class="n">facade</span><span class="w"> </span><span class="n">efforts</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">extracts</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">interface</span>
+<span class="k">out</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">standalone</span><span class="w"> </span><span class="n">crate</span><span class="p">,</span><span class="w"> </span><span class="n">librustrt</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">will</span>
+<span class="n">provide</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">following</span><span class="w"> </span><span class="n">services</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="k">Definition</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rtio</span><span class="w"> </span><span class="n">interface</span>
+<span class="o">*</span><span class="w"> </span><span class="k">Definition</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Runtime</span><span class="w"> </span><span class="n">interface</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">structure</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">task</span><span class="o">-</span><span class="k">local</span><span class="o">-</span><span class="k">data</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">failure</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">unwinding</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">libunwind</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">runtime</span><span class="w"> </span><span class="n">initialization</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">shutdown</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">thread</span><span class="o">-</span><span class="k">local</span><span class="o">-</span><span class="k">storage</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">rust</span><span class="w"> </span><span class="n">Task</span>
+
+<span class="n">Notably</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">avoids</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">following</span><span class="w"> </span><span class="n">services</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="n">creation</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">destruction</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">require</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">knowledge</span><span class="w"> </span><span class="k">of</span>
+<span class="w">  </span><span class="n">an</span><span class="w"> </span><span class="n">OS</span><span class="w"> </span><span class="n">threading</span><span class="w"> </span><span class="k">system</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">seemed</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">leave</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">the</span>
+<span class="w">  </span><span class="n n-Quoted">`rt::thread`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">librustrt</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">librustrt</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="n">depend</span><span class="w"> </span><span class="k">on</span>
+<span class="w">  </span><span class="n">mutexes</span><span class="p">,</span><span class="w"> </span><span class="n">however</span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Implementation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">backtraces</span><span class="p">.</span><span class="w"> </span><span class="n">There</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">inherent</span><span class="w"> </span><span class="n">requirement</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">runtime</span>
+<span class="w">  </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">able</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">backtraces</span><span class="p">.</span><span class="w"> </span><span class="k">As</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">discussed</span><span class="w"> </span><span class="n">later</span><span class="p">,</span><span class="w"> </span><span class="n">this</span>
+<span class="w">  </span><span class="n">functionality</span><span class="w"> </span><span class="n">continues</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">live</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">libstd</span><span class="w"> </span><span class="n">rather</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">librustrt</span><span class="p">.</span>
+
+<span class="k">As</span><span class="w"> </span><span class="n">usual</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">architectural</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">crate</span>
+<span class="n">possible</span><span class="p">.</span><span class="w"> </span><span class="n">Users</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="w"> </span><span class="n">functionality</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">impacted</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">change</span><span class="p">,</span>
+<span class="n">but</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`std::rt`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">likely</span><span class="w"> </span><span class="n">note</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">changes</span><span class="p">.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">list</span><span class="w"> </span><span class="k">of</span>
+<span class="n">architectural</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="k">is</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">stdout</span><span class="o">/</span><span class="n">stderr</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span><span class="w"> </span><span class="n">live</span><span class="w"> </span><span class="n">directly</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Task`</span>
+<span class="w">  </span><span class="n">structure</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">consequence</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">librustrt</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">knowing</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n n-Quoted">`std::io`</span><span class="p">.</span>
+<span class="w">  </span><span class="n">These</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="k">stored</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">task</span><span class="o">-</span><span class="k">local</span><span class="o">-</span><span class="k">data</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">originally</span><span class="w"> </span><span class="k">stored</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Task`</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">perf</span><span class="w"> </span><span class="n">reasons</span><span class="p">,</span><span class="w"> </span><span class="k">and</span>
+<span class="w">  </span><span class="n">TLD</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">currently</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">fast</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="n">be</span><span class="p">.</span><span class="w"> </span><span class="k">For</span><span class="w"> </span><span class="n">comparison</span><span class="p">,</span><span class="w"> </span><span class="n">100k</span><span class="w"> </span><span class="n">prints</span><span class="w"> </span><span class="n">goes</span>
+<span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">59ms</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">68ms</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="mi">15</span><span class="o">%</span><span class="w"> </span><span class="n">slowdown</span><span class="p">).</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">appeared</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">acceptable</span>
+<span class="w">  </span><span class="n">perf</span><span class="w"> </span><span class="n">loss</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">successful</span><span class="w"> </span><span class="n">extraction</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">librustrt</span><span class="w"> </span><span class="n">crate</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n n-Quoted">`rtio`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">forced</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">duplicate</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">functionality</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n n-Quoted">`std::io`</span><span class="p">.</span><span class="w"> </span><span class="k">As</span>
+<span class="w">  </span><span class="n">the</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span><span class="w"> </span><span class="n">depends</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n n-Quoted">`std::io`</span><span class="p">,</span><span class="w"> </span><span class="n n-Quoted">`rtio`</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">defines</span><span class="w"> </span><span class="n">structures</span><span class="w"> </span><span class="n">such</span>
+<span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="k">socket</span><span class="w"> </span><span class="n">addresses</span><span class="p">,</span><span class="w"> </span><span class="n">addrinfo</span><span class="w"> </span><span class="n">fiddly</span><span class="w"> </span><span class="n">bits</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="n">was</span>
+<span class="w">  </span><span class="n">that</span><span class="w"> </span><span class="n n-Quoted">`rtio`</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">defines</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">own</span><span class="w"> </span><span class="n n-Quoted">`IoError`</span><span class="w"> </span><span class="k">type</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">from</span>
+<span class="w">  </span><span class="n n-Quoted">`std::io::IoError`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="kt">enum</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="k">error</span><span class="w"> </span><span class="n">occurred</span><span class="p">,</span>
+<span class="w">  </span><span class="n">but</span><span class="w"> </span><span class="n">rather</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">platform</span><span class="o">-</span><span class="k">specific</span><span class="w"> </span><span class="k">error</span><span class="w"> </span><span class="k">code</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">native</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="n">libraries</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">updated</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">later</span><span class="w"> </span><span class="n">commits</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">this</span>
+<span class="w">  </span><span class="k">change</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bulk</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">effort</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">put</span><span class="w"> </span><span class="n">behind</span><span class="w"> </span><span class="n">updating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">libraries</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="p">(</span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`rtio`</span><span class="p">).</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Printing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">failure</span><span class="w"> </span><span class="p">(</span><span class="n">along</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">backtrace</span><span class="p">)</span><span class="w"> </span><span class="n">continues</span><span class="w"> </span><span class="k">to</span>
+<span class="w">  </span><span class="n">live</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">libstd</span><span class="p">,</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">librustrt</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">consequence</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">decision</span>
+<span class="w">  </span><span class="k">to</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">stdout</span><span class="o">/</span><span class="n">stderr</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">TLD</span><span class="w"> </span><span class="n">rather</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Task`</span><span class="w"> </span><span class="n">itself</span><span class="p">.</span>
+<span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">unwinding</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">supports</span><span class="w"> </span><span class="k">registration</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="n">which</span>
+<span class="w">  </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">invoked</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">fails</span><span class="p">,</span><span class="w"> </span><span class="n">allowing</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">libstd</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">function</span>
+<span class="w">  </span><span class="k">to</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">backtrace</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">registering</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">experimental</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">unsafe</span><span class="p">,</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">the</span>
+<span class="w">  </span><span class="n">ramifications</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">unwinding</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">pretty</span><span class="w"> </span><span class="n">hairy</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n n-Quoted">`std::unstable::mutex`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`std::rt::mutex`</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n n-Quoted">`std::unstable::sync`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`std::rt::exclusive`</span><span class="w"> </span><span class="k">and</span>
+<span class="w">  </span><span class="n">the</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">rewritten</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">internally</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">Arc</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">RAII</span>
+<span class="w">  </span><span class="n">guard</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">locking</span><span class="p">.</span><span class="w"> </span><span class="k">Old</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="k">stop</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n n-Quoted">`Exclusive`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">favor</span>
+<span class="w">  </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">primitives</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n n-Quoted">`libsync`</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">necessary</span><span class="p">,</span><span class="w"> </span><span class="k">old</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="k">port</span><span class="w"> </span><span class="k">to</span>
+<span class="w">  </span><span class="n n-Quoted">`Arc&lt;Exclusive&lt;T&gt;&gt;`</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">heap</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">stripped</span><span class="w"> </span><span class="n">down</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">fewer</span><span class="w"> </span><span class="n">debugging</span><span class="w"> </span><span class="k">options</span><span class="p">.</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">of</span>
+<span class="w">  </span><span class="n">these</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">tested</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">none</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">very</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">time</span><span class="p">.</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+</code></pre></div>
+
+<ul>
+<li>Rename Iterator::len to count</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="n">commit</span><span class="w"> </span><span class="n">carries</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="err">#</span><span class="mi">14678</span><span class="o">:</span>
+
+<span class="o">&gt;</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="err">`</span><span class="n">Iterator</span><span class="o">::</span><span class="n">len</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">surprising</span><span class="p">,</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kr">all</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">uses</span><span class="w"> </span><span class="kr">of</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="err">`</span><span class="n">len</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="kr">not</span><span class="w"> </span><span class="n">consume</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="w"> </span><span class="err">`</span><span class="n">len</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">sense</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">called</span><span class="w"> </span><span class="err">`</span><span class="nf">count</span><span class="p">()</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">collide</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">current</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="err">`</span><span class="n">Iterator</span><span class="o">::</span><span class="nf">count</span><span class="p">(</span><span class="o">|</span><span class="n">T</span><span class="o">|</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">bool</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">unit</span><span class="err">`</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="w"> </span><span class="n">That</span><span class="w"> </span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="n">however</span><span class="p">,</span><span class="w"> </span><span class="n">is</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="n">redundant</span><span class="p">,</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">easily</span><span class="w"> </span><span class="n">replaced</span><span class="w"> </span><span class="n">with</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="err">`</span><span class="n">iter</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">).</span><span class="nf">count</span><span class="p">()</span><span class="err">`</span><span class="p">.</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">After</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">change</span><span class="p">,</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="nf">define</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="err">`</span><span class="n">len</span><span class="p">()</span><span class="err">`</span><span class="w"> </span><span class="n">method</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="err">`</span><span class="n">iter</span><span class="o">::</span><span class="n">ExactSize</span><span class="err">`</span><span class="p">.</span>
+
+<span class="n">Closes</span><span class="w"> </span><span class="err">#</span><span class="mf">14678.</span>
+
+<span class="p">[</span><span class="n">breaking</span><span class="o">-</span><span class="n">change</span><span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14538 : alexcrichton/rust/libcollections, r=brson</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">As</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`librand`</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">shuffles</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="k">some</span>
+<span class="n n-Quoted">`collections`</span><span class="w"> </span><span class="k">code</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">similar</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">librand</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">libcollections</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">depends</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">libcore</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">liballoc</span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n n-Quoted">`std::collections`</span><span class="p">.</span><span class="w"> </span><span class="k">All</span><span class="w"> </span><span class="n">functionality</span>
+<span class="w">  </span><span class="k">of</span><span class="w"> </span><span class="n">libcollections</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">reexported</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">module</span><span class="p">.</span>
+
+<span class="n">I</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">stress</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">purely</span><span class="w"> </span><span class="n">cosmetic</span><span class="p">.</span><span class="w"> </span><span class="n">There</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">very</span><span class="w"> </span><span class="n">few</span>
+<span class="n">alterations</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">primitives</span><span class="p">.</span>
+
+<span class="n">There</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">notable</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="k">organization</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="err">{</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">slice</span><span class="p">,</span><span class="w"> </span><span class="k">string</span><span class="p">,</span><span class="w"> </span><span class="n">vec</span><span class="err">}</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">libcollections</span><span class="p">.</span><span class="w"> </span><span class="n">There</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">reason</span>
+<span class="w">  </span><span class="n">that</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">primitives</span><span class="w"> </span><span class="n">shouldn</span><span class="s1">&#39;t be necessarily usable in a freestanding</span>
+<span class="s1">  context that has allocation. These are all reexported in their usual places in</span>
+<span class="s1">  the standard library.</span>
+
+<span class="s1">* The `hashmap`, and transitively the `lru_cache`, modules no longer reside in</span>
+<span class="s1">  `libcollections`, but rather in libstd. The reason for this is because the</span>
+<span class="s1">  `HashMap::new` contructor requires access to the OSRng for initially seeding</span>
+<span class="s1">  the hash map. Beyond this requirement, there is no reason that the hashmap</span>
+<span class="s1">  could not move to libcollections.</span>
+
+<span class="s1">  I do, however, have a plan to move the hash map to the collections module. The</span>
+<span class="s1">  `HashMap::new` function could be altered to require that the `H` hasher</span>
+<span class="s1">  parameter ascribe to the `Default` trait, allowing the entire `hashmap` module</span>
+<span class="s1">  to live in libcollections. The key idea would be that the default hasher would</span>
+<span class="s1">  be different in libstd. Something along the lines of:</span>
+
+<span class="s1">      // src/libstd/collections/mod.rs</span>
+
+<span class="s1">      pub type HashMap&lt;K, V, H = RandomizedSipHasher&gt; =</span>
+<span class="s1">            core_collections::HashMap&lt;K, V, H&gt;;</span>
+
+<span class="s1">  This is not possible today because you cannot invoke static methods through</span>
+<span class="s1">  type aliases. If we modified the compiler, however, to allow invocation of</span>
+<span class="s1">  static methods through type aliases, then this type definition would</span>
+<span class="s1">  essentially be switching the default hasher from `SipHasher` in libcollections</span>
+<span class="s1">  to a libstd-defined `RandomizedSipHasher` type. This type&#39;</span><span class="n">s</span><span class="w"> </span><span class="n n-Quoted">`Default`</span>
+<span class="w">  </span><span class="n">implementation</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">randomly</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`SipHasher`</span><span class="w"> </span><span class="k">instance</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">otherwise</span>
+<span class="w">  </span><span class="n">perform</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n n-Quoted">`SipHasher`</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">This</span><span class="w"> </span><span class="n">future</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">doesn</span><span class="s1">&#39;t seem incredibly far off, but until that time comes,</span>
+<span class="s1">  the hashmap module will live in libstd to not compromise on functionality.</span>
+
+<span class="s1">* In preparation for the hashmap moving to libcollections, the `hash` module has</span>
+<span class="s1">  moved from libstd to libcollections. A previously snapshotted commit enables a</span>
+<span class="s1">  distinct `Writer` trait to live in the `hash` module which `Hash`</span>
+<span class="s1">  implementations are now parameterized over.</span>
+
+<span class="s1">  Due to using a custom trait, the `SipHasher` implementation has lost its</span>
+<span class="s1">  specialized methods for writing integers. These can be re-added</span>
+<span class="s1">  backwards-compatibly in the future via default methods if necessary, but the</span>
+<span class="s1">  FNV hashing should satisfy much of the need for speedier hashing.</span>
+
+<span class="s1">A list of breaking changes:</span>
+
+<span class="s1">* HashMap::{get, get_mut} no longer fails with the key formatted into the error</span>
+<span class="s1">  message with `{:?}`, instead, a generic message is printed. With backtraces,</span>
+<span class="s1">  it should still be not-too-hard to track down errors.</span>
+
+<span class="s1">* The HashMap, HashSet, and LruCache types are now available through</span>
+<span class="s1">  std::collections instead of the collections crate.</span>
+
+<span class="s1">* Manual implementations of hash should be parameterized over `hash::Writer`</span>
+<span class="s1">  instead of just `Writer`.</span>
+
+<span class="s1">[breaking-change]</span>
+</code></pre></div>
+
+<ul>
+<li>std: Recreate a <code>collections</code> module</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">As</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`librand`</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">shuffles</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="k">some</span>
+<span class="n n-Quoted">`collections`</span><span class="w"> </span><span class="k">code</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">similar</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">librand</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">libcollections</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">depends</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">libcore</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">liballoc</span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n n-Quoted">`std::collections`</span><span class="p">.</span><span class="w"> </span><span class="k">All</span><span class="w"> </span><span class="n">functionality</span>
+<span class="w">  </span><span class="k">of</span><span class="w"> </span><span class="n">libcollections</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">reexported</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">module</span><span class="p">.</span>
+
+<span class="n">I</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">stress</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">purely</span><span class="w"> </span><span class="n">cosmetic</span><span class="p">.</span><span class="w"> </span><span class="n">There</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">very</span><span class="w"> </span><span class="n">few</span>
+<span class="n">alterations</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">primitives</span><span class="p">.</span>
+
+<span class="n">There</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">notable</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="k">organization</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="err">{</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">slice</span><span class="p">,</span><span class="w"> </span><span class="k">string</span><span class="p">,</span><span class="w"> </span><span class="n">vec</span><span class="err">}</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">libcollections</span><span class="p">.</span><span class="w"> </span><span class="n">There</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">reason</span>
+<span class="w">  </span><span class="n">that</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">primitives</span><span class="w"> </span><span class="n">shouldn</span><span class="s1">&#39;t be necessarily usable in a freestanding</span>
+<span class="s1">  context that has allocation. These are all reexported in their usual places in</span>
+<span class="s1">  the standard library.</span>
+
+<span class="s1">* The `hashmap`, and transitively the `lru_cache`, modules no longer reside in</span>
+<span class="s1">  `libcollections`, but rather in libstd. The reason for this is because the</span>
+<span class="s1">  `HashMap::new` contructor requires access to the OSRng for initially seeding</span>
+<span class="s1">  the hash map. Beyond this requirement, there is no reason that the hashmap</span>
+<span class="s1">  could not move to libcollections.</span>
+
+<span class="s1">  I do, however, have a plan to move the hash map to the collections module. The</span>
+<span class="s1">  `HashMap::new` function could be altered to require that the `H` hasher</span>
+<span class="s1">  parameter ascribe to the `Default` trait, allowing the entire `hashmap` module</span>
+<span class="s1">  to live in libcollections. The key idea would be that the default hasher would</span>
+<span class="s1">  be different in libstd. Something along the lines of:</span>
+
+<span class="s1">      // src/libstd/collections/mod.rs</span>
+
+<span class="s1">      pub type HashMap&lt;K, V, H = RandomizedSipHasher&gt; =</span>
+<span class="s1">            core_collections::HashMap&lt;K, V, H&gt;;</span>
+
+<span class="s1">  This is not possible today because you cannot invoke static methods through</span>
+<span class="s1">  type aliases. If we modified the compiler, however, to allow invocation of</span>
+<span class="s1">  static methods through type aliases, then this type definition would</span>
+<span class="s1">  essentially be switching the default hasher from `SipHasher` in libcollections</span>
+<span class="s1">  to a libstd-defined `RandomizedSipHasher` type. This type&#39;</span><span class="n">s</span><span class="w"> </span><span class="n n-Quoted">`Default`</span>
+<span class="w">  </span><span class="n">implementation</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">randomly</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`SipHasher`</span><span class="w"> </span><span class="k">instance</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">otherwise</span>
+<span class="w">  </span><span class="n">perform</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n n-Quoted">`SipHasher`</span><span class="p">.</span>
+
+<span class="w">  </span><span class="n">This</span><span class="w"> </span><span class="n">future</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">doesn</span><span class="s1">&#39;t seem incredibly far off, but until that time comes,</span>
+<span class="s1">  the hashmap module will live in libstd to not compromise on functionality.</span>
+
+<span class="s1">* In preparation for the hashmap moving to libcollections, the `hash` module has</span>
+<span class="s1">  moved from libstd to libcollections. A previously snapshotted commit enables a</span>
+<span class="s1">  distinct `Writer` trait to live in the `hash` module which `Hash`</span>
+<span class="s1">  implementations are now parameterized over.</span>
+
+<span class="s1">  Due to using a custom trait, the `SipHasher` implementation has lost its</span>
+<span class="s1">  specialized methods for writing integers. These can be re-added</span>
+<span class="s1">  backwards-compatibly in the future via default methods if necessary, but the</span>
+<span class="s1">  FNV hashing should satisfy much of the need for speedier hashing.</span>
+
+<span class="s1">A list of breaking changes:</span>
+
+<span class="s1">* HashMap::{get, get_mut} no longer fails with the key formatted into the error</span>
+<span class="s1">  message with `{:?}`, instead, a generic message is printed. With backtraces,</span>
+<span class="s1">  it should still be not-too-hard to track down errors.</span>
+
+<span class="s1">* The HashMap, HashSet, and LruCache types are now available through</span>
+<span class="s1">  std::collections instead of the collections crate.</span>
+
+<span class="s1">* Manual implementations of hash should be parameterized over `hash::Writer`</span>
+<span class="s1">  instead of just `Writer`.</span>
+
+<span class="s1">[breaking-change]</span>
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14610 : alexcrichton/rust/issue-14008, r=brson</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">&lt;</span><span class="n">M</span><span class="o">:</span><span class="w"> </span><span class="k">Any</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Send</span><span class="o">&gt;</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">Option</span><span class="o">::</span><span class="n">expect</span><span class="w"> </span><span class="k">in</span>
+<span class="n">favor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">taking</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">hard</span><span class="o">-</span><span class="n">coded</span><span class="w"> </span><span class="n n-Quoted">`&amp;str`</span><span class="w"> </span><span class="n">argument</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">allows</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="k">to</span>
+<span class="n">move</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">libcore</span><span class="p">.</span>
+
+<span class="n">Previous</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`expect`</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="k">using</span>
+<span class="n">this</span><span class="w"> </span><span class="n">implicitly</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">transmit</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">failure</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">unwrap</span><span class="w"> </span><span class="n">manually</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span>
+<span class="n n-Quoted">`match`</span><span class="w"> </span><span class="n">statement</span><span class="p">.</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+<span class="n">Closes</span><span class="w"> </span><span class="c1">#14008</span>
+</code></pre></div>
+
+<ul>
+<li>std: Remove generics from Option::expect</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">removes</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">&lt;</span><span class="n">M</span><span class="o">:</span><span class="w"> </span><span class="k">Any</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Send</span><span class="o">&gt;</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">Option</span><span class="o">::</span><span class="n">expect</span><span class="w"> </span><span class="k">in</span>
+<span class="n">favor</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">taking</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">hard</span><span class="o">-</span><span class="n">coded</span><span class="w"> </span><span class="n n-Quoted">`&amp;str`</span><span class="w"> </span><span class="n">argument</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">allows</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="k">to</span>
+<span class="n">move</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">libcore</span><span class="p">.</span>
+
+<span class="n">Previous</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`expect`</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="k">code</span><span class="w"> </span><span class="k">using</span>
+<span class="n">this</span><span class="w"> </span><span class="n">implicitly</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">transmit</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">failure</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">unwrap</span><span class="w"> </span><span class="n">manually</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span>
+<span class="n n-Quoted">`match`</span><span class="w"> </span><span class="n">statement</span><span class="p">.</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+<span class="n">Closes</span><span class="w"> </span><span class="c1">#14008</span>
+</code></pre></div>
+
+<ul>
+<li>std: Drop Total from Total{Eq,Ord}</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">This</span><span class="w"> </span><span class="nv">completes</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">stage</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">renaming</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">comparison</span><span class="w"> </span><span class="nv">hierarchy</span><span class="w"> </span><span class="nv">of</span>
+<span class="nv">traits</span>.<span class="w"> </span><span class="nv">This</span><span class="w"> </span><span class="nv">change</span><span class="w"> </span><span class="nv">renames</span><span class="w"> </span><span class="nv">TotalEq</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">Eq</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">TotalOrd</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">Ord</span>.
+
+<span class="nv">In</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">future</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">new</span><span class="w"> </span><span class="nv">Eq</span><span class="o">/</span><span class="nv">Ord</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">filled</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">their</span><span class="w"> </span><span class="nv">appropriate</span><span class="w"> </span><span class="nv">methods</span>,
+<span class="nv">but</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">change</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">purely</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">renaming</span><span class="w"> </span><span class="nv">change</span>.
+
+[<span class="nv">breaking</span><span class="o">-</span><span class="nv">change</span>]
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14556 : sfackler/rust/kill-workcache, r=alexcrichton</li>
+</ul>
+<div class="highlight"><pre><span></span><code>This was only ever used by rustpkg and is very unmaintained.
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>Remove libworkcache</li>
+</ul>
+<div class="highlight"><pre><span></span><code>This was only ever used by rustpkg and is very unmaintained.
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>std: Rename {Eq,Ord} to Partial{Eq,Ord}</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">This</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">part</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">ongoing</span><span class="w"> </span><span class="nv">renaming</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">equality</span><span class="w"> </span><span class="nv">traits</span>.<span class="w"> </span><span class="nv">See</span><span class="w"> </span><span class="sc">#12517</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">more</span>
+<span class="nv">details</span>.<span class="w"> </span><span class="nv">All</span><span class="w"> </span><span class="nv">code</span><span class="w"> </span><span class="nv">using</span><span class="w"> </span><span class="nv">Eq</span><span class="o">/</span><span class="nv">Ord</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">temporarily</span><span class="w"> </span><span class="nv">need</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">move</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">Partial</span>{<span class="nv">Eq</span>,<span class="nv">Ord</span>}
+<span class="nv">or</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">Total</span>{<span class="nv">Eq</span>,<span class="nv">Ord</span>}<span class="w"> </span><span class="nv">traits</span>.<span class="w"> </span><span class="nv">The</span><span class="w"> </span><span class="nv">Total</span><span class="w"> </span><span class="nv">traits</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">soon</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">renamed</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span>{<span class="nv">Eq</span>,<span class="nv">Ord</span>}.
+
+<span class="nv">cc</span><span class="w"> </span><span class="sc">#12517</span>
+
+[<span class="nv">breaking</span><span class="o">-</span><span class="nv">change</span>]
+</code></pre></div>
+
+<ul>
+<li>librustc: Fix snake case errors.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">A</span><span class="w"> </span><span class="nx">number</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">functions</span><span class="o">/</span><span class="nx">methods</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">been</span><span class="w"> </span><span class="nx">moved</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">renamed</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">align</span>
+<span class="nx">better</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">rust</span><span class="w"> </span><span class="nx">standard</span><span class="w"> </span><span class="nx">conventions</span><span class="p">.</span>
+
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">back</span><span class="o">::</span><span class="nx">link</span><span class="o">::</span><span class="nx">WriteOutputFile</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">write_output_file</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">ty</span><span class="o">::</span><span class="nx">EmptyBuiltinBounds</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">empty_builtin_bounds</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">ty</span><span class="o">::</span><span class="nx">AllBuiltinBounds</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">all_builtin_bounds</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">liveness</span><span class="o">::</span><span class="nx">IrMaps</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">IrMaps</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">liveness</span><span class="o">::</span><span class="nx">Liveness</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">Liveness</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">resolve</span><span class="o">::</span><span class="nx">NameBindings</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">NameBindings</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">resolve</span><span class="o">::</span><span class="nx">PrimitiveTypeTable</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">PrimitiveTypeTable</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">resolve</span><span class="o">::</span><span class="nx">Resolver</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">Resolver</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">trans</span><span class="o">::</span><span class="nx">datum</span><span class="o">::</span><span class="nx">Datum</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">Datum</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">trans</span><span class="o">::</span><span class="nx">datum</span><span class="o">::</span><span class="nx">DatumBlock</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">DatumBlock</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">trans</span><span class="o">::</span><span class="nx">datum</span><span class="o">::</span><span class="nx">Rvalue</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">Rvalue</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">typeck</span><span class="o">::</span><span class="nx">infer</span><span class="o">::</span><span class="nx">new_ValsAndBindings</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">::</span><span class="nx">infer</span><span class="o">::</span><span class="nx">unify</span><span class="o">::</span><span class="nx">ValsAndBindings</span><span class="o">::</span><span class="nx">new</span>
+<span class="nx">rustc</span><span class="o">::</span><span class="nx">middle</span><span class="o">::</span><span class="nx">typeck</span><span class="o">::</span><span class="nx">infer</span><span class="o">::</span><span class="nx">region_inference</span><span class="o">::</span><span class="nx">RegionVarBindings</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nx">RegionVarBindings</span><span class="o">::</span><span class="nx">new</span>
+
+<span class="p">[</span><span class="nx">breaking</span><span class="o">-</span><span class="nx">change</span><span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>lib{serialize, uuid}: Fix snake case errors.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.
+
+serialize::ebml::reader::Doc =&gt; seriaize::ebml::Doc::new
+serialize::ebml::reader::Decoder =&gt; Decoder::new
+serialize::ebml::writer::Encoder =&gt; Encoder::new
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>lib{std,core,debug,rustuv,collections,native,regex}: Fix <code>snake_case</code> errors.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.
+
+std::reflect::MovePtrAdaptor =&gt; MovePtrAdaptor::new
+debug::reflect::MovePtrAdaptor =&gt; MovePtrAdaptor::new
+std::repr::ReprVisitor =&gt; ReprVisitor::new
+debug::repr::ReprVisitor =&gt; ReprVisitor::new
+rustuv::homing::HomingIO.go_to_IO_home =&gt; go_to_io_home
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>libsyntax: Fix <code>snake_case</code> errors.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>A number of functions/methods have been moved or renamed to align
+better with rust standard conventions.
+
+syntax::ext::mtwt::xorPush =&gt; xor_push
+syntax::parse::parser::Parser =&gt; Parser::new
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14511 : Sawyer47/rust/osrng-rename, r=alexcrichton</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">According</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Rust</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">style</span><span class="w"> </span><span class="nx">guide</span><span class="w"> </span><span class="nx">acronyms</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">names</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">be</span>
+<span class="nx">CamelCase</span><span class="p">.</span>
+
+<span class="p">[</span><span class="nx">breaking</span><span class="o">-</span><span class="nx">change</span><span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>Rename OSRng to OsRng</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">According</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Rust</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">style</span><span class="w"> </span><span class="nx">guide</span><span class="w"> </span><span class="nx">acronyms</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">names</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">be</span>
+<span class="nx">CamelCase</span><span class="p">.</span>
+
+<span class="p">[</span><span class="nx">breaking</span><span class="o">-</span><span class="nx">change</span><span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14427 : alexcrichton/rust/librand, r=huonw</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">shuffles</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`rand`</span><span class="w"> </span><span class="k">code</span><span class="p">,</span><span class="w"> </span><span class="n">along</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">some</span>
+<span class="n">reorganization</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">follows</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">depends</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">libcore</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">experimental</span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n n-Quoted">`std::rand`</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="n">will</span>
+<span class="w">  </span><span class="n">eventually</span><span class="w"> </span><span class="n">become</span><span class="w"> </span><span class="n">stable</span><span class="p">.</span>
+
+<span class="n">Unfortunately</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">entailed</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">breaking</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">shuffling</span><span class="w"> </span><span class="k">some</span>
+<span class="k">names</span><span class="w"> </span><span class="n">around</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">following</span><span class="w"> </span><span class="n">breaking</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rand</span><span class="w"> </span><span class="n">library</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Rng</span><span class="o">::</span><span class="n">gen_vec</span><span class="p">()</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">replaced</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Rng</span><span class="o">::</span><span class="n">gen_iter</span><span class="p">()</span><span class="w"> </span><span class="n">which</span>
+<span class="w">  </span><span class="n">will</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">infinite</span><span class="w"> </span><span class="k">stream</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">values</span><span class="p">.</span><span class="w"> </span><span class="n">Previous</span><span class="w"> </span><span class="n">behavior</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span>
+<span class="w">  </span><span class="n">regained</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`rng.gen_iter().take(n).collect()`</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Rng</span><span class="o">::</span><span class="n">gen_ascii_str</span><span class="p">()</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">replaced</span><span class="w"> </span><span class="k">with</span>
+<span class="w">  </span><span class="n">Rng</span><span class="o">::</span><span class="n">gen_ascii_chars</span><span class="p">()</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">infinite</span><span class="w"> </span><span class="k">stream</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">ascii</span>
+<span class="w">  </span><span class="n">characters</span><span class="p">.</span><span class="w"> </span><span class="n">Similarly</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">gen_iter</span><span class="p">(),</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="n">behavior</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">emulated</span><span class="w"> </span><span class="k">with</span>
+<span class="w">  </span><span class="n n-Quoted">`rng.gen_ascii_chars().take(n).collect()`</span>
+
+<span class="o">*</span><span class="w"> </span><span class="err">{</span><span class="n">IsaacRng</span><span class="p">,</span><span class="w"> </span><span class="n">Isaac64Rng</span><span class="p">,</span><span class="w"> </span><span class="n">XorShiftRng</span><span class="err">}</span><span class="o">::</span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="k">all</span>
+<span class="w">  </span><span class="n">relied</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">being</span><span class="w"> </span><span class="n">able</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">OSRng</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">seeding</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span>
+<span class="w">  </span><span class="n">available</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="p">(</span><span class="k">where</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">defined</span><span class="p">).</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="k">retain</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span>
+<span class="w">  </span><span class="n">functionality</span><span class="p">,</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">implement</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Rand`</span><span class="w"> </span><span class="n">trait</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span>
+<span class="w">  </span><span class="k">generated</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="n">generator</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">allows</span>
+<span class="w">  </span><span class="n">the</span><span class="w"> </span><span class="n">stdlib</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">OSRng</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">seeded</span><span class="w"> </span><span class="n">instances</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">RNGs</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Rand</span><span class="w"> </span><span class="n">implementations</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n n-Quoted">`Box&lt;T&gt;`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n n-Quoted">`@T`</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="n">seemed</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span>
+<span class="w">  </span><span class="n">pretty</span><span class="w"> </span><span class="n">rare</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">codebase</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">allows</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">libcore</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">depend</span><span class="w"> </span><span class="k">on</span>
+<span class="w">  </span><span class="n">liballoc</span><span class="p">.</span><span class="w">  </span><span class="n">Additionally</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="n">Rc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Arc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="k">not</span>
+<span class="w">  </span><span class="n">supported</span><span class="p">.</span><span class="w">  </span><span class="k">If</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">undesirable</span><span class="p">,</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">depend</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">liballoc</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">regain</span>
+<span class="w">  </span><span class="n">these</span><span class="w"> </span><span class="n">implementations</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">WeightedChoice</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span><span class="w"> </span><span class="n">built</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`Vec&lt;Weighted&lt;T&gt;&gt;`</span><span class="p">,</span>
+<span class="w">   </span><span class="n">but</span><span class="w"> </span><span class="n">rather</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`&amp;mut [Weighted&lt;T&gt;]`</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">WeightedChoice</span>
+<span class="w">   </span><span class="n">structure</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">lifetime</span><span class="w"> </span><span class="n">associated</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">it</span><span class="p">.</span>
+
+<span class="n">cc</span><span class="w"> </span><span class="c1">#13851</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+</code></pre></div>
+
+<ul>
+<li>std: Recreate a <code>rand</code> module</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">This</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">shuffles</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`rand`</span><span class="w"> </span><span class="k">code</span><span class="p">,</span><span class="w"> </span><span class="n">along</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">some</span>
+<span class="n">reorganization</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">follows</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="n">crate</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">depends</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">libcore</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">experimental</span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n n-Quoted">`std::rand`</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="n">will</span>
+<span class="w">  </span><span class="n">eventually</span><span class="w"> </span><span class="n">become</span><span class="w"> </span><span class="n">stable</span><span class="p">.</span>
+
+<span class="n">Unfortunately</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">entailed</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">breaking</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">shuffling</span><span class="w"> </span><span class="k">some</span>
+<span class="k">names</span><span class="w"> </span><span class="n">around</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="k">following</span><span class="w"> </span><span class="n">breaking</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">made</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">rand</span><span class="w"> </span><span class="n">library</span><span class="o">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n n-Quoted">`Rng::gen_vec()`</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">replaced</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`Rng::gen_iter()`</span>
+<span class="w">  </span><span class="n">which</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">infinite</span><span class="w"> </span><span class="k">stream</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">values</span><span class="p">.</span><span class="w"> </span><span class="n">Previous</span><span class="w"> </span><span class="n">behavior</span><span class="w"> </span><span class="n">can</span>
+<span class="w">  </span><span class="n">be</span><span class="w"> </span><span class="n">regained</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n n-Quoted">`rng.gen_iter().take(n).collect()`</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n n-Quoted">`Rng::gen_ascii_str()`</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">replaced</span><span class="w"> </span><span class="k">with</span>
+<span class="w">  </span><span class="n n-Quoted">`Rng::gen_ascii_chars()`</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">infinite</span><span class="w"> </span><span class="k">stream</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">ascii</span>
+<span class="w">  </span><span class="n">characters</span><span class="p">.</span><span class="w"> </span><span class="n">Similarly</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`gen_iter()`</span><span class="p">,</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="n">behavior</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">emulated</span><span class="w"> </span><span class="k">with</span>
+<span class="w">  </span><span class="n n-Quoted">`rng.gen_ascii_chars().take(n).collect()`</span>
+
+<span class="o">*</span><span class="w"> </span><span class="err">{</span><span class="n">IsaacRng</span><span class="p">,</span><span class="w"> </span><span class="n">Isaac64Rng</span><span class="p">,</span><span class="w"> </span><span class="n">XorShiftRng</span><span class="err">}</span><span class="o">::</span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="k">all</span>
+<span class="w">  </span><span class="n">relied</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">being</span><span class="w"> </span><span class="n">able</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">OSRng</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">seeding</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span>
+<span class="w">  </span><span class="n">available</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="p">(</span><span class="k">where</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">defined</span><span class="p">).</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="k">retain</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span>
+<span class="w">  </span><span class="n">functionality</span><span class="p">,</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">implement</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n n-Quoted">`Rand`</span><span class="w"> </span><span class="n">trait</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span>
+<span class="w">  </span><span class="k">generated</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="k">random</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="n">generator</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">allows</span>
+<span class="w">  </span><span class="n">the</span><span class="w"> </span><span class="n">stdlib</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">OSRng</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">seeded</span><span class="w"> </span><span class="n">instances</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">RNGs</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Rand</span><span class="w"> </span><span class="n">implementations</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n n-Quoted">`Box&lt;T&gt;`</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n n-Quoted">`@T`</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="n">removed</span><span class="p">.</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="n">seemed</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span>
+<span class="w">  </span><span class="n">pretty</span><span class="w"> </span><span class="n">rare</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">codebase</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">allows</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">depend</span><span class="w"> </span><span class="k">on</span>
+<span class="w">  </span><span class="n">liballoc</span><span class="p">.</span><span class="w">  </span><span class="n">Additionally</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="k">types</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="n">Rc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Arc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="k">not</span>
+<span class="w">  </span><span class="n">supported</span><span class="p">.</span><span class="w">  </span><span class="k">If</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">undesirable</span><span class="p">,</span><span class="w"> </span><span class="n">librand</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">depend</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">liballoc</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">regain</span>
+<span class="w">  </span><span class="n">these</span><span class="w"> </span><span class="n">implementations</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">WeightedChoice</span><span class="w"> </span><span class="n">structure</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">longer</span><span class="w"> </span><span class="n">built</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`Vec&lt;Weighted&lt;T&gt;&gt;`</span><span class="p">,</span>
+<span class="w">  </span><span class="n">but</span><span class="w"> </span><span class="n">rather</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`&amp;mut [Weighted&lt;T&gt;]`</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">WeightedChoice</span>
+<span class="w">  </span><span class="n">structure</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">lifetime</span><span class="w"> </span><span class="n">associated</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">it</span><span class="p">.</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n n-Quoted">`sample`</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n n-Quoted">`Rng`</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">top</span><span class="o">-</span><span class="k">level</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span>
+<span class="w">  </span><span class="n n-Quoted">`rand`</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">due</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">dependence</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n n-Quoted">`Vec`</span><span class="p">.</span>
+
+<span class="n">cc</span><span class="w"> </span><span class="c1">#13851</span>
+
+<span class="err">[</span><span class="n">breaking</span><span class="o">-</span><span class="k">change</span><span class="err">]</span>
+</code></pre></div>
+
+<ul>
+<li>Rename UTF16Item[s] to Utf16Item[s]</li>
+</ul>
+<div class="highlight"><pre><span></span><code>According to Rust&#39;s style guide acronyms should be CamelCase.
+
+[breaking-change]
+</code></pre></div>
+
+<ul>
+<li>auto merge of #14364 : alexcrichton/rust/libdebug, r=brson</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">This</span><span class="w"> </span><span class="nv">commit</span><span class="w"> </span><span class="nv">moves</span><span class="w"> </span><span class="nv">reflection</span><span class="w"> </span><span class="ss">(</span><span class="nv">as</span><span class="w"> </span><span class="nv">well</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span>{:?}<span class="w"> </span><span class="nv">format</span><span class="w"> </span><span class="nv">modifier</span><span class="ss">)</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">new</span>
+<span class="nv">libdebug</span><span class="w"> </span><span class="nv">crate</span>,<span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">marked</span><span class="w"> </span><span class="nv">experimental</span>.
+
+<span class="nv">This</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">breaking</span><span class="w"> </span><span class="nv">change</span><span class="w"> </span><span class="nv">because</span><span class="w"> </span><span class="nv">it</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="nv">requires</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">debug</span><span class="w"> </span><span class="nv">crate</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">be</span>
+<span class="nv">explicitly</span><span class="w"> </span><span class="nv">linked</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span>:?<span class="w"> </span><span class="nv">format</span><span class="w"> </span><span class="nv">qualifier</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">used</span>.<span class="w"> </span><span class="nv">This</span><span class="w"> </span><span class="nv">means</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">any</span><span class="w"> </span><span class="nv">code</span>
+<span class="nv">using</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">feature</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span>`<span class="nv">extern</span><span class="w"> </span><span class="nv">crate</span><span class="w"> </span><span class="nv">debug</span><span class="c1">;` to the top of the</span>
+<span class="nv">crate</span>.<span class="w"> </span><span class="nv">Any</span><span class="w"> </span><span class="nv">code</span><span class="w"> </span><span class="nv">relying</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">reflection</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">also</span><span class="w"> </span><span class="nv">need</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">this</span>.
+
+<span class="nv">Closes</span><span class="w"> </span><span class="sc">#12019</span>
+
+[<span class="nv">breaking</span><span class="o">-</span><span class="nv">change</span>]
+</code></pre></div>
+
+<ul>
+<li>Move std::{reflect,repr,Poly} to a libdebug crate</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">This</span><span class="w"> </span><span class="nv">commit</span><span class="w"> </span><span class="nv">moves</span><span class="w"> </span><span class="nv">reflection</span><span class="w"> </span><span class="ss">(</span><span class="nv">as</span><span class="w"> </span><span class="nv">well</span><span class="w"> </span><span class="nv">as</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span>{:?}<span class="w"> </span><span class="nv">format</span><span class="w"> </span><span class="nv">modifier</span><span class="ss">)</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">new</span>
+<span class="nv">libdebug</span><span class="w"> </span><span class="nv">crate</span>,<span class="w"> </span><span class="nv">all</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">which</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">marked</span><span class="w"> </span><span class="nv">experimental</span>.
+
+<span class="nv">This</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">breaking</span><span class="w"> </span><span class="nv">change</span><span class="w"> </span><span class="nv">because</span><span class="w"> </span><span class="nv">it</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="nv">requires</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">debug</span><span class="w"> </span><span class="nv">crate</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">be</span>
+<span class="nv">explicitly</span><span class="w"> </span><span class="nv">linked</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span>:?<span class="w"> </span><span class="nv">format</span><span class="w"> </span><span class="nv">qualifier</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">used</span>.<span class="w"> </span><span class="nv">This</span><span class="w"> </span><span class="nv">means</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">any</span><span class="w"> </span><span class="nv">code</span>
+<span class="nv">using</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">feature</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span>`<span class="nv">extern</span><span class="w"> </span><span class="nv">crate</span><span class="w"> </span><span class="nv">debug</span><span class="c1">;` to the top of the</span>
+<span class="nv">crate</span>.<span class="w"> </span><span class="nv">Any</span><span class="w"> </span><span class="nv">code</span><span class="w"> </span><span class="nv">relying</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">reflection</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">also</span><span class="w"> </span><span class="nv">need</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">this</span>.
+
+<span class="nv">Closes</span><span class="w"> </span><span class="sc">#12019</span>
+
+[<span class="nv">breaking</span><span class="o">-</span><span class="nv">change</span>]
+</code></pre></div>
+
+<ul>
+<li>std: Rename strbuf operations to string</li>
+<li>std: Remove <code>String::from_owned_str</code> as it's redundant</li>
+</ul>
+<h2 id="other-changes"><a class="toclink" href="#other-changes">Other Changes</a></h2>
+<ul>
+<li>Primitive types <a href="https://github.com/mozilla/rust/pull/14513">now have a home in the
+  documnetation</a>, where their
+  methods will be listed, and the traits they implement.</li>
+<li>References to owned vectors in the docs <a href="https://github.com/mozilla/rust/pull/14553">have been mercilessly
+  destroyed</a>.</li>
+<li>There is now a function <a href="https://github.com/mozilla/rust/pull/14544">for parsing PATH environment variable-looking
+  strings</a> into their component
+  paths.</li>
+<li><code>Rc::make_unique</code> <a href="https://github.com/mozilla/rust/pull/14522">has been
+  added</a>.</li>
+<li>Debuginfo representation of enums <a href="https://github.com/mozilla/rust/pull/14486">has
+  improved</a> to be more consistent.</li>
+<li>Macros <a href="https://github.com/mozilla/rust/pull/14298">can now be expanded in
+  patterns</a>.</li>
+<li>There is now a lint <a href="https://github.com/mozilla/rust/pull/14300">that warns when one enum variant is vastly larger than
+  the others</a>. It is allow by
+  default.</li>
+<li>Regular expressions <a href="https://github.com/mozilla/rust/pull/14423">can now be stored in
+  statics</a>.</li>
+<li>rustdoc <a href="https://github.com/mozilla/rust/pull/14391">will now inline
+  documentation</a> for reexported
+  items.</li>
+<li>A new <a href="http://doc.rust-lang.org/complement-design-faq.html">language design
+  FAQ</a> <a href="https://github.com/mozilla/rust/pull/14370">has been
+  added</a>.</li>
+</ul>
+<h2 id="new-contributors"><a class="toclink" href="#new-contributors">New Contributors</a></h2>
+<ul>
+<li>Ahmed Charles</li>
+<li>Ariel Ben-Yehuda</li>
+<li>Christoph Burgdorf</li>
+<li>Florian Hartwig</li>
+<li>Jonathan Reem</li>
+<li>Nikita Pekin</li>
+<li>Randati</li>
+<li>Reilly Watson</li>
+<li>Ryman</li>
+<li>Santiago Rodriguez</li>
+<li>Sean Gillespie</li>
+<li>Sergio Benitez</li>
+<li>Sylvestre Ledru</li>
+<li>Tom Jakubowski</li>
+<li>Utkarsh Kukreti</li>
+<li>fort</li>
+</ul>
+<h1 id="new-rfcs"><a class="toclink" href="#new-rfcs">New RFCs</a></h1>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/91">Coercible and HasPrefix for Zero Cost
+  Coercions</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/94">Disambiguate enum variant
+  names</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/97">Filling in the details around unboxed
+  closures</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/98">Uninitialized pointers</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/100">Add a <code>partial_cmp</code> method to
+  <code>TotalOrd</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/101">Allow multiple fixed-size subslices borrows in one
+  pattern</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/102">Auto-dereferencing non-raw
+  pointers</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/106">Add a freestanding target</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/107">Pattern guards with
+  bind-by-move</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/108">Convenience syntax for module
+  imports</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/109">Remove <code>#[crate_id]</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/110">Resolve <code>::foo::...</code> when compiling crates named
+  <code>foo</code></a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/111">Index traits</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/112">Remove cross-borrowing</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/113">Provide a common API across <code>Option</code> and the <code>Ok</code> and <code>Err</code> variants of
+  <code>Result</code></a></li>
+</ul>
+<h1 id="community-updates"><a class="toclink" href="#community-updates">Community Updates</a></h1>
+<ul>
+<li><a href="http://www.reddit.com/r/rust/comments/26oxl4/are_we_web_yet_not_really/">Are we web yet? Not
+  really.</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26ss21/embedded_in_academia_we_need_hardware_traps_for/">We need hardware traps for integer
+  overflow</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26u192/piston_game_engine_update_notice_on_progress/">Piston game engine: update on
+  progress</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26xt8j/practicality_with_rust_error_handling/">Practicality with Rust: Error
+  Handling</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/26z1xa/debug_validation_vs_safety/">Debug validation vs
+  safety</a></li>
+<li><a href="https://github.com/thestinger/rust-core">rust-core now deprecated in favor of libcore
+  upstream</a></li>
+<li><a href="http://bjbell.wordpress.com/2014/05/31/emacs-rust-development-setup/">Emacs Rust Development
+  Setup</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/273gq2/what_was_the_result_of_the_mutpocalypse/">What was the result of the
+  mutpocalypse?</a>
+  I am happy that it just fizzled out and died.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/276n30/swift_initial_commentary_from_graydon_hoare/">Swift - initial commentary from Graydon
+  Hoare</a></li>
+<li><a href="http://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/Panel-Systems-Programming-Languages-in-2014-and-Beyond">Systems Programming in 2014 and
+  Beyond</a>,
+  a panel discussion featuring our very own Niko Matsakis, as well as Andrei
+  Alexandrescu (D developer), Rob Pike, and Bjarne Stroustroup.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/27cphk/an_open_call_for_contributions_7_high_priority/">Open Call for Contributions: 7 High Priority Rust Libraries That Need To Be
+  Written</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27ig84/piston_01_released/">Piston 0.1
+  Released</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27jvdt/internet_archaeology_the_definitive_endall_source/">The definitive, end-all source for why Rust is named
+  "Rust"</a></li>
+<li><a href="http://cmr.github.io/rust-log-viewer/">A tool for viewing <code>RUST_LOG</code> output</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/27qn6y/snowmews_architecture_part_1/">Snowmew's Architecture: Part
+  1</a></li>
+</ul>
+<h1 id="this-week-in-servo"><a class="toclink" href="#this-week-in-servo">This Week in Servo</a></h1>
+<p>Servo is a web browser engine written in Rust and is one of the primary test
+cases for the Rust language.</p>
+<p>In the last three weeks, we landed 77 PRs.</p>
+<h2 id="notable-additions"><a class="toclink" href="#notable-additions">Notable additions</a></h2>
+<ul>
+<li>Patrick Walton improved Wikipedia paint time by 40x through display list optimization.</li>
+<li>Jack and many others landed a rust upgrade.</li>
+<li>Patrick Walton added reference counted flows, on the path to incremental layout support.</li>
+<li>Edit Balint reduced the number of times that we invoke rustc during the Servo build.</li>
+<li>Martin Robinson fixed many Linux rendering issues, especially on NVidia cards.</li>
+</ul>
+<h2 id="new-contributors_1"><a class="toclink" href="#new-contributors_1">New Contributors</a></h2>
+<ul>
+<li>Edit Balint (ebalint)</li>
+</ul>
+<h2 id="meetings-and-notes"><a class="toclink" href="#meetings-and-notes">Meetings and Notes</a></h2>
+<p>There was a <a href="https://github.com/mozilla/servo/wiki/Workweek-roadmap">workweek</a>
+last week, and our previous
+<a href="https://github.com/mozilla/servo/wiki/Meeting-2014-05-19">two</a>
+<a href="https://github.com/mozilla/servo/wiki/Meeting-2014-05-13">meetings</a> covered
+the Rust upgrade, 32-bit support, the HTML parser, and gfx rendering.</p>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2014/05/24/this-week-in-rust-50/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 50</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2014/06/14/this-week-in-rust-52/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">This Week in Rust 52</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

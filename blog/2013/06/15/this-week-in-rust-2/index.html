@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content="this-week-in-rust, programming, This Week in Rust, " />
+
+    <title>This Week In Rust 2  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-06-15T22:00:00-04:00">15 JUN 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/06/15/this-week-in-rust-2/">This Week In Rust 2</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to the second issue of <em>This Week In Rust</em>, a weekly overview
+of Rust and its community. I'll be covering what's cooking in incoming,
+meeting summaries, meetups, and anything else pertinent.</p>
+<p>I've decided to stop using real names and use irc/github names, simply because
+that is how I, and most everyone, interacts in the community.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-in-incoming"><a class="toclink" href="#whats-cooking-in-incoming">What's cooking in incoming?</a></h1>
+<p>There's been a lot of breakage on incoming this week, with jemalloc breaking
+32bit cross-compilation as well as random segfaults and stack corruption of
+unknown cause.  Some heroics by the core devs have got it mostly cleaned up,
+though the tree is still rather chaotic. Meanwhile a handful of performance
+improvements have landed, and achricto rewrote <code>rusti</code>.</p>
+<p>There were 17 pull requests merged this week. Total issue churn (excludes pull
+requests) this week was +2 (this excludes the 38 pull requests that were
+closed when incoming was killed).</p>
+<h2 id="incoming-branch-annihilated"><a class="toclink" href="#incoming-branch-annihilated"><code>incoming</code> branch annihilated</a></h2>
+<p>Goodbye <code>incoming</code>, hello <code>master</code>! This change, long in coming, unfortunately
+closed all open PRs. Start doing your development against <code>master</code> rather than
+incoming.</p>
+<h2 id="notable-additions-bugfixes-and-cleanups"><a class="toclink" href="#notable-additions-bugfixes-and-cleanups">Notable additions, bugfixes, and cleanups</a></h2>
+<p>There's a concerted effort to remove duplicate freestanding functions where
+possible.</p>
+<ul>
+<li>In <a href="https://github.com/mozilla/rust/pull/6986">6986</a> bjz and jensnockert have cleaned up the numeric code some
+  more, adding methods for existing things like <code>sin</code>, as well as adding a
+  bunch of interpolation stuff.</li>
+<li>steven_is_false added prototype dynamic library loading support in
+  <a href="https://github.com/mozilla/rust/pull/7027">7027</a>, which should remove a lot of pain for people looking for
+  easy dynamic loading. It currently doesn't work on Windows, so if you can
+  sling Windows code, help would be appreciated!</li>
+<li>In <a href="https://github.com/mozilla/rust/pull/7029">7029</a> luqmana allows having multiple impl's add static methods,
+  which previously did not work.</li>
+<li>Eridius stepped up to <a href="https://github.com/mozilla/rust/pull/7133">fix the terminfo code</a>, colors should be
+  arriving to more people soon.</li>
+<li>SiegeLord <a href="https://github.com/mozilla/rust/pull/7077">improved the CSS</a> used by rustdoc with <em>huge</em> improvements.</li>
+<li>sully has gotten default methods working for the most part, he is still
+  testing cross-crate edge casses.</li>
+<li>vadimcn <a href="https://github.com/mozilla/rust/pull/7134">has fixed debuginfo</a>, and supposedly the GSoC intern is
+  getting started on improving it next week.</li>
+<li>doener has got <a href="https://github.com/mozilla/rust/pull/7154">some nice</a> <a href="https://github.com/mozilla/rust/pull/7144">performance</a> PRs in place.</li>
+<li>aatch is working on <a href="https://github.com/mozilla/rust/pull/7124">cleaning up trans</a>. Huge thanks to him!</li>
+</ul>
+<h2 id="breaking-changes"><a class="toclink" href="#breaking-changes">Breaking changes</a></h2>
+<ul>
+<li>dbaupp and strcat continue their cleanup of the standard library, removing
+  the ad-hoc iterator functions where <code>std::iterator</code> can replace them.</li>
+<li>All of the string functions that could be reasonably converted to methods
+  have been.</li>
+<li>If you're working in the stdlib, acrichto has toggled most of the lint
+  settings to "deny" for std/extra, so watch out.</li>
+</ul>
+<h1 id="meetings"><a class="toclink" href="#meetings">Meetings</a></h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-06-11">Tuesday meeting</a> talked about bblum's <a href="https://github.com/mozilla/rust/wiki/Proposal-for-effects">Effect proposal</a>,
+removing the master/incoming split, and "alloc expressions", a replacement for
+@-sigils.</p>
+<p>The consensus on the effect proposal is that it needs investigation and
+wouldn't be landing in 1.0.</p>
+<p>Discussion about master/incoming mostly centered on "master isn't always
+green, how can we add better coverage to bors' tests?" Consensus seems to be
+that removing incoming would be beneficial, but enabling more OS and valgrind
+coverage on bors would harmfully impact development speed.</p>
+<p>The proposed syntax for alloc expressions is <code>new (provider) expr</code>, with <code>new
+expr</code> becoming the replacement for the current <code>~expr</code>. This would allow
+custom smart pointers. pcwalton ended the meeting with a huge cliff hanger</p>
+<p _="%" endblockquote>{% blockquote %}
+I've been meaning to talk a little bit today about simplifying the
+mut-borrowing story in regards to this, we may be able to effect a large
+simplification on the language</p>
+<p>Personally, I think <a href="https://gist.github.com/Kimundi/5744578">kimundi's proposal</a> has a lot of promise, and the
+syntax is more pleasing to me. It wasn't brought up at the meeting, though.</p>
+<h1 id="meetups"><a class="toclink" href="#meetups">Meetups</a></h1>
+<ul>
+<li>The Mountain View meetup was a great success. 18 showed up. erickt is
+  planning for another SF Bay area meetup in July. If you want to give a
+  presentation, send him your proposal and how long you need to put it
+  together.</li>
+<li>Tim Chevalier will be giving a talk titled "Rust: A Friendly Introduction"
+  on Monday, June 17, 6-9pm in Portland. See <a href="http://calagator.org/events/1250464376">Calagator</a> for more
+  details. This is a preview of a talk he will be giving at <a href="http://opensourcebridge.org/sessions/970">Open Source
+  Bridge</a>, also in Portland.</li>
+</ul>
+<h1 id="notable-discourse"><a class="toclink" href="#notable-discourse">Notable discourse</a></h1>
+<ul>
+<li>Still more discussion about <a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004364.html">iterators</a>, this time focusing around
+  <a href="https://mail.mozilla.org/pipermail/rust-dev/2013-June/004465.html">changing the semantics</a> of the <code>for</code> loop.</li>
+<li>Some discussion about <a href="http://www.reddit.com/r/rust/comments/1gag3t/list_comprehensions_in_rust_iterator/">list comprehensions</a>, including initial
+  proofs-of-concept.</li>
+<li>Graydon explains hashing and versioning
+  https://botbot.me/mozilla/rust/msg/3792753/</li>
+<li>Principal author of 0install evaluates rust among other languages as a
+  python replacement
+  http://roscidus.com/blog/blog/2013/06/09/choosing-a-python-replacement-for-0install/</li>
+<li>Niko thinks about parallelism
+  http://smallcultfollowing.com/babysteps/blog/2013/06/11/data-parallelism-in-rust/</li>
+<li>http://smallcultfollowing.com/babysteps/blog/2013/06/11/on-the-connection-between-memory-management-and-data-race-freedom/</li>
+</ul>
+<h1 id="other-announcements"><a class="toclink" href="#other-announcements">Other announcements</a></h1>
+<ul>
+<li>bjz tells me lmath is <em>actually</em> fixed now, and is usable</li>
+</ul>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2013/06/07/this-week-in-rust-1/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week In Rust 1</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2013/06/22/this-week-in-rust-3/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">This Week in Rust 3</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

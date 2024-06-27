@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 18  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2013-10-06T18:25:00-04:00">06 OCT 2013</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2013/10/06/this-week-in-rust-18/">This Week in Rust 18</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Welcome to another issue of <em>This Week in Rust</em>.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master"><a class="toclink" href="#whats-cooking-on-master">What's cooking on master?</a></h1>
+<p>Only 63 PRs were merged this week. Currently in the queue is the massive
+privacy change, the path rewrite, enum descriminant shrinking, a <code>rand</code>
+rework, a lock-free scheduler message queue, and libuv signal bindings.</p>
+<h2 id="breaking-changes"><a class="toclink" href="#breaking-changes">Breaking Changes</a></h2>
+<ul>
+<li><code>float</code> has been <a href="https://github.com/mozilla/rust/pull/9519">removed from the
+  language</a>.</li>
+<li><code>loop</code> has been <a href="https://github.com/mozilla/rust/pull/9665">removed</a>. The
+  transition to <code>continue</code> is complete.</li>
+<li>A macro ignoring tokens now <a href="https://github.com/mozilla/rust/pull/9673">throws an
+  error</a> rather than silently
+  ignoring it.</li>
+<li><code>IntConvertible</code> has been
+  <a href="https://github.com/mozilla/rust/pull/9250">replaced</a> with <code>ToPrimitive</code> and
+  <code>FromPrimitive</code>. This also heralds the ability to derive to/from int methods
+  on enums.</li>
+</ul>
+<h2 id="everything-else"><a class="toclink" href="#everything-else">Everything Else</a></h2>
+<ul>
+<li><code>rustpkg</code> can <a href="https://github.com/mozilla/rust/pull/9741">fetch remote packages
+  again</a>.</li>
+<li>A bunch of unsafe code surrounding logging <a href="https://github.com/mozilla/rust/pull/9593">has been
+  remove</a>.</li>
+<li>A bunch of work was done to make more things immediate. A
+  <a href="https://github.com/mozilla/rust/pull/9643">bugfix</a>, <a href="https://github.com/mozilla/rust/pull/9656">small
+  tuples</a>, <a href="https://github.com/mozilla/rust/pull/9677">small
+  enums</a>, and <a href="https://github.com/mozilla/rust/pull/9699">unit/C-like
+  enums</a>.</li>
+<li>A bunch of work went into decreasing our memory usage. The massive spike at
+  the beginning <a href="https://github.com/mozilla/rust/pull/9612">has been fixed</a>.
+  The tcx (type context, holds the result of <em>all</em> compiler analysis) is also
+  free'd before translation now, reducing memory usage by a good <a href="https://github.com/mozilla/rust/pull/9686">500+
+  MB</a>. Another cache during
+  constant evaluation <a href="https://github.com/mozilla/rust/pull/9722">reduces memory usage by
+  200MB</a>.</li>
+<li>We're now <a href="https://github.com/mozilla/rust/pull/9662">bundling our
+  dependencies</a> on Windows, making
+  it easier to bootstrap and to setup a working Rust environment.</li>
+<li>All of the really old obsolete syntax checkers <a href="https://github.com/mozilla/rust/pull/9712">have been
+  removed</a>.</li>
+<li>Hyperlinking between crates is <a href="https://github.com/mozilla/rust/pull/9691">now
+  reimplemented</a> in rustdoc.</li>
+<li>Gearing up for its removal, <a href="https://github.com/mozilla/rust/pull/9599">all <code>fmt!</code> usage in the compiler has been
+  removed</a>.</li>
+</ul>
+<h1 id="weekly-meeting"><a class="toclink" href="#weekly-meeting">Weekly Meeting</a></h1>
+<p>The <a href="https://github.com/mozilla/rust/wiki/Meeting-weekly-2013-10-01">weekly
+meeting</a>
+discussed a bunch of proposed changes, including rustpkg submodules, removing
+float (which has already happened), raw string literals (which have a patch
+almost finished), and the changes to the Option API.</p>
+<h1 id="announcements"><a class="toclink" href="#announcements">Announcements</a></h1>
+<ul>
+<li><a href="https://github.com/jeaye/ncurses-rs">ncurses-rs</a> - a safe wrapper that
+  keeps the same ncurses interface you know and "love", but more rustic.</li>
+<li><a href="https://github.com/mozilla/rust/wiki/The%20Rusticon">The Rusticon</a> - A
+  living glossary of Rust terms.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1nqzth/zeromq_helping_us_block_malicious_domains_in_real/">A production use of
+  Rust!</a></li>
+<li><a href="http://www.reddit.com/r/rust/comments/1ntnvf/understanding_the_servo_strategy/">Understanding the Servo
+  Strategy</a>
+  - The Servo presentation given at the various Mozilla Summits</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1nmarr/dynamic_typing_implemented_as_library_code/">Dynamic Typing implemented as a
+  library</a>
+  - a pretty cool use of our reflection.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1ni84a/running_rust_tests_on_travis_ci/">Running Rust Tests on Travis
+  CI</a>.</li>
+<li><a href="http://www.reddit.com/r/rust/comments/1ngqgr/rust_bindings_for_fuse_filesystem_in_userspace/">Rust bindings for
+  FUSE</a></li>
+</ul>
+<h1 id="meetups"><a class="toclink" href="#meetups">Meetups</a></h1>
+<p>Haven't had a meetup section in a long time, but two are forming!</p>
+<ul>
+<li><a href="http://www.meetup.com/Rust-Bay-Area/">Francisco Bay Area</a></li>
+<li><a href="http://www.meetup.com/rust-skane/">Rust Skåne (Lund, Sweden)</a></li>
+</ul>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2013/09/30/this-week-in-rust-17/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 17</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2013/10/06/the-state-of-rust-08/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">The State of Rust 0.8</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

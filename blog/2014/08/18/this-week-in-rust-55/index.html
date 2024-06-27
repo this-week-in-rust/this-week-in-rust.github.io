@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 55  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2014-08-18T22:28:00-04:00">18 AUG 2014</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2014/08/18/this-week-in-rust-55/">This Week in Rust 55</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="http://rust-lang.org">Rust</a> is a systems language pursuing the trifecta:
+safe, concurrent, and fast. This is a weekly summary of its progress and
+community. Want something mentioned? <a href="mailto:corey@octayn.net?subject=This%20Week%20in%20Rust%20Suggestion">Send me an
+email!</a>
+Want to get involved? <a href="https://github.com/mozilla/rust/wiki/Note-guide-for-new-contributors">We love
+contributions</a>.</p>
+<p>It's been a long while since a TWiR, and I apologize for that. This TWiR is
+going to be much more abbreviated than usual. The normal pace will resume next
+week.</p>
+<!-- more -->
+
+<h1 id="whats-cooking-on-master"><a class="toclink" href="#whats-cooking-on-master">What's cooking on master?</a></h1>
+<p>There were 418 pull requests merged in the past two months, modulo any rollups
+(which are usually a combination of 10-20 pull requests).</p>
+<h2 id="breaking-changes"><a class="toclink" href="#breaking-changes">Breaking Changes</a></h2>
+<p>88 commits contained breaking changes. Since this is a completely unreasonable
+number (and I'm sure ancient breaking changes aren't interesting), I'll just
+cover the last week's:</p>
+<ul>
+<li>A <a href="https://github.com/rust-lang/rust/pull/16332">bunch of changes</a> happened
+  to <code>core::slice</code>, including some trait renames. Most code shouldn't be
+  affected by this, these traits are all in the prelude.</li>
+<li>A <code>Duration</code> type <a href="https://github.com/rust-lang/rust/pull/15934">has been
+  added</a>, and many functions
+  which logically take a duration have been changed to use it.</li>
+<li>Imports and items are <a href="https://github.com/rust-lang/rust/pull/16482">no longer allowed to
+  shadow</a>.</li>
+</ul>
+<h2 id="other-changes"><a class="toclink" href="#other-changes">Other Changes</a></h2>
+<p>Far too many for me to list! Impressively, pcwalton has been knocking down
+backwards incompatible changes left and right. Currently, only <a href="https://github.com/rust-lang/rust/issues?q=is%3Aopen+is%3Aissue+label%3AP-backcompat-lang+milestone%3A1.0">11
+issues</a>
+backwards incompatible language changes are tagged for 1.0. He has also
+implemented <a href="https://github.com/rust-lang/rfcs/blob/master/active/0044-closures.md">unboxed
+closures</a>, fixed a bunch of soundness issues, a large
+portion of associated types, basic <a href="https://github.com/rust-lang/rfcs/pull/135"><code>where</code>
+clauses</a>, <a href="https://github.com/rust-lang/rfcs/blob/master/active/0039-lifetime-elision.md">lifetime
+elision</a>, and various smaller
+issues.</p>
+<p>There's been tons of library work, including stabilization, and cargo has
+really taken off.</p>
+<h2 id="new-contributors"><a class="toclink" href="#new-contributors">New Contributors</a></h2>
+<ul>
+<li>Adrien Brault</li>
+<li>Alexis Beingessner</li>
+<li>Alisdair Owens</li>
+<li>Andreas Tolfsen</li>
+<li>Andrew Poelstra</li>
+<li>Angus Lees</li>
+<li>Anton Lofgren</li>
+<li>Ben Gamari</li>
+<li>Bheesham Persaud</li>
+<li>Chris Nixon</li>
+<li>Chuck Ries</li>
+<li>DJUrsus</li>
+<li>Daniel Hofstetter</li>
+<li>David Vazgenovich Shakaryan</li>
+<li>Derecho</li>
+<li>Derek Harland</li>
+<li>Dzmitry Malyshau</li>
+<li>Eduardo Bautista</li>
+<li>Gioele Barabucci</li>
+<li>Hugo Jobling</li>
+<li>Ilya Dmitrichenko</li>
+<li>Jack Heizer</li>
+<li>Jake Scott</li>
+<li>James Hurst</li>
+<li>James Lal</li>
+<li>James Rowe</li>
+<li>Jason Thompson</li>
+<li>John Kåre Alsaker</li>
+<li>Jonas Hietala</li>
+<li>Kevin Walter</li>
+<li>LemmingAvalanche</li>
+<li>Matej Lach</li>
+<li>Mathijs van de Nes</li>
+<li>Michael Matuzak</li>
+<li>Michael Sproul</li>
+<li>Mike Robinson</li>
+<li>Nathan Froyd</li>
+<li>Paolo Falabella</li>
+<li>Patrick Yevsukov</li>
+<li>Peer Aramillo Irizar</li>
+<li>Peter Atashian</li>
+<li>Phil Dawes</li>
+<li>Philipp Gesang</li>
+<li>Prudhvi Krishna Surapaneni</li>
+<li>Robert Clipsham</li>
+<li>Russell</li>
+<li>Samuel Neves</li>
+<li>Simon Persson</li>
+<li>Stuart Pernsteiner</li>
+<li>Tim Joseph Dumol</li>
+<li>Tshepang Lekhonkhobe</li>
+<li>Yazhong Liu</li>
+<li>Yuri Albuquerque</li>
+<li>Zbigniew Siciarz</li>
+<li>dgoon</li>
+<li>donkopotamus</li>
+<li>kwantam</li>
+<li>masklinn</li>
+<li>Mitchell Nordine</li>
+<li>Nick Hamann</li>
+</ul>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2014/07/15/state-of-rust-0.11.0/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">State of Rust 0.11.0</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2014/11/10/this-week-in-rust-56/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">This Week in Rust 56</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
