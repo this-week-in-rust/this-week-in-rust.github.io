@@ -112,8 +112,8 @@ and just ask the editors to select the category.
 <li>[video] <a href="https://www.youtube.com/watch?v=r1LwDYtghPM">Gitoxide: What it is, and isn't - Sebastian Thiel</a></li>
 </ul>
 <h2 id="crate-of-the-week"><a class="toclink" href="#crate-of-the-week">Crate of the Week</a></h2>
-<!-- COTW goes here -->
-
+<p>This week's crate is <a href="https://github.com/alekseysidorov/tower-http-client">tower-http-client</a>, a library of middlewares and various utilities for HTTP-clients.</p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/crate-of-the-week/2704/1366">Aleksey Sidorov</a> for the self-suggestion!</p>
 <p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Please submit your suggestions and votes for next week</a>!</p>
 <h2 id="calls-for-testing"><a class="toclink" href="#calls-for-testing">Calls for Testing</a></h2>
 <p>An important step for RFC implementation is for people to experiment with the
@@ -152,8 +152,111 @@ Every week we highlight some tasks from the Rust community for you to pick and g
 
 <p>If you are an event organizer hoping to expand the reach of your event, please submit a link to the website through a <a href="https://github.com/rust-lang/this-week-in-rust">PR to TWiR</a> or by reaching out on <a href="https://x.com/ThisWeekInRust">X (formerly Twitter)</a> or <a href="https://mastodon.social/@thisweekinrust">Mastodon</a>!</p>
 <h2 id="updates-from-the-rust-project"><a class="toclink" href="#updates-from-the-rust-project">Updates from the Rust Project</a></h2>
-<!-- Rust updates go here -->
-
+<p>447 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2024-10-22..2024-10-29">merged in the last week</a></p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/131487">add wasm32v1-none target</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132048">AIX: use /dev/urandom for random implementation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131900"><code>rustc_target</code>: Add pauth-lr aarch64 target feature</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131549">add a note for <code>?</code> on a <code>impl Future&lt;Output = Result&lt;..&gt;&gt;</code> in sync function</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132118">add support for <code>~const</code> item bounds</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132084">consider param-env candidates even if they have errors</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131349">const stability checks v2</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132124">coverage: consolidate creation of covmap/covfun records</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132091">coverage: don't rely on the custom traversal to find enclosing loops</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132125">coverage: emit LLVM intrinsics using the normal helper method</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131956">coverage: pass coverage mappings to LLVM as separate structs</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131756">deeply normalize <code>TypeTrace</code> when reporting type error in new solver</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132169">deny calls to non-<code>#[const_trait]</code> methods in MIR constck</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132054">do not remove <code>.cargo</code> directory</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132006">don't stage-off to previous compiler when CI rustc is available</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127731">emit future-incompatibility lint when calling/declaring functions with vectors that require missing target feature</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132140">enable LSX feature for LoongArch Linux targets</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131633">error on alignments greater than <code>isize::MAX</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132192">expand: stop using artificial <code>ast::Item</code> for macros loaded from metadata</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/125205">fixup Windows verbatim paths when used with the <code>include!</code> macro</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132076">hashStable for <code>rustc_feature::Features</code>: stop hashing compile-time constant</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128985">lint against getting pointers from immediately dropped temporaries</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132022">move <code>cmp_in_dominator_order</code> out of graph dominator computation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132227">pass constness with span into <code>lower_poly_trait_ref</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131909">prevent overflowing <code>enum</code> cast from ICEing</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131043">refactor change detection for rustdoc and download-rustc</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132096">replace an FTP link in comments with an equivalent HTTPS link</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132167">replace some LLVMRust wrappers with calls to the LLVM C API</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131982">represent <code>hir::TraitBoundModifiers</code> as distinct parts in HIR</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131985">represent trait constness as a distinct predicate</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132191">round negative signed integer towards zero in <code>iN::midpoint</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132215">simplify force-recompile logic for "library"</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132043">simplify param handling in <code>resolve_bound_vars</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/129248">taking a raw ref (<code>&amp;raw (const|mut)</code>) of a deref of pointer (<code>*ptr</code>) is always safe</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132114">use <code>Enabled{Lang,Lib}Feature</code> instead of n-tuples</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131049">validate args are correct for <code>UnevaluatedConst</code>, <code>ExistentialTraitRef</code>/<code>ExistentialProjection</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132174">x86 target features: make pclmulqdq imply sse2</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131871">x86-32 float return for 'Rust' ABI: treat all float types consistently</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3954">miri: add option for generating coverage reports</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3992">miri: android: added syscall support</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3984">miri: clear <code>eval_libc</code> errors from unix shims</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3990">miri: consistently use io error handlers</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3995">miri: fix error returned from <code>readdir_r</code> when isolation is enabled, and uses of <code>raw_os_error</code></a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3987">miri: implement LLVM x86 vpclmulqdq intrinsics</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3993">miri: indicate more explicitly where we close host file/dir handles</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/125116">(Big performance change) Do not run lints that cannot emit</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132031">optimize <code>Rc&lt;T&gt;::default</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132039">specialize <code>read_exact</code> and <code>read_buf_exact</code> for <code>VecDeque</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131391">stabilize <code>isqrt</code> feature</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131983">stabilize shorter-tail-lifetimes</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132242">support <code>char::is_digit</code> in const contexts</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/123550">remove the <code>Arc rt::init</code> allocation for thread info</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132113">provide a default impl for <code>Pattern::as_utf8_pattern</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/130991">vectorized <code>SliceContains</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132101">avoid using imports in <code>thread_local_inner!</code> in static</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131929">better default capacity for <code>str::replace</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131851">musl: use <code>posix_spawn</code> if a directory change was requested</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14725">cargo resolver: Make room for v3 resolver</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14726">cargo complete: Include descriptions in zsh</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14730">cargo env: remove unnecessary clones</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14728">cargo: fingerprint: avoid unnecessary fopen calls</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14683">cargo: added unstable-schema generation for Cargo.toml</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14736">cargo: deprecate <code>cargo verify-project</code></a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14715">cargo fix: add source replacement info when no matching package found</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14701">cargo fix: trace <code>config [env]</code> table in dep-info</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14707">cargo test: add fixes in the sat resolver</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132105">rustdoc: Do not consider nested functions as main function even if named <code>main</code> in doctests</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132115">rustdoc: extend <code>fake_variadic</code> to "wrapped" tuples</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/131951">rustdoc: hash assets at rustdoc build time</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/132123">allow type-based search on foreign functions</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13600">clippy: <code>borrow_deref_ref</code>: do not trigger on <code>&amp;raw</code> references</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13558">clippy: don't trigger <code>const_is_empty</code> for inline const assertions</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13620">clippy: fire <code>large_const_arrays</code> for computed array lengths</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13338">clippy: fix incorrect suggestion for <code>!(a &gt;= b) as i32 == c</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13588">clippy: fix not working lint anchor (generation and filtering)</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13548">clippy: remove unnecessary <code>filter_map</code> usages</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13605">clippy: stop linting <code>unused_io_amount</code> in io traits</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18376">rust-analyzer: add text edits to more inlay hints</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18404">rust-analyzer: implement diagnostics pull model</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18349">rust-analyzer: render docs from aliased type when type has no docs</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18370">rust-analyzer: resolve range patterns to their structs</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18418">rust-analyzer: split <code>macro-error</code> diagnostic so users can ignore only parts of it</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18420">rust-analyzer: support <code>cfg(true)</code> and <code>cfg(false)</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18399">rust-analyzer: fix diagnostic enable config being ignored</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18379">rust-analyzer: fix dyn incompatible hint message</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18407">rust-analyzer: fix formatting on welcome page, read only paths setting example</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18395">rust-analyzer: add missing cfg flags for <code>core</code> crate</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18413">rust-analyzer: allow public re-export of <code>extern crate</code> import</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18417">rust-analyzer: correctly handle <code>#""</code> in edition <code>&lt;2024</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18408">rust-analyzer: don't compute diagnostics for non local files</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18388">rust-analyzer: fix checking for <code>false labelDetailsSupport</code> value</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18371">rust-analyzer: fix incorrect parsing of use bounds</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18386">rust-analyzer: handle missing time offsets gracefully</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18264">rust-analyzer: implement mixed site hygiene</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18254">rust-analyzer: nail destructuring assignment once and for all</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18390">rust-analyzer: prevent public re-export of private item</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18422">rust-analyzer: properly resolve prelude paths inside modules inside blocks</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18419">rust-analyzer: put leading <code>|</code> in patterns under <code>OrPat</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18415">rust-analyzer: turn "Remove <code>dbg!</code>" into a quick fix for better prioritization</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18421">rust-analyzer: move text-edit into ide-db</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18409">rust-analyzer: only construct a resolver in macro descension when needed</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/18392">rust-analyzer: swap query call order in <code>file_item_tree_query</code></a></li>
+</ul>
 <h3 id="rust-compiler-performance-triage"><a class="toclink" href="#rust-compiler-performance-triage">Rust Compiler Performance Triage</a></h3>
 <p>This week saw a lot of activity both on the regressions and improvements side. There was one large
 regression, which was immediately reverted. Overall, the week ended up being positive, thanks to
@@ -463,8 +566,11 @@ https://github.com/rust-lang/this-week-in-rust/issues/3412
 
 <p>Please see the latest <a href="https://www.reddit.com/r/rust/comments/1gf5ue1/official_rrust_whos_hiring_thread_for_jobseekers/">Who's Hiring thread on r/rust</a></p>
 <h1 id="quote-of-the-week"><a class="toclink" href="#quote-of-the-week">Quote of the Week</a></h1>
-<!-- QOTW goes here -->
-
+<blockquote>
+<p>An earnest effort to pursue [<a href="https://wg21.link/p1179r1">P1179R1</a>] as a Lifetime TS[<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p3465r0.pdf">P3465R0</a>] will compromise on C++’s outdated and unworkable core principles and adopt mechanisms more like Rust’s. In the compiler business this is called <em>carcinization</em>: a tendency of non-crab organisms to evolve crab-like features.
+– <a href="https://www.circle-lang.org/draft-profiles.html#carcinization">Sean Baxter on circle-lang.org</a></p>
+</blockquote>
+<p>Thanks to <a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328/1627">Collin Richards</a> for the suggestion!</p>
 <p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
 <p><em>This Week in Rust is edited by: <a href="https://github.com/nellshamrell">nellshamrell</a>, <a href="https://github.com/llogiq">llogiq</a>, <a href="https://github.com/cdmistman">cdmistman</a>, <a href="https://github.com/ericseppanen">ericseppanen</a>, <a href="https://github.com/extrawurst">extrawurst</a>, <a href="https://github.com/andrewpollack">andrewpollack</a>, <a href="https://github.com/U007D">U007D</a>, <a href="https://github.com/kolharsam">kolharsam</a>, <a href="https://github.com/joelmarcey">joelmarcey</a>, <a href="https://github.com/mariannegoldin">mariannegoldin</a>, <a href="https://github.com/bennyvasquez">bennyvasquez</a>.</em></p>
 <p><em>Email list hosting is sponsored by <a href="https://foundation.rust-lang.org/">The Rust Foundation</a></em></p>
