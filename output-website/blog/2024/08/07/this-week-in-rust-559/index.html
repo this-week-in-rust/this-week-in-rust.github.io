@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="author" content="TWiR Contributors" />
+    <meta name="copyright" content="TWiR Contributors" />
+
+
+<meta name="keywords" content=", This Week in Rust, " />
+
+    <title>This Week in Rust 559  · This Week in Rust
+</title>
+
+
+    <link href="https://this-week-in-rust.org/rss.xml" type="application/rss+xml" rel="alternate" title="This Week in Rust - Full RSS Feed" />
+    <link href="https://this-week-in-rust.org/atom.xml" type="application/atom+xml" rel="alternate" title="This Week in Rust - Full Atom Feed" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Search temporarily disabled. See https://github.com/rust-lang/this-week-in-rust/issues/4271
+    <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+    <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://this-week-in-rust.org/themes/rusted/static/css/stork-dark.css"> -->
+
+    <link rel="stylesheet" href="/themes/rusted/static/css/web-min.css?8f6b3203" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.rust-lang.org/static/images/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="https://www.rust-lang.org/static/images/favicon.svg" />
+    <link rel="mask-icon" href="https://www.rust-lang.org/static/images/safari-pinned-tab.svg" color="#000" />
+
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container wrapper">
+        <a class="site-title" href="https://this-week-in-rust.org/">This Week in Rust</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="container wrapper">
+<div class="post">
+  <header class="post-header">
+<div class="row post-title">
+  <div class="col-xs-12 col-sm-4">
+    <span class="small text-muted time-prefix">
+      <time pubdate="pubdate" datetime="2024-08-07T00:00:00-04:00">07 AUG 2024</time>
+    </span>
+  </div>
+  <div class="col-xs-12 col-sm-8 text-right custom-xs-text-left">
+    <a href="https://this-week-in-rust.org/blog/2024/08/07/this-week-in-rust-559/">This Week in Rust 559</a>
+  </div>
+</div>  </header>
+
+  <article class="post-content">
+    <p>Hello and welcome to another issue of <em>This Week in Rust</em>!
+<a href="https://www.rust-lang.org/">Rust</a> is a programming language empowering everyone to build reliable and efficient software.
+This is a weekly summary of its progress and community.
+Want something mentioned? Tag us at <a href="https://x.com/ThisWeekInRust">@ThisWeekInRust</a> on X (formerly Twitter) or <a href="https://mastodon.social/@thisweekinrust">@ThisWeekinRust</a> on mastodon.social, or <a href="https://github.com/rust-lang/this-week-in-rust">send us a pull request</a>.
+Want to get involved? <a href="https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md">We love contributions</a>.</p>
+<p><em>This Week in Rust</em> is openly developed <a href="https://github.com/rust-lang/this-week-in-rust">on GitHub</a> and archives can be viewed at <a href="https://this-week-in-rust.org/">this-week-in-rust.org</a>.
+If you find any errors in this week's issue, <a href="https://github.com/rust-lang/this-week-in-rust/pulls">please submit a PR</a>.</p>
+<p>Want TWIR in your inbox? <a href="https://this-week-in-rust.us11.list-manage.com/subscribe?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485">Subscribe here</a>.</p>
+<h2 id="updates-from-rust-community"><a class="toclink" href="#updates-from-rust-community">Updates from Rust Community</a></h2>
+<!--
+
+Dear community contributors:
+Please read README.md for guidance on submissions.
+Each submitted link should be of the form:
+
+* [Title of the Linked Page](https://example.com/my_article)
+
+If you don't know which category to use, feel free to submit a PR anyway
+and just ask the editors to select the category.
+
+-->
+
+<h3 id="newsletters"><a class="toclink" href="#newsletters">Newsletters</a></h3>
+<ul>
+<li><a href="https://thisweekinbevy.com/issue/2024-08-05-0141-tracking-change-detection-and-more-rendering-examples">thisweekinbevy - 0.14.1, tracking change detection, and more rendering examples</a></li>
+</ul>
+<h3 id="projecttooling-updates"><a class="toclink" href="#projecttooling-updates">Project/Tooling Updates</a></h3>
+<ul>
+<li><a href="https://v2.tauri.app/blog/tauri-2-0-0-release-candidate/">Tauri 2.0 Release Candidate</a></li>
+<li><a href="https://blaz.is/blog/post/cglue-0-3/">CGlue 0.3 Future and Beyond</a></li>
+<li><a href="https://ratatui.rs/highlights/v028/">ratatui - v0.28.0</a></li>
+<li><a href="https://github.com/andrewdavidmackenzie/pigg/releases/tag/0.3.3">Pigg 0.3.3</a> the GUI for RPi GPIO interaction released, with Remote GPIO feature!</li>
+<li><a href="https://www.sea-ql.org/blog/2024-08-04-sea-orm-1.0/">Announcing SeaORM 1.0</a></li>
+<li><a href="https://dev-state.com/posts/danube_pubsub/">Danube - Queuing and Pub/Sub message patterns</a></li>
+</ul>
+<h3 id="observationsthoughts"><a class="toclink" href="#observationsthoughts">Observations/Thoughts</a></h3>
+<ul>
+<li><a href="https://blog.paavo.me/demo-engine-part-1/">Trying and mostly failing to optimize frustum culling in a WebGL + TS + Rust engine</a></li>
+<li><a href="https://www.mattkeeter.com/blog/2024-08-01-panic/">Panic! At The Async Runtime Shutdown</a></li>
+<li><a href="https://sunshowers.io/posts/rustc-segfault-illumos/">Debugging a rustc segfault on illumos</a></li>
+<li><a href="https://j.njsm.de/blog/tracing-rs/">Tracing my way with tracing-rs</a></li>
+<li>[Series] <a href="https://systemweakness.com/hitchhikers-guide-to-building-a-distributed-filesystem-in-rust-the-very-beginning-2c02eb7313e7">The Hitchhiker’s Guide to Building a Distributed Filesystem in Rust.</a></li>
+<li><a href="https://bitfieldconsulting.com/posts/best-rust-books">Best Rust books for 2024</a></li>
+<li><a href="https://flakm.com/posts/phantom_leak/">Phantom Menace: memory leak that wasn't there</a></li>
+<li><a href="https://www.codethink.co.uk/articles/2024/secure_bootloader/">Developing a cryptographically secure bootloader for RISC-V in Rust</a></li>
+<li><a href="https://blog.weiznich.de/blog/diagnostic-namespace-do-not-recommend/">Extending the #[diagnostic] tool attribute namespace</a></li>
+</ul>
+<h3 id="rust-walkthroughs"><a class="toclink" href="#rust-walkthroughs">Rust Walkthroughs</a></h3>
+<ul>
+<li><a href="https://hegdenu.net/posts/tracing-tokio-resources/">Tracing Tokio Resources</a></li>
+<li>[Series] <a href="https://chesedo.me/blog/manual-dependency-injection-rust/">Mastering Dependency Injection in Rust: Crafting a Custom Container</a></li>
+</ul>
+<h3 id="research"><a class="toclink" href="#research">Research</a></h3>
+<ul>
+<li><a href="https://medium.com/@xorio42/the-hitchhikers-guide-to-building-a-distributed-filesystem-in-rust-the-continuation-part-2-ad1fd8bc9cf8">The Hitchhiker’s Guide to Building a Distributed Filesystem in Rust.</a> </li>
+</ul>
+<h3 id="miscellaneous"><a class="toclink" href="#miscellaneous">Miscellaneous</a></h3>
+<ul>
+<li><a href="https://psibi.in/posts/2024-08-04-rustic-babel.html">Rustic: Enhanced Org Babel integration</a></li>
+<li><a href="https://antoniosbarotsis.github.io/posts/efficient-logging/">Efficient Logging - Speeding up production code by logging more efficiently</a></li>
+</ul>
+<h2 id="crate-of-the-week"><a class="toclink" href="#crate-of-the-week">Crate of the Week</a></h2>
+<p>This week's crate is <a href="https://github.com/lvkv/whenfs">WhenFS</a>, a FUSE filesystem that misuses your google calendar as storage. And yes, your schedule will look as packed as mine once you store one or two files in there.</p>
+<p>Despite yet another week fully devoid of suggestions nor votes, llogiq is reasonably pleased with his choice.</p>
+<p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Please submit your suggestions and votes for next week</a>!</p>
+<h2 id="calls-for-testing"><a class="toclink" href="#calls-for-testing">Calls for Testing</a></h2>
+<p>An important step for RFC implementation is for people to experiment with the
+implementation and give feedback, especially before stabilization.  The following
+RFCs would benefit from user testing before moving forward:</p>
+<h3 id="rfcs"><a class="toclink" href="#rfcs"><a href="https://github.com/rust-lang/rfcs/issues?q=label%3Acall-for-testing">RFCs</a></a></h3>
+<ul>
+<li><em>No calls for testing were issued this week.</em></li>
+</ul>
+<h3 id="rust"><a class="toclink" href="#rust"><a href="https://github.com/rust-lang/rust/labels/call-for-testing">Rust</a></a></h3>
+<ul>
+<li><em>No calls for testing were issued this week.</em></li>
+</ul>
+<h3 id="rustup"><a class="toclink" href="#rustup"><a href="https://github.com/rust-lang/rustup/labels/call-for-testing">Rustup</a></a></h3>
+<ul>
+<li><em>No calls for testing were issued this week.</em></li>
+</ul>
+<p>If you are a feature implementer and would like your RFC to appear on the above list, add the new <code>call-for-testing</code>
+label to your RFC along with a comment providing testing instructions and/or guidance on which aspect(s) of the feature
+need testing.</p>
+<h2 id="call-for-participation-projects-and-speakers"><a class="toclink" href="#call-for-participation-projects-and-speakers">Call for Participation; projects and speakers</a></h2>
+<h3 id="cfp-projects"><a class="toclink" href="#cfp-projects">CFP - Projects</a></h3>
+<p>Always wanted to contribute to open-source projects but did not know where to start?
+Every week we highlight some tasks from the Rust community for you to pick and get started!</p>
+<p>Some of these tasks may also have mentors available, visit the task page for more information.</p>
+<ul>
+<li><a href="https://github.com/radumarias/rencfs/issues/111">rencfs - Abstract file access layer</a></li>
+<li><a href="https://github.com/radumarias/rencfs/issues/104">rencfs - Add RustCrypto as a feature</a></li>
+<li><a href="https://github.com/radumarias/rencfs/issues/97">rencfs - File and fs API</a></li>
+<li><a href="https://github.com/radumarias/rencfs/issues/90">rencfs - io API</a></li>
+<li><a href="https://github.com/radumarias/rfs/issues/19">rfs - Coordinator node API</a>)</li>
+<li><a href="https://github.com/radumarias/rfs/issues/20">rfs - Data node API</a></li>
+<li><a href="https://github.com/radumarias/rfs/issues/18">rfs - File upload and changes</a></li>
+<li><a href="https://github.com/radumarias/rfs/issues/15">rfs - Communication between Coordinator and Data nodes</a></li>
+<li><a href="https://github.com/radumarias/syncoxiders/issues/10">syncoxiders - Two-way sync</a></li>
+<li><a href="https://github.com/radumarias/syncoxiders/issues/9">syncoxiders - Sync chunks in parallel</a></li>
+<li><a href="https://github.com/radumarias/syncoxiders/issues/13">syncoxiders - Integrate SurrealDB to store metadata</a></li>
+<li><a href="https://github.com/radumarias/syncoxiders/issues/6">syncoxiders - Migrate scripts tests to integration tests</a></li>
+<li><a href="https://github.com/radumarias/rencfs-desktop/issues/4">rencfs-desktop - Implement daemon</a></li>
+<li><a href="https://www.github.com/tokio-rs/tokio/issues/6741">Proposal: Deprecate Tokio's LocalSet</a></li>
+</ul>
+<p>If you are a Rust project owner and are looking for contributors, please submit tasks <a href="https://github.com/rust-lang/this-week-in-rust?tab=readme-ov-file#call-for-participation-guidelines">here</a> or through a <a href="https://github.com/rust-lang/this-week-in-rust">PR to TWiR</a> or by reaching out on <a href="https://x.com/ThisWeekInRust">X (Formerly twitter)</a> or <a href="https://mastodon.social/@thisweekinrust">Mastodon</a>!</p>
+<h3 id="cfp-events"><a class="toclink" href="#cfp-events">CFP - Events</a></h3>
+<p>Are you a new or experienced speaker looking for a place to share something cool? This section highlights events that are being planned and are accepting submissions to join their event as a speaker.</p>
+<p><em>No Calls for papers or presentations were submitted this week.</em></p>
+<p>If you are an event organizer hoping to expand the reach of your event, please submit a link to the website through a <a href="https://github.com/rust-lang/this-week-in-rust">PR to TWiR</a> or by reaching out on <a href="https://x.com/ThisWeekInRust">X (formerly Twitter)</a> or <a href="https://mastodon.social/@thisweekinrust">Mastodon</a>!</p>
+<h2 id="updates-from-the-rust-project"><a class="toclink" href="#updates-from-the-rust-project">Updates from the Rust Project</a></h2>
+<p>381 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2024-07-30..2024-08-06">merged in the last week</a></p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/128315">fix vita build of std and forbid unsafe in unsafe in the os/vita module</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128452"><code>derive(SmartPointer)</code>: require pointee to be maybe sized</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127586">add <code>#[must_use]</code> to some <code>into_raw*</code> functions</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/123813">add <code>REDUNDANT_IMPORTS</code> lint for new redundant import detection</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127027">add <code>f16</code> and <code>f128</code> math functions</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/124339">allow overwriting the output of <code>rustc --version</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128589">allow setting <code>link-shared</code> and <code>static-libstdcpp</code> with CI LLVM</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128416">android: remove libstd hacks for unsupported Android APIs</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128581">assert that all attributes are actually checked via <code>CheckAttrVisitor</code> and aren't accidentally usable on completely unrelated HIR nodes</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/126818">better handle suggestions for the already present code and fix some suggestions</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127907">built-in derive: remove <code>BYTE_SLICE_IN_PACKED_STRUCT_WITH_DERIVE</code> hack and lint</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128162">cleanup sys module to match house style</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128450">create COFF archives for non-LLVM backends</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128688">custom MIR: add support for tail calls</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128441">delegation: second attempt to improve perf</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/125929">delegation: support generics for delegation from free functions</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128357">detect non-lifetime binder params shadowing item params</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128623">do not fire unhandled attribute assertion on multi-segment <code>AttributeType::Normal</code> attributes with builtin attribute as first segment</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128559">don't re-elaborate already elaborated caller bounds in method probe</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127574">elaborate unknowable goals</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128458">emit an error if <code>#[optimize]</code> is applied to an incompatible item</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/124336">enforce supertrait outlives obligations hold when confirming impl</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128496">fix removed <code>box_syntax</code> diagnostic if source isn't available</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128686">fix the invalid argument type</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128478">ignore <code>use</code> declaration reformatting in <code>.git-blame-ignore-revs</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128530">implement <code>UncheckedIterator</code> directly for <code>RepeatN</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128305">improve error message when <code>global_asm!</code> uses <code>asm!</code> operands</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128482">interpret: on a signed deref check, mention the right pointer in the error</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128380">make <code>///</code> doc comments compatible with naked functions</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128376">mark <code>Parser::eat</code>/<code>check</code> methods as <code>#[must_use]</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128388">match LLVM ABI in <code>extern "C"</code> functions for <code>f128</code> on Windows</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127159">match lowering: Hide <code>Candidate</code> from outside the lowering algorithm</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127543">more unsafe attr verification</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128694">normalize when equating <code>dyn</code> tails in MIR borrowck</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/126804">on short error format, append primary span label to message</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128244">peel off explicit (or implicit) deref before suggesting clone on move error in borrowck, remove some hacks</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128443">properly mark loop as diverging if it has no breaks</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128412">remove <code>crate_level_only</code> from <code>ELIDED_LIFETIMES_IN_PATHS</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128404">revert recent changes to dead code analysis</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128141">set branch protection function attributes</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127324">simplify match based on the cast result of <code>IntToInt</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128151">structured suggestion for <code>extern crate foo</code> when <code>foo</code> isn't resolved in import</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128449">temporarily switch <code>ambiguous_negative_literals</code> lint to allow</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128379">the output in stderr expects panic-unwind</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127655">turn <code>invalid_type_param_default</code> into a <code>FutureReleaseErrorReportInDeps</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/125558">tweak type inference for <code>const</code> operands in inline asm</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128607">use <code>object</code> in <code>run-make/symbols-visibility</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128430">use a separate pattern type for <code>rustc_pattern_analysis</code> diagnostics</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128531">miri: add a flag to do recursive validity checking</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3769">miri: add <code>miri_start</code> support</a></li>
+<li><a href="https://github.com/rust-lang/miri/pull/3776">miri: use Scalar consistently in foreign item emulation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128370">linker: pass fewer search directories to the linker</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128336">use Vec in <code>instantiate_binder_with_fresh_vars</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128200">change output normalization logic to be linear against size of output</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128544">check divergence value first before doing span operations in <code>warn_if_unreachable</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/126991">accelerate GVN a little</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/117468">stabilize Wasm relaxed SIMD</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127921">stabilize unsafe extern blocks (RFC 3484)</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128303">enable <code>std::io::copy</code> specialisation for <code>std::pipe::{PipeReader, PipeWriter}</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128254">rewrite binary search implementation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128309">implement cursors for <code>BTreeSet</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/127567">implement the <code>once_wait</code> feature</a></li>
+<li><a href="https://github.com/rust-lang/compiler-builtins/pull/652">configure which platforms have <code>f16</code> and <code>f128</code> enabled by default</a></li>
+<li><a href="https://github.com/rust-lang/hashbrown/pull/542">hashbrown: implement Default for iterators</a></li>
+<li><a href="https://github.com/rust-lang/regex/pull/1219">regex: rust nightly removed the lifetime from Pattern</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128382">cargo-miri: better error when we seem to run inside bootstrap but something is wrong</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14358">cargo: build-std: remove hack on creating virtual std workspace</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14296">cargo: config: Adjust MSRV resolve config field name / values</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14325">cargo: publish: Don't strip non-dev features</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/14339">cargo: also build manpage for cargo.md</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128385">rustdoc-json: discard non-local inherent impls for primitives</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128578">rustdoc: cleanup <code>CacheBuilder</code> code for building search index</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128471">rustdoc: fix handling of <code>Self</code> type in search index and refactor its representation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128615">rustdoc: make the hover trail for doc anchors a bit bigger</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128339">rustdoc: Make the buttons remain when code example is clicked</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/128573">rustdoc: simplify <code>body</code> usage</a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/6187">rustfmt: add repo cloning to check-diff crate</a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/6266">rustfmt: check exit status of git commands spawned by build script</a></li>
+<li><a href="https://github.com/rust-lang/rustfmt/pull/6262">rustfmt: impl <code>rewrite_result</code> for Pat, TuplePatField</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13217">clippy: check exit status of subcommands spawned by <code>rustc_tools_util</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13108">clippy: fix <code>redundant_closure</code> false positive with closures has return type contains <code>'static</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13126">clippy: fix <code>redundant_slicing</code> when the slice is behind a mutable reference</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13177">clippy: fix broken list for lints config</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13195">clippy: fix false positive for <code>missing_backticks</code> in footnote references</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13209">clippy: limit number of <code>nonminimal_bool</code> ops</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13210">clippy: lintcheck: force warn all lints</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13136">clippy: make restriction lints use <code>span_lint_and_then</code> (a → e)</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13145">clippy: make restriction lints use <code>span_lint_and_then</code> (q → w)</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13213">clippy: remove <code>multispan_sugg[_with_applicability]</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13115">clippy: remove duplicated <code>peel_middle_ty_refs</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13180">clippy: simplify lint deprecation</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13222">clippy: use a deterministic number of digits in <code>rustc_tools_util</code> commit hashes</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/13181">clippy: use a single multipart suggestion for <code>implicit_hasher</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17791">rust-analyzer: implement diagnostic for <code>await</code> outside of <code>async</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17795">rust-analyzer: load sysroot library via cargo metadata</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17784">rust-analyzer: support inlay hint for more expr with label</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17755">rust-analyzer: apply <code>IndexMut</code> obligations for non-assigning mutable index usages</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17747">rust-analyzer: errors on method call inferences with elided lifetimes</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17789">rust-analyzer: insert a generic arg for <code>impl Trait</code> when lowering generic args</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17763">rust-analyzer: insert a tail <code>Ok(())</code> for expr block instead of wrapping with <code>Ok</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17805">rust-analyzer: panic in path transform with default type parameters</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17750">rust-analyzer: remove AbsPath requirement from linkedProjects</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17802">rust-analyzer: surpress type mismatches in calls with mismatched arg counts</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17745">rust-analyzer: improve crate manifests, adding missing <code>[package.repository]</code> and <code>[package.description]</code> fields</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17775">rust-analyzer: segregate syntax and semantic diagnostics</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17799">rust-analyzer: split out syntax-bridge into a separate crate</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/17761">rust-analyzer: when josh-proxy screws up the roundtrip, say what the involved commits are</a></li>
+</ul>
+<h3 id="rust-compiler-performance-triage"><a class="toclink" href="#rust-compiler-performance-triage">Rust Compiler Performance Triage</a></h3>
+<p>This week saw several large improvements caused mostly by the <a href="https://github.com/rust-lang/rust/pull/127513">update to LLVM 19</a>. There were some regressions in several pull requests, but most of them were immediately fixed in a follow-up PR.</p>
+<p>Triage done by <strong>@kobzol</strong>.
+Revision range: <a href="https://perf.rust-lang.org/?start=7e3a971870f23c94f7aceb53b490fb37333150ff&amp;end=8c7e0e160831866bc1a40691a39455aac21271c0&amp;absolute=false&amp;stat=instructions%3Au">7e3a9718..8c7e0e16</a></p>
+<p><strong>Summary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">(instructions:u)</th>
+<th align="center">mean</th>
+<th align="center">range</th>
+<th align="center">count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Regressions ❌ <br /> (primary)</td>
+<td align="center">1.0%</td>
+<td align="center">[0.2%, 3.8%]</td>
+<td align="center">91</td>
+</tr>
+<tr>
+<td align="center">Regressions ❌ <br /> (secondary)</td>
+<td align="center">1.9%</td>
+<td align="center">[0.2%, 19.2%]</td>
+<td align="center">104</td>
+</tr>
+<tr>
+<td align="center">Improvements ✅ <br /> (primary)</td>
+<td align="center">-4.4%</td>
+<td align="center">[-15.8%, -0.3%]</td>
+<td align="center">120</td>
+</tr>
+<tr>
+<td align="center">Improvements ✅ <br /> (secondary)</td>
+<td align="center">-3.3%</td>
+<td align="center">[-10.4%, -0.2%]</td>
+<td align="center">70</td>
+</tr>
+<tr>
+<td align="center">All ❌✅ (primary)</td>
+<td align="center">-2.1%</td>
+<td align="center">[-15.8%, 3.8%]</td>
+<td align="center">211</td>
+</tr>
+</tbody>
+</table>
+<p>6 Regressions, 3 Improvements, 5 Mixed; 4 of them in rollups
+51 artifact comparisons made in total</p>
+<p><a href="https://github.com/Kobzol/rustc-perf/blob/1b5a3bf24549eea0a1a53a3de40a107ef35746fb/triage/2024-08-06.md">Full report here</a></p>
+<h3 id="approved-rfcs"><a class="toclink" href="#approved-rfcs"><a href="https://github.com/rust-lang/rfcs/commits/master">Approved RFCs</a></a></h3>
+<p>Changes to Rust follow the Rust <a href="https://github.com/rust-lang/rfcs#rust-rfcs">RFC (request for comments) process</a>. These
+are the RFCs that were approved for implementation this week:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3529">Merge RFC 3529: Add named path bases to cargo</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3668">Merge RFC 3668: Async closures</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3671">Promote aarch64-apple-darwin to Tier 1</a></li>
+<li><a href="https://github.com/rust-lang/rfcs/pull/3672">RFC for project goals</a></li>
+</ul>
+<h3 id="final-comment-period"><a class="toclink" href="#final-comment-period">Final Comment Period</a></h3>
+<p>Every week, <a href="https://www.rust-lang.org/team.html">the team</a> announces the 'final comment period' for RFCs and key PRs
+which are reaching a decision. Express your opinions now.</p>
+<h4 id="rfcs_1"><a class="toclink" href="#rfcs_1"><a href="https://github.com/rust-lang/rfcs/labels/final-comment-period">RFCs</a></a></h4>
+<ul>
+<li><em>No RFCs entered Final Comment Period this week.</em></li>
+</ul>
+<h4 id="tracking-issues-prs"><a class="toclink" href="#tracking-issues-prs">Tracking Issues &amp; PRs</a></h4>
+<h5 id="rust_1"><a class="toclink" href="#rust_1"><a href="https://github.com/rust-lang/rust/issues?q=is%3Aopen+label%3Afinal-comment-period+sort%3Aupdated-desc">Rust</a></a></h5>
+<ul>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/127679">Stabilize <code>raw_ref_op</code> (RFC 2582)</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/issues/101196">Tracking Issue for <code>Ready::into_inner()</code></a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/issues/55132">Tracking issue for thread::Builder::spawn_unchecked</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/issues/126383">Tracking Issue for is_none_or</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/126877">CloneToUninit impls</a></li>
+<li>[disposition: close] <a href="https://github.com/rust-lang/rust/issues/44286">Tracking issue for HashMap <code>OccupiedEntry::{replace_key, replace_entry}</code></a></li>
+<li>[disposition: close] <a href="https://github.com/rust-lang/rust/issues/56167">Tracking issue for HashMap::raw_entry</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/106943">Implement DoubleEnded and ExactSize for Take\&lt;Repeat> and Take\&lt;RepeatWith></a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/109402">Implement owned ops for <code>HashSet</code> and <code>BTreeSet</code></a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/issues/82901">Tracking Issue for <code>Option::get_or_insert_default</code></a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/128394">Unify run button display with "copy code" button and with mdbook buttons</a></li>
+<li>[disposition: merge] <a href="https://github.com/rust-lang/rust/pull/126245">Greatly speed up doctests by compiling compatible doctests in one file</a></li>
+</ul>
+<h5 id="cargo"><a class="toclink" href="#cargo"><a href="https://github.com/rust-lang/cargo/issues?q=is%3Aopen+label%3Afinal-comment-period+sort%3Aupdated-desc">Cargo</a></a></h5>
+<ul>
+<li><em>No Cargo Tracking Issues or PRs entered Final Comment Period this week.</em></li>
+</ul>
+<h5 id="language-team"><a class="toclink" href="#language-team"><a href="https://github.com/rust-lang/lang-team/issues?q=is%3Aopen+label%3Afinal-comment-period+sort%3Aupdated-desc+">Language Team</a></a></h5>
+<ul>
+<li><em>No Language Team Tracking Issues or PRs entered Final Comment Period this week.</em></li>
+</ul>
+<h5 id="language-reference"><a class="toclink" href="#language-reference"><a href="https://github.com/rust-lang/reference/issues?q=is%3Aopen+label%3Afinal-comment-period+sort%3Aupdated-desc">Language Reference</a></a></h5>
+<ul>
+<li>[disposition: \&lt;not specified>] <a href="https://github.com/rust-lang/reference/pull/1550">Reformat (and only reformat) the inline assembly chapter</a></li>
+</ul>
+<h5 id="unsafe-code-guidelines"><a class="toclink" href="#unsafe-code-guidelines"><a href="https://github.com/rust-lang/unsafe-code-guidelines/issues?q=is%3Aopen+label%3Afinal-comment-period+sort%3Aupdated-desc">Unsafe Code Guidelines</a></a></h5>
+<ul>
+<li><em>No Unsafe Code Guideline Tracking Issues or PRs entered Final Comment Period this week.</em></li>
+</ul>
+<h4 id="new-and-updated-rfcs"><a class="toclink" href="#new-and-updated-rfcs"><a href="https://github.com/rust-lang/rfcs/pulls">New and Updated RFCs</a></a></h4>
+<ul>
+<li>[new] <a href="https://github.com/rust-lang/rfcs/pull/3674">crates.io: Remove dev-dependencies from the index</a></li>
+</ul>
+<h2 id="upcoming-events"><a class="toclink" href="#upcoming-events">Upcoming Events</a></h2>
+<p>Rusty Events between 2024-08-07 - 2024-09-04 🦀</p>
+<h3 id="virtual"><a class="toclink" href="#virtual">Virtual</a></h3>
+<ul>
+<li>2024-08-07 | Virtual (Indianapolis, IN, US) | <a href="https://www.meetup.com/indyrs/">Indy Rust</a><ul>
+<li><a href="https://www.meetup.com/indyrs/events/300328027/"><strong>Indy.rs - with Social Distancing</strong></a></li>
+</ul>
+</li>
+<li>2024-08-08 | Virtual (Charlottesville, NC, US) | <a href="https://www.meetup.com/charlottesville-rust-meetup/">Charlottesville Rust Meetup</a><ul>
+<li><a href="https://www.meetup.com/charlottesville-rust-meetup/events/298897918/"><strong>Crafting Interpreters in Rust Collaboratively</strong></a></li>
+</ul>
+</li>
+<li>2024-08-08 | Virtual (Nürnberg, DE) | <a href="https://www.meetup.com/rust-noris/">Rust Nuremberg</a><ul>
+<li><a href="https://www.meetup.com/rust-noris/events/300787793/"><strong>Rust Nürnberg online</strong></a></li>
+</ul>
+</li>
+<li>2024-08-08 | Virtual (Tel Aviv, IL) | <a href="https://www.meetup.com/code-mavens/">Code Mavens</a><ul>
+<li><a href="https://www.meetup.com/code-mavens/events/302391142/"><strong>Rust Source Code Reading: The thousands crate (English)</strong></a></li>
+</ul>
+</li>
+<li>2024-08-13 | Virtual (Dallas, TX, US) | <a href="https://www.meetup.com/dallasrust/">Dallas Rust</a><ul>
+<li><a href="https://www.meetup.com/dallasrust/events/299346978/"><strong>Second Tuesday: Typestate Pattern in Rust</strong></a></li>
+</ul>
+</li>
+<li>2024-08-15 | Virtual (Berlin, DE) | <a href="https://berline.rs/">OpenTechSchool Berlin</a> + <a href="https://www.meetup.com/rust-berlin/">Rust Berlin</a><ul>
+<li><a href="https://meet.jit.si/RustHackAndLearnBerlin"><strong>Rust Hack and Learn</strong></a> | <a href="https://www.meetup.com/rust-berlin/events/298633266/"><strong>Mirror: Rust Hack n Learn Meetup</strong></a></li>
+</ul>
+</li>
+<li>2024-08-20 | Virtual (Washington, DC, US) | <a href="https://www.meetup.com/rustdc/">Rust DC</a><ul>
+<li><a href="https://www.meetup.com/rustdc/events/299346968/"><strong>Mid-month Rustful</strong></a></li>
+</ul>
+</li>
+<li>2024-08-21 | Hybrid - Virtual and In-Person (Vancouver, BC, CA) | <a href="https://www.meetup.com/vancouver-rust/">Vancouver Rust</a><ul>
+<li><a href="https://www.meetup.com/vancouver-rust/events/298631735/"><strong>Rust Study/Hack/Hang-out</strong></a></li>
+</ul>
+</li>
+<li>2024-08-22 | Virtual | <a href="https://www.meetup.com/conf42/">Conf42: Online Tech Events</a><ul>
+<li><a href="https://www.meetup.com/conf42/events/297266825/"><strong>Conf42 Rustlang 2024</strong></a></li>
+</ul>
+</li>
+<li>2024-08-22 | Virtual (Charlottesville, NC, US) | <a href="https://www.meetup.com/charlottesville-rust-meetup/">Charlottesville Rust Meetup</a><ul>
+<li><a href="https://www.meetup.com/charlottesville-rust-meetup/events/298897938/"><strong>Crafting Interpreters in Rust Collaboratively</strong></a></li>
+</ul>
+</li>
+<li>2024-08-22 | Virtual (Karlsruhe, DE) | <a href="https://www.meetup.com/the-karlsruhe-functional-programmers-meetup-group/">Karlsruhe Functional Programmers Group</a><ul>
+<li><a href="https://www.meetup.com/the-karlsruhe-functional-programmers-meetup-group/events/293937801"><strong>Stammtisch (gemeinsam mit der C++ UG KA): various topics, from C++ to Rust</strong></a></li>
+</ul>
+</li>
+<li>2024-08-27 | Virtual | <a href="https://www.eventbrite.com/o/ardan-labs-7092394651">Ardan Labs</a><ul>
+<li><a href="https://www.eventbrite.com/e/fearless-concurrency-with-rust-tickets-934569591807"><strong>Fearless Concurrency with Rust</strong></a></li>
+</ul>
+</li>
+<li>2024-08-27 | Virtual (Bordeaux, FR) | <a href="https://www.meetup.com/bordeaux-rust/">Rust Bordeaux</a><ul>
+<li><a href="https://www.meetup.com/bordeaux-rust/events/302570681/"><strong>Live coding - A distance #1</strong></a></li>
+</ul>
+</li>
+<li>2024-08-27 | Virtual (Dallas, TX, US) | <a href="https://www.meetup.com/dallasrust/">Dallas Rust</a><ul>
+<li><a href="https://www.meetup.com/dallasrust/events/301585668/"><strong>Last Tuesday</strong></a></li>
+</ul>
+</li>
+<li>2024-08-27 | Virtual (Tel Aviv, IL) | <a href="https://www.meetup.com/code-mavens/">Code Mavens</a><ul>
+<li><a href="https://www.meetup.com/rust-in-israel/events/302327956/"><strong>Declarative macros in Rust (Virtual) - מקרוים בראסט</strong></a></li>
+</ul>
+</li>
+<li>2024-08-28 | Virtual (Tel Aviv, IL) | <a href="https://www.meetup.com/code-mavens/">Code Mavens</a><ul>
+<li><a href="https://www.meetup.com/code-mavens/events/302151487/"><strong>Command Line Tools: Implementing wc in Rust (English, Virtual)</strong></a></li>
+</ul>
+</li>
+<li>2024-08-29 | Virtual (Berlin, DE) | <a href="https://berline.rs/">OpenTechSchool Berlin</a> + <a href="https://www.meetup.com/rust-berlin/">Rust Berlin</a><ul>
+<li><a href="https://meet.jit.si/RustHackAndLearnBerlin"><strong>Rust Hack and Learn</strong></a> | <a href="https://www.meetup.com/rust-berlin/events/298633267/"><strong>Mirror: Rust Hack n Learn Meetup</strong></a></li>
+</ul>
+</li>
+<li>2024-09-03 | Virtual (Buffalo, NY, US) | <a href="https://www.meetup.com/buffalo-rust-meetup/">Buffalo Rust Meetup</a><ul>
+<li><a href="https://www.meetup.com/buffalo-rust-meetup/events/302007365/"><strong>Buffalo Rust User Group</strong></a></li>
+</ul>
+</li>
+<li>2024-09-04 | Virtual (Indianapolis, IN, US) | <a href="https://www.meetup.com/indyrs/">Indy Rust</a><ul>
+<li><a href="https://www.meetup.com/indyrs/events/300328029/"><strong>Indy.rs - with Social Distancing</strong></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="europe"><a class="toclink" href="#europe">Europe</a></h3>
+<ul>
+<li>2024-08-14 | Köln/Cologne, DE | <a href="https://www.meetup.com/rustcologne/">Rust Cologne</a><ul>
+<li><a href="https://www.meetup.com/rustcologne/events/302674635/"><strong>This Month in Rust, August</strong></a></li>
+</ul>
+</li>
+<li>2024-08-14 | Reading, UK | <a href="https://rustworkshop.co/meetup/">Reading Rust Workshop</a><ul>
+<li><a href="https://www.meetup.com/reading-rust-workshop/events/302153005/"><strong>Reading Rust Meetup</strong></a></li>
+</ul>
+</li>
+<li>2024-08-20 | Aarhus, DK | <a href="https://www.meetup.com/rust-aarhus/">Rust Aarhus</a><ul>
+<li><a href="https://www.meetup.com/rust-aarhus/events/301522950/"><strong>Hack Night</strong></a></li>
+</ul>
+</li>
+<li>2024-08-21 | Nürnberg, DE | <a href="https://www.meetup.com/rust-noris/">Rust Nuremberg</a><ul>
+<li><a href="https://www.meetup.com/rust-noris/events/302080495/"><strong>Walk'n'Talk around Wöhrder See (+ Burritos)</strong></a></li>
+</ul>
+</li>
+<li>2024-08-22 | Manchester, UK | <a href="https://www.meetup.com/rust-manchester/">Rust Manchester</a><ul>
+<li><a href="https://www.meetup.com/rust-manchester/events/302419276/"><strong>Rust Manchester Talks August</strong></a></li>
+</ul>
+</li>
+<li>2024-08-26 | Mainz, DE | <a href="https://rheinneckar.events/@fsmathe_informatik_mainz@rheinmain.social">Fachschaft Mathematik+Informatik der JGU Mainz</a><ul>
+<li><a href="https://rheinneckar.events/events/3f76f860-75c1-4f3a-810f-03fc0cecb691"><strong>Ferienkurs Rust</strong></a></li>
+</ul>
+</li>
+<li>2024-08-29 | Berlin, DE | <a href="https://berline.rs/">OpenTechSchool Berlin</a> + <a href="https://www.meetup.com/rust-berlin/">Rust Berlin</a><ul>
+<li><a href="https://www.meetup.com/rust-berlin/events/299421378/"><strong>Rust and Tell - Title</strong></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="north-america"><a class="toclink" href="#north-america">North America</a></h3>
+<ul>
+<li>2024-08-08 | Mountain View, CA, US | <a href="https://www.meetup.com/mv-rust-meetup/">Mountain View Rust Meetup</a><ul>
+<li><a href="https://www.meetup.com/mv-rust-meetup/events/302067008/"><strong>Rust Meetup at Hacker Dojo</strong></a></li>
+</ul>
+</li>
+<li>2024-08-08 | Seattle, WA, US | <a href="https://www.meetup.com/seattle-rust-user-group/events/">Seattle Rust User Group</a><ul>
+<li><a href="https://www.meetup.com/seattle-rust-user-group/events/302330477/"><strong>August Meetup</strong></a></li>
+</ul>
+</li>
+<li>2024-08-19 | Minneapolis, MN US | <a href="https://www.meetup.com/minneapolis-rust-meetup/">Minneapolis Rust Meetup</a><ul>
+<li><a href="https://www.meetup.com/minneapolis-rust-meetup/events/301428949/"><strong>Minneapolis Rust Meetup: "State of Rust GPU Programming" &amp; Happy Hour</strong></a></li>
+</ul>
+</li>
+<li>2024-08-20 | New York, NY, US | <a href="https://www.meetup.com/Rust-NYC/">Rust NYC</a><ul>
+<li><a href="https://www.meetup.com/rust-nyc/events/302480064/"><strong>Rust NYC: Doing the Bare Minimum with Isograph (talk)</strong></a></li>
+</ul>
+</li>
+<li>2024-08-20 | San Francisco, CA, US | <a href="https://www.meetup.com/san-francisco-rust-study-group/">San Francisco Rust Study Group</a><ul>
+<li><a href="https://www.meetup.com/san-francisco-rust-study-group/events/301614081/"><strong>Rust Hacking in Person</strong></a></li>
+</ul>
+</li>
+<li>2024-08-21 | Virtual and In-Person (Vancouver, BC, CA) | <a href="https://www.meetup.com/vancouver-rust/">Vancouver Rust</a><ul>
+<li><a href="https://www.meetup.com/vancouver-rust/events/298631735/"><strong>Rust Study/Hack/Hang-out</strong></a></li>
+</ul>
+</li>
+<li>2024-08-28 | Austin, TX, US | <a href="https://www.meetup.com/rust-atx/">Rust ATC</a><ul>
+<li><a href="https://www.meetup.com/rust-atx/events/xvkdgtygclblc/"><strong>Rust Lunch - Fareground</strong></a></li>
+</ul>
+</li>
+<li>2024-08-29 | Nashville, TN, US | <a href="https://www.meetup.com/music-city-rust-developers/">Music City Rust Developers</a><ul>
+<li><a href="https://www.meetup.com/music-city-rust-developers/events/301420110/"><strong>Music City Rust Developers : placeholder</strong></a></li>
+</ul>
+</li>
+</ul>
+<h1 id="oceania"><a class="toclink" href="#oceania">Oceania</a></h1>
+<ul>
+<li>2024-08-22 | Auckland, NZ | <a href="https://www.meetup.com/rust-akl/">Rust AKL</a><ul>
+<li><a href="https://www.meetup.com/rust-akl/events/302431924/"><strong>Rust AKL: Dot IX: Diagram Generator + Deep Learning from Scratch in Rust</strong></a></li>
+</ul>
+</li>
+<li>2024-08-27 | Canberra, ACT, AU | <a href="https://www.meetup.com/rust-canberra/">Canberra Rust User Group (CRUG)</a><ul>
+<li><a href="https://www.meetup.com/rust-canberra/events/301887261/"><strong>June Meetup</strong></a></li>
+</ul>
+</li>
+</ul>
+<p>If you are running a Rust event please add it to the <a href="https://www.google.com/calendar/embed?src=apd9vmbc22egenmtu5l6c5jbfc%40group.calendar.google.com">calendar</a> to get
+it mentioned here. Please remember to add a link to the event too.
+Email the <a href="mailto:community-team@rust-lang.org">Rust Community Team</a> for access.</p>
+<h2 id="jobs"><a class="toclink" href="#jobs">Jobs</a></h2>
+<!--
+
+Rust Jobs:
+
+TWiR has stopped featuring individual job postings. You can read more about this change here:
+
+https://github.com/rust-lang/this-week-in-rust/issues/3412
+
+-->
+
+<p>Please see the latest <a href="https://www.reddit.com/r/rust/comments/1ecdzp2/official_rrust_whos_hiring_thread_for_jobseekers/">Who's Hiring thread on r/rust</a></p>
+<h1 id="quote-of-the-week"><a class="toclink" href="#quote-of-the-week">Quote of the Week</a></h1>
+<blockquote>
+<p>Want to have a crate with a million features? Host your own registry and revel in the combinatorial explosion of choices!</p>
+</blockquote>
+<p>– <a href="https://users.rust-lang.org/t/margo-a-simple-cargo-registry-using-static-files/115412">Jake Goulding on rust-users</a></p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328/1599">Jonas Fassbender</a> for the suggestion!</p>
+<p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
+<p><em>This Week in Rust is edited by: <a href="https://github.com/nellshamrell">nellshamrell</a>, <a href="https://github.com/llogiq">llogiq</a>, <a href="https://github.com/cdmistman">cdmistman</a>, <a href="https://github.com/ericseppanen">ericseppanen</a>, <a href="https://github.com/extrawurst">extrawurst</a>, <a href="https://github.com/andrewpollack">andrewpollack</a>, <a href="https://github.com/U007D">U007D</a>, <a href="https://github.com/kolharsam">kolharsam</a>, <a href="https://github.com/joelmarcey">joelmarcey</a>, <a href="https://github.com/mariannegoldin">mariannegoldin</a>, <a href="https://github.com/bennyvasquez">bennyvasquez</a>.</em></p>
+<p><em>Email list hosting is sponsored by <a href="https://foundation.rust-lang.org/">The Rust Foundation</a></em></p>
+<p><small><a href="https://www.reddit.com/r/rust/comments/1enceo0/this_week_in_rust_559_this_week_in_rust/">Discuss on r/rust</a></small></p>
+  </article>
+
+<nav class="post-neighbors">
+  <a  class="neighbor prev-article" href="https://this-week-in-rust.org/blog/2024/07/31/this-week-in-rust-558/">
+    <span class="neighbor-arrow">«</span>
+    <span class="neighbor-content">
+      <span class="neighbor-label">Previous:</span>
+      <span class="neighbor-title">This Week in Rust 558</span>
+    </span>
+  </a>
+
+  <a class="neighbor next-article" href="https://this-week-in-rust.org/blog/2024/08/14/this-week-in-rust-560/">
+    <span class="neighbor-content">
+      <span class="neighbor-label">Next:</span>
+      <span class="neighbor-title">This Week in Rust 560</span>
+    </span>
+    <span class="neighbor-arrow">»</span>
+  </a>
+</nav>
+</div>
+
+<div class="row text-center">
+  <h3> Like what you see? Subscribe! </h3>
+</div>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <form action="//this-week-in-rust.us11.list-manage.com/subscribe/post?u=fd84c1c757e02889a9b08d289&amp;id=0ed8b72485" method="post" novalidate>
+      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+      <div class="out-of-view-input"><input type="text" name="b_fd84c1c757e02889a9b08d289_0ed8b72485" tabindex="-1" value=""></div>
+      <div class="input-group input-group-lg">
+        <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" />
+        <span class="input-group-btn">
+          <input type="submit" name="subscribe" class="btn btn-default btn-primary" value="Subscribe!" />
+        </span>
+      </div>
+      <span class="help-block small text-muted">Receive a weekly newsletter. Easy to unsubscribe and no spam, promise.</span>
+    </form>
+  </div>
+  <div class="col-sm-1"></div>
+</div>      </div>
+    </div>
+
+    <footer>
+      <div class="container wrapper">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/blog/archives/index.html">past issues</a></li>
+              <li><a href="https://this-week-in-rust.org/atom.xml">atom feed</a></li>
+              <li><a href="https://this-week-in-rust.org/rss.xml">rss feed</a></li>
+              <li><a href="https://github.com/rust-lang/this-week-in-rust">source code</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/ThisWeekInRust">twitter</a></li>
+              <li><a href="https://mastodon.social/@thisweekinrust">mastodon</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-4 col-xs-12 text-right custom-xs-text-left">
+            <ul class="list-unstyled">
+              <li><a href="https://this-week-in-rust.org/pages/privacy-policy.html">privacy policy</a></li>
+              <li><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa-4.0</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
