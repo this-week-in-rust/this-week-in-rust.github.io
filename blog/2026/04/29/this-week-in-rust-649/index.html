@@ -128,6 +128,8 @@ and just ask the editors to select the category.
 <h2 id="crate-of-the-week"><a class="toclink" href="#crate-of-the-week">Crate of the Week</a></h2>
 <!-- COTW goes here -->
 
+<p>This week's crate is <a href="https://github.com/pbkx/dithr">dithr</a>, a buffer-first dithering and halftoning library.</p>
+<p>Thanks to <a href="https://users.rust-lang.org/t/crate-of-the-week/2704/1598">pbkx</a> for the self-suggestion!</p>
 <p><a href="https://users.rust-lang.org/t/crate-of-the-week/2704">Please submit your suggestions and votes for next week</a>!</p>
 <h2 id="calls-for-testing"><a class="toclink" href="#calls-for-testing">Calls for Testing</a></h2>
 <p>An important step for RFC implementation is for people to experiment with the
@@ -165,6 +167,71 @@ Every week we highlight some tasks from the Rust community for you to pick and g
 <h2 id="updates-from-the-rust-project"><a class="toclink" href="#updates-from-the-rust-project">Updates from the Rust Project</a></h2>
 <!-- Rust updates go here -->
 
+<p>480 pull requests were <a href="https://github.com/search?q=is%3Apr+org%3Arust-lang+is%3Amerged+merged%3A2026-04-21..2026-04-28">merged in the last week</a></p>
+<h4 id="compiler"><a class="toclink" href="#compiler">Compiler</a></h4>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/155392"><code>AliasTerm</code> refactor</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/154794">add <code>on_unmatch_args</code> diagnostic attribute</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155663">eliminate <code>CrateMetadataRef</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155491">fix performance regression introduced in #142531 by excluding <code>Storage{Live,Dead}</code> from CGU size estimation</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155473">prefer <code>-1</code> for <code>None</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/153457">prevent deref coercions in <code>pin!</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155628">streamline <code>CrateMetadataRef</code> construction in <code>provide_one!</code></a></li>
+</ul>
+<h4 id="library"><a class="toclink" href="#library">Library</a></h4>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/pull/155565">constify <code>Vec</code> comparisons</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/154372">exposing Float Masks</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155708">fix heap overflow in <code>slice::join</code> caused by misbehaving Borrow</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155684">generalize IO Traits for <code>Arc&lt;T&gt;</code> where <code>&amp;T: IoTrait</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155774">maintain <code>CStringArray</code> null-termination even if <code>Vec::push</code> panics</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155574">move <code>std::io::RawOsError</code> to <code>core::io</code></a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/155588">implement more traits for field-representing types</a></li>
+</ul>
+<h4 id="cargo"><a class="toclink" href="#cargo">Cargo</a></h4>
+<ul>
+<li><a href="https://github.com/rust-lang/cargo/pull/16934">clean: do not error if explicitly specified target-dir does not exist</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/16796"><code>compile</code>: stabilize <code>build.warnings</code></a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/16935"><code>compile</code>: ignore unused deps if also transitive</a></li>
+<li><a href="https://github.com/rust-lang/cargo/pull/16920"><code>compile</code>: Log all ignored unused externs</a></li>
+</ul>
+<h4 id="clippy"><a class="toclink" href="#clippy">Clippy</a></h4>
+<ul>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16025"><code>manual_assert_eq</code>: new lint</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16732">new module style lint: <code>inline_modules</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16845"><code>needless_ifs</code>: handle vertical tab as whitespace to avoid false negative</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16907"><code>inline_modules</code>: fix the rust version the lint was introduced in</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16542">make <code>unused_format_specs</code> catch width issues</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16881">fix <code>from_over_into</code> false positive with conflicting blanket From impl</a></li>
+<li><a href="https://github.com/rust-lang/rust-clippy/pull/16863">fix wrong <code>question_mark</code> suggestion when match arm body is a destructuring assignment</a></li>
+</ul>
+<h4 id="rust-analyzer"><a class="toclink" href="#rust-analyzer">Rust-Analyzer</a></h4>
+<ul>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22132">add .new postfix completion based on expected type (rust-lang/r…</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22179">add <code>unwrap_block</code>, offer <code>unwrap_block</code> and <code>unwrap_branch</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22079">handle if <code>matches!()</code> for <code>replace_if_let_with_match</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22180">offer on compound assign for <code>replace_arith_op</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22184">offer on non-block matcharm for <code>unwrap_branch</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/21979">when renaming a field, rename variables in constructors as well</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22142">fix trait auto import appearing again when trait already been imported as <code>_</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22098">avoid prelude paths when <code>imports.preferPrelude</code> is false</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22183">define the ABI of functions inside extern blocks as the ABI of the extern block</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22166">fix closure capture hints being misplaced for async closures</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22124">generate-method skips trait impl blocks when picking insertion site</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22192">keep the same nonce when cloning a <code>RootDatabase</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22195">make <code>InferenceResult::binding_mode()</code> fallible</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22116">mark <code>enum</code> variants as deprecated when their parent <code>enum</code> is deprecated</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22154">no complete where kw after qualified path</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22151">offer on <code>!</code> for <code>apply_demorgan_iterator</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22150">offer on <code>is_some_and</code> etc. for <code>apply_demorgan_iterator</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22170">parse <code>return #[attr] expr</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22169">parse impl restrictions after the visibility</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22122">pass <code>proc_macro_cwd</code> to <code>Analysis::from_single_file()</code></a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22135">suppress infer vars in monomorphization</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22125">migrate replace qualified name with use to SyntaxEditor</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22078">perf: optimize allocation strategies of output/parser/event</a></li>
+<li><a href="https://github.com/rust-lang/rust-analyzer/pull/22121">remove generate impl non syntax factory variant</a></li>
+</ul>
 <h3 id="rust-compiler-performance-triage"><a class="toclink" href="#rust-compiler-performance-triage">Rust Compiler Performance Triage</a></h3>
 <p>Relatively few perf-affecting changes this week. Perf report is more positive
 than users should see due to the <code>-Zincremental-verify-ich</code> related
@@ -193,7 +260,7 @@ which are reaching a decision. Express your opinions now.</p>
 <li><a href="https://github.com/rust-lang/rust/issues/111688">Tracking Issue for ExitCodeExt on Windows</a></li>
 <li><a href="https://github.com/rust-lang/rust/pull/153975">remove forever-deprecated and hidden <code>f64</code> methods</a></li>
 </ul>
-<h5 id="cargo"><a class="toclink" href="#cargo"><a href="https://github.com/rust-lang/cargo/issues?q=is%3Aopen%20label%3Afinal-comment-period%20sort%3Aupdated-desc%20state%3Aopen">Cargo</a></a></h5>
+<h5 id="cargo_1"><a class="toclink" href="#cargo_1"><a href="https://github.com/rust-lang/cargo/issues?q=is%3Aopen%20label%3Afinal-comment-period%20sort%3Aupdated-desc%20state%3Aopen">Cargo</a></a></h5>
 <ul>
 <li><a href="https://github.com/rust-lang/cargo/pull/16936">Remove curl dependency from crates-io crate</a></li>
 </ul>
@@ -503,6 +570,11 @@ Email the <a href="mailto:community-team@rust-lang.org">Rust Community Team</a> 
 <h1 id="quote-of-the-week"><a class="toclink" href="#quote-of-the-week">Quote of the Week</a></h1>
 <!-- QOTW goes here -->
 
+<blockquote>
+<p>Sometimes, the best projects are the ones you never thought you could build.</p>
+</blockquote>
+<p>– <a href="https://chrisdell.info/using-rust-to-build-a-1-dollar-handheld-gaming-console/">Chris Dell on his blog</a></p>
+<p>Another week bereft of any quote suggestions. llogiq is glad to have found this anyway.</p>
 <p><a href="https://users.rust-lang.org/t/twir-quote-of-the-week/328">Please submit quotes and vote for next week!</a></p>
 <p>This Week in Rust is edited by:</p>
 <ul>
